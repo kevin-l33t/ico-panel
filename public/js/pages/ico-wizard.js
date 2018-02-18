@@ -1,9 +1,7 @@
 $(function(){
     function pageLoad(){
         $('.chzn-select').select2();
-        $("#destination").mask("99999");
-        $("#credit").mask("9999-9999-9999-9999");
-        $("#expiration-date").datetimepicker({
+        $("#start_date").datetimepicker({
             format: false
         });
         $("#wizard").bootstrapWizard({
@@ -32,3 +30,14 @@ $(function(){
 
     PjaxApp.onPageLoad(pageLoad);
 });
+
+function submit(url) {
+    $.ajax({
+        url: url,
+        type: 'post',
+        data: $('form').serialize(),
+        success: function(data) {
+            alert("success");
+        }
+    });
+}

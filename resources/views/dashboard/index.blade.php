@@ -594,3 +594,19 @@
         </section>
     </div>
 @endsection
+@section('scripts')
+    <!-- page specific scripts -->
+    <!-- page libs -->
+    <script src="lib/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="lib/jquery.sparkline/index.js"></script>
+
+    <script src="lib/backbone/backbone.js"></script>
+    <script src="lib/backbone.localStorage/backbone.localStorage-min.js"></script>
+
+    <script src="lib/d3/d3.min.js"></script>
+    <script src="lib/nvd3/build/nv.d3.min.js"></script>
+
+    <!-- page application js -->
+    <script src="js/index.js"></script>
+    <script src="js/chat.js"></script>
+@endsection

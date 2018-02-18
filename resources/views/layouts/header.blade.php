@@ -9,7 +9,7 @@
                 </a>
                 <ul id="account-menu" class="dropdown-menu account" role="menu">
                     <li role="presentation" class="account-picture">
-                        <img src="img/2.png" alt="">
+                        <img src="{{ asset('img/1.png') }}" alt="">
                         {{ Auth::user()->name }}
                     </li>
                     <li role="presentation">

@@ -5,7 +5,7 @@
         </li>
         <li class="panel ">
             <a class="accordion-toggle collapsed" data-toggle="collapse"
-               data-parent="#side-nav" href="#stats-collapse"><i class="fa fa-area-chart"></i> <span class="name">Statistics</span></a>
+               data-parent="#side-nav" href="#stats-collapse"><i class="fa fa-area-chart"></i> <span class="name">ICO</span></a>
             <ul id="stats-collapse" class="panel-collapse collapse ">
                 <li class=""><a href="stat_statistics.html">Stats</a></li>
                 <li class=""><a href="stat_charts.html">Charts</a></li>
