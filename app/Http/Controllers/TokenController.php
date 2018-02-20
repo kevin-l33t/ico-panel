@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use GuzzleHttp\Client;
 use App\User;
 use App\Token;
+use App\Jobs\ConfirmCreateTokenTx;
 
 class TokenController extends Controller
 {
@@ -83,7 +84,7 @@ class TokenController extends Controller
         if ($response->getStatusCode() == 200) {
             $result = json_decode($response->getBody()->getContents());
             if ($result->success) {
-                Token::create([
+                $token = Token::create([
                     'user_id' => $request->input('artist'),
                     'tx_hash' => $result->tx_hash,
                     'token_name' => $request->input('token_name'),
@@ -97,6 +98,9 @@ class TokenController extends Controller
                     'stage3_bonus' => $request->input('bonus3'),
                     'stage4_bonus' => $request->input('bonus4')
                 ]);
+
+                ConfirmCreateTokenTx::dispatch($token);
+                //ConfirmCreateTokenTx::dispatch($token)->delay(now()->addMinutes(1));
 
                 return response()->json([
                     'success' => true,
