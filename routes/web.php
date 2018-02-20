@@ -12,11 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('dashboard.index');
-});
+    // return view('dashboard.index');
+    return redirect()->route('tokens.index');
+})->middleware('auth');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
-Route::resource('tokens', 'TokenController')->middleware('auth');;
+Route::resource('tokens', 'TokenController')->middleware('auth');
