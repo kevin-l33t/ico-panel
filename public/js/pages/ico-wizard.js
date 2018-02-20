@@ -20,6 +20,16 @@ $(function(){
                     $wizard.find('.pager .next').show();
                     $wizard.find('.pager .finish').hide();
                 }
+            },
+            onNext: function(tab, navigation, index) {
+                var instance = $('#form' + index).parsley();
+                instance.validate();
+                return instance.isValid();
+            },
+            onTabClick: function(tab, navigation, index) {
+                var instance = $('#form' + (index + 1)).parsley();
+                instance.validate();
+                return instance.isValid();
             }
         });
 
@@ -68,12 +78,24 @@ function submit_wizard(url, success_url) {
         },
         error: function(data) {
             swal.close();
+            var message = "Something went wrong. Please try again later.";
+            if (data.responseJSON) {
+                message = data.responseJSON.message;
+                if (data.responseJSON.errors) {
+                    Object.values(data.responseJSON.errors).forEach(el => {
+                        Messenger().post({
+                            message : el[0],
+                            type : 'success',
+                            // showCloseButton: true
+                        });
+                    });
+                }
+            }
             swal({
                 type : 'error',
                 title : 'Oops...',
-                text : 'Something went wrong. Please try again later.'
+                text : message
             });
-            console.log(data);
         }
     });
 }

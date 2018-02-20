@@ -26,7 +26,7 @@
                     </div>
                     <div class="tab-content">
                         <div class="tab-pane" id="tab1">
-                            <form class="form-horizontal mt-sm" action='' method="POST">
+                            <form id="form1" class="form-horizontal mt-sm" action='' method="POST">
                                 <fieldset>
                                     <div class="form-group">
                                         <!-- Artist -->
@@ -58,7 +58,7 @@
                             </form>
                         </div>
                         <div class="tab-pane" id="tab2">
-                            <form class="form-horizontal mt-sm" action='' method="POST">
+                            <form id="form2" class="form-horizontal mt-sm" action='' method="POST">
                                 <fieldset>
                                     <div class="form-group">
                                         <label for="token_name" class="control-label col-md-3">Token Name</label>
@@ -97,7 +97,7 @@
                             </form>
                         </div>
                         <div class="tab-pane" id="tab3">
-                            <form class="form-horizontal mt-sm" action='' method="POST">
+                            <form id="form3" class="form-horizontal mt-sm" action='' method="POST">
                                 <fieldset>
                                     <div class="form-group">
                                         <label for="start_date" class="control-label col-md-3">ICO Start Date</label>
@@ -175,6 +175,9 @@
     <script src="{{ asset('lib/moment/moment.js') }}"></script>
     <script src="{{ asset('lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="{{ asset('lib/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js') }}"></script>
-<!-- page application js -->
+    <script src="{{ asset('lib/parsleyjs/dist/parsley.min.js') }}"></script>
+    <script src="{{ asset('lib/messenger/build/js/messenger.js') }}"></script>
+    <script src="{{ asset('lib/messenger/build/js/messenger-theme-flat.js') }}"></script>
+    <!-- page specific scripts -->
     <script src="{{ asset('js/pages/ico-wizard.js') }}"></script>
 @endsection
