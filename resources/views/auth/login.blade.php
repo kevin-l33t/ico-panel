@@ -55,13 +55,17 @@
                                 <span class="small-circle"><i class="fa fa-caret-right"></i></span>
                                 <small>Sign In</small>
                             </button>
+                            <br>
+                            <a href="{{ route('register') }}" class="btn btn-block btn-lg btn-default mt-5">
+                                <small>Register</small>
+                            </a>
                             <a class="forgot" href="{{ route('password.request') }}">Forgot Username or Password?</a>
                         </div>
                     </form>
                 </div>
                 <footer>
                     <div class="facebook-login">
-                        <a href="index.html"><span><i class="fa fa-facebook-square fa-lg"></i> LogIn with Facebook</span></a>
+                        <a href="#"><span><i class="fa fa-facebook-square fa-lg"></i> LogIn with Facebook</span></a>
                     </div>
                 </footer>
             </section>
