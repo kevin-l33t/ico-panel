@@ -54,16 +54,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <!-- Fund Wallet -->
-                                        <label class="control-label col-md-3"  for="fund_wallet">Fund Wallet Address</label>
-                                        <div class="col-md-8">
-                                            <div class="col-md-10">
-                                                <input type="text" id="fund_wallet" name="fund_wallet" placeholder="i.e., 0xe0014f07625ae3ef38050B28339b0203DDCdf045" class="form-control" pattern="^0x[a-fA-F0-9]{40}$" required>
-                                                <span class="help-block">Please provide wallet address. Funds of ICO will be collected here.</span>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </fieldset>
                             </form>
                         </div>
@@ -166,7 +156,7 @@
                                     <button class="btn btn-primary pull-right" >Next <i class="fa fa-caret-right"></i></button>
                                 </li>
                                 <li class="finish" style="display: none">
-                                    <button id="button_submit" class="btn btn-success pull-right" >Submit <i class="fa fa-check"></i></button>
+                                    <button id="button_submit" class="btn btn-success pull-right" onclick="submit_wizard('{{ route('tokens.store') }}', '{{ route('tokens.index') }}')" >Submit <i class="fa fa-check"></i></button>
                                 </li>
                             </ul>
                         </div>

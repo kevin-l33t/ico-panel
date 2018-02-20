@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <link href="{{ asset('css/application.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.12.11/sweetalert2.min.css" />
     <link rel="shortcut icon" href="img/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -51,6 +52,8 @@
 <script src="{{ asset('lib/bootstrap-sass/assets/javascripts/bootstrap.min.js') }}"></script>
 <script src="{{ asset('lib/widgster/widgster.js') }}"></script>
 <script src="{{ asset('lib/underscore/underscore.js') }}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.12.11/sweetalert2.min.js"></script>
 
 <!-- common application js -->
 <script src="{{ asset('js/app.js') }}"></script>
