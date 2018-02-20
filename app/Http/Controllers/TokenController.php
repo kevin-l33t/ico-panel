@@ -18,7 +18,8 @@ class TokenController extends Controller
      */
     public function index()
     {
-        //
+        $data['tokens'] = Token::all();
+        return view('token.index', $data);
     }
 
     /**

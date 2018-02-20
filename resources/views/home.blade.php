@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <h3>You are logged in. Dashboard is comming soon!</h3>
                 </div>
             </div>
         </div>
