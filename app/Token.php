@@ -11,4 +11,8 @@ class Token extends Model
     public function user() {
         return $this->belongsTo('App\User');
     }
+
+    public function stages() {
+        return $this->hasMany('App\SaleStage');
+    }
 }

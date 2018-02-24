@@ -70,13 +70,13 @@
                             <p class="no-margin">
                                 <small>
                                     <span class="fw-semi-bold">Start Date:</span>
-                                    <span class="text-muted">&nbsp; {{ $token->sale_start_date }}</span>
+                                    <span class="text-muted">&nbsp; Not Started yet</span>
                                 </small>
                             </p>
                             <p>
                                 <small>
                                     <span class="fw-semi-bold">Price:</span>
-                                    <span class="text-muted">&nbsp; {{ 1 / $token->rate }} ETH</span>
+                                    <span class="text-muted">&nbsp; Not determined</span>
                                 </small>
                             </p>
                         </td>
