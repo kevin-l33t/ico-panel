@@ -48,8 +48,8 @@ class TokenController extends Controller
         $this->validate($request, [
             'artist' => 'required|string|exists:users,id',
             'artist_wallet' => 'required|unique:tokens,artist_address|regex:/^0x[a-fA-F0-9]{40}$/',
-            'token_name' => 'required|string|unique:tokens,token_name',
-            'token_symbol' => 'required|string|unique:tokens,token_symbol'
+            'token_name' => 'required|string|unique:tokens,name',
+            'token_symbol' => 'required|string|unique:tokens,symbol'
         ]);
 
         $client = new Client([
