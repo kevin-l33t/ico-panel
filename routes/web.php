@@ -20,4 +20,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
-Route::resource('tokens', 'TokenController')->middleware('auth');
+Route::resource('tokens', 'TokenController');
+Route::post('tokens/create/stage/{token}', 'TokenController@createStage')->name('tokens.createStage');

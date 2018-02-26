@@ -19,8 +19,8 @@ class CreateTokensTable extends Migration
             $table->string("crowdsale_address", 42)->nullable();
             $table->string("token_address", 42)->nullable();
             $table->string("tx_hash", 66);
-            $table->string("token_name");
-            $table->string("token_symbol");
+            $table->string("name");
+            $table->string("symbol");
             $table->string("artist_address", 42);
             $table->tinyInteger("status")->default(0);
 

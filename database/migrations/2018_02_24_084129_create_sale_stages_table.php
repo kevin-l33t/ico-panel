@@ -20,6 +20,7 @@ class CreateSaleStagesTable extends Migration
             $table->dateTime('end_at');
             $table->bigInteger('supply');
             $table->integer('price');
+            $table->string("tx_hash", 66)->nullable();
 
             $table->timestamps();
 

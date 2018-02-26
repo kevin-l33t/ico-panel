@@ -11,6 +11,10 @@ use App\Jobs\ConfirmCreateTokenTx;
 
 class TokenController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -54,7 +58,7 @@ class TokenController extends Controller
             // You can set any number of default request options.
             'timeout'  => 10.0
         ]);
-        $startDate = new Carbon($request->input('start_date'));
+
         $tokenRequestParams = [
             "artist_address" => $request->input('artist_wallet'),
             "token_name" => $request->input('token_name'),
@@ -74,8 +78,8 @@ class TokenController extends Controller
                 $token = Token::create([
                     'user_id' => $request->input('artist'),
                     'tx_hash' => $result->tx_hash,
-                    'token_name' => $request->input('token_name'),
-                    'token_symbol' => $request->input('token_symbol'),
+                    'name' => $request->input('token_name'),
+                    'symbol' => $request->input('token_symbol'),
                     'artist_address' => $request->input('artist_wallet'),
                 ]);
 
@@ -103,12 +107,13 @@ class TokenController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  App\Token $token
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Token $token)
     {
-        //
+        $data['token'] = $token;
+        return view('token.show', $data);
     }
 
     /**
@@ -143,5 +148,60 @@ class TokenController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Create new ICO stage
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Token  $token
+     * @return \Illuminate\Http\Response
+     */
+    public function createStage(Request $request, Token $token) {
+        $this->validate($request, [
+            'price' => 'required|numeric',
+            'supply' => 'required|numeric',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date'
+        ]);
+
+        $startDate = new Carbon($request->input('start_date'));
+        $endtDate = new Carbon($request->input('end_date'));
+        $price = $request->input('price') * 100;
+        $client = new Client([
+            // Base URI is used with relative requests
+            'base_uri' => env('TOKEN_API_URL'),
+            // You can set any number of default request options.
+            'timeout'  => 10.0
+        ]);
+        $tokenRequestParams = [
+            "artist_address" => $token->artist_address,
+            "start_date" => $startDate->timestamp,
+            "end_date" => $endtDate->timestamp,
+            "price" => $price,
+            "supply" => $request->input('supply')
+        ];
+        $response = $client->request('POST', 'ico/stage/create', [
+            'body' => json_encode($tokenRequestParams),
+            'headers' => [
+                "Authorization" => "API-KEY TESTKEY",
+                "Content-Type" => "application/json"
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) {
+            $result = json_decode($response->getBody()->getContents());
+            if ($result->success) {
+
+                $token->stages()->create([
+                    'start_at' => $startDate,
+                    'end_at' => $endtDate,
+                    'supply' => $request->input('supply'),
+                    'price' => $price,
+                    'tx_hash' => $result->tx_hash
+                ]);
+            }
+        }
+        
+        return redirect()->route('tokens.show', [$token]);
     }
 }

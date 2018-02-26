@@ -16,11 +16,11 @@
                     <tr>
                         <th class="hidden-xs">#</th>
                         <th>Avatar</th>
-                        <th>Artist Name</th>
-                        <th class="hidden-xs">Info</th>
-                        <th class="hidden-xs">Start Date</th>
+                        <th>Artist</th>
+                        <th class="hidden-xs">Smart Contract Info</th>
+                        <th class="hidden-xs">Token Info</th>
                         <th class="hidden-xs">Status</th>
-                        <th>Progress</th>
+                        <th class="text-align-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -36,33 +36,35 @@
                         <td class="hidden-xs">
                             <p class="no-margin">
                                 <small>
-                                    <span class="fw-semi-bold">Address:</span>
+                                    <span class="fw-semi-bold">Crowdsale Address:</span>
                                 @if ($token->status == 0)
                                     &nbsp;<span class="badge bg-gray-lighter text-gray fw-semi-bold">Pending</span>
                                     <span class="text-muted"><a href="https://ropsten.etherscan.io/tx/{{ $token->tx_hash }}" target="_blank">Check on Etherscan.io</a></span>
                                 @else
-                                    <span class="text-muted">&nbsp; <a href="https://ropsten.etherscan.io/address/{{ $token->address }}" target="_blank">{{ $token->address }}</a></span>
+                                    <span class="text-muted">&nbsp; <a href="https://ropsten.etherscan.io/address/{{ $token->crowdsale_address }}" target="_blank">{{ $token->crowdsale_address }}</a></span>
                                 @endif
                                 </small>
                             </p>
+                        @if ($token->status == 1)
                             <p>
                                 <small>
-                                    <span class="fw-semi-bold">Artist Wallet:</span>
-                                    <span class="text-muted">&nbsp; {{ $token->artist_address }}</span>
+                                    <span class="fw-semi-bold">Token Address:</span>
+                                    <span class="text-muted">&nbsp; <a href="https://ropsten.etherscan.io/address/{{ $token->token_address }}" target="_blank">{{ $token->token_address }}</a></span>
                                 </small>
                             </p>
+                        @endif
                         </td>
                         <td class="hidden-xs">
                             <p class="no-margin">
                                 <small>
                                     <span class="fw-semi-bold">Token Name:</span>
-                                    <span class="text-muted">&nbsp; {{ $token->token_name }}</span>
+                                    <span class="text-muted">&nbsp; {{ $token->name }}</span>
                                 </small>
                             </p>
                             <p>
                                 <small>
                                     <span class="fw-semi-bold">Token Symbol:</span>
-                                    <span class="text-muted">&nbsp; {{ $token->token_symbol }}</span>
+                                    <span class="text-muted">&nbsp; {{ $token->symbol }}</span>
                                 </small>
                             </p>
                         </td>
@@ -76,17 +78,15 @@
                             <p>
                                 <small>
                                     <span class="fw-semi-bold">Price:</span>
-                                    <span class="text-muted">&nbsp; Not determined</span>
+                                    <span class="text-muted">&nbsp;Not determined</span>
                                 </small>
                             </p>
                         </td>
-                        <td class="width-150">
-                            <div class="progress progress-sm mt-xs js-progress-animate">
-                                <div class="progress-bar progress-bar-success" data-width="{{ $loop->index * 20 + 10 }}%" style="width: 0;"></div>
-                            </div>
+                        <td class="text-align-center width-100">
+                            <a href="{{ route('tokens.show', $token) }}" class="btn btn-info">&nbsp;Details&nbsp;</a>
                         </td>
                     </tr>
-                    @endforeach
+                @endforeach
                     </tbody>
 
                 </table>
@@ -94,7 +94,7 @@
                     <div class="pull-right">
                         
                     </div>
-                    <p>You can check pending tokens on <a href="https://ropsten.etherscan.io" target="_blank">Etherscan.io</a></p>
+                    <p>You can check pending ICOs on <a href="https://ropsten.etherscan.io" target="_blank">Etherscan.io</a></p>
                 </div>
             </div>
         </section>
