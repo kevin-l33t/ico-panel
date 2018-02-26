@@ -22,14 +22,20 @@ $(function(){
                 }
             },
             onNext: function(tab, navigation, index) {
-                var instance = $('#form' + index).parsley();
-                instance.validate();
-                return instance.isValid();
+                if (index < 3) {
+                    var instance = $('#form' + index).parsley();
+                    instance.validate();
+                    return instance.isValid();
+                }
+                return true;
             },
             onTabClick: function(tab, navigation, index) {
-                var instance = $('#form' + (index + 1)).parsley();
-                instance.validate();
-                return instance.isValid();
+                if (index < 3) {
+                    var instance = $('#form' + (index + 1)).parsley();
+                    instance.validate();
+                    return instance.isValid();
+                }
+                return true;
             }
         });
 

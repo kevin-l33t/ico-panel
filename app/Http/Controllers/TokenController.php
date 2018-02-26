@@ -11,6 +11,10 @@ use App\Jobs\ConfirmCreateTokenTx;
 
 class TokenController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -45,14 +49,7 @@ class TokenController extends Controller
             'artist' => 'required|string|exists:users,id',
             'artist_wallet' => 'required|unique:tokens,artist_address|regex:/^0x[a-fA-F0-9]{40}$/',
             'token_name' => 'required|string|unique:tokens,token_name',
-            'token_symbol' => 'required|string|unique:tokens,token_symbol',
-            'token_rate' => 'required|integer',
-            'total_supply' => 'required|integer',
-            'start_date' => 'required|date',
-            'bonus1' => 'required|integer',
-            'bonus2' => 'required|integer',
-            'bonus3' => 'required|integer',
-            'bonus4' => 'required|integer',
+            'token_symbol' => 'required|string|unique:tokens,token_symbol'
         ]);
 
         $client = new Client([
@@ -61,20 +58,13 @@ class TokenController extends Controller
             // You can set any number of default request options.
             'timeout'  => 10.0
         ]);
-        $startDate = new Carbon($request->input('start_date'));
+
         $tokenRequestParams = [
             "artist_address" => $request->input('artist_wallet'),
             "token_name" => $request->input('token_name'),
-            "token_symbol" => $request->input('token_symbol'),
-            "token_rate" => $request->input('token_rate'),
-            "hard_cap" => $request->input('total_supply'),
-            "startDate" => $startDate->timestamp,
-            "stage1_bonus" => $request->input('bonus1'),
-            "stage2_bonus" => $request->input('bonus2'),
-            "stage3_bonus" => $request->input('bonus3'),
-            "stage4_bonus" => $request->input('bonus4')
+            "token_symbol" => $request->input('token_symbol')
         ];
-        $response = $client->request('POST', 'token/createToken', [
+        $response = $client->request('POST', 'ico/create', [
             'body' => json_encode($tokenRequestParams),
             'headers' => [
                 "Authorization" => "API-KEY TESTKEY",
@@ -88,16 +78,9 @@ class TokenController extends Controller
                 $token = Token::create([
                     'user_id' => $request->input('artist'),
                     'tx_hash' => $result->tx_hash,
-                    'token_name' => $request->input('token_name'),
-                    'token_symbol' => $request->input('token_symbol'),
-                    'rate' => $request->input('token_rate'),
-                    'hard_cap' => $request->input('total_supply'),
+                    'name' => $request->input('token_name'),
+                    'symbol' => $request->input('token_symbol'),
                     'artist_address' => $request->input('artist_wallet'),
-                    'sale_start_date' => $startDate,
-                    'stage1_bonus' => $request->input('bonus1'),
-                    'stage2_bonus' => $request->input('bonus2'),
-                    'stage3_bonus' => $request->input('bonus3'),
-                    'stage4_bonus' => $request->input('bonus4')
                 ]);
 
                 ConfirmCreateTokenTx::dispatch($token);
@@ -124,12 +107,13 @@ class TokenController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  App\Token $token
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Token $token)
     {
-        //
+        $data['token'] = $token;
+        return view('token.show', $data);
     }
 
     /**
@@ -164,5 +148,60 @@ class TokenController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Create new ICO stage
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Token  $token
+     * @return \Illuminate\Http\Response
+     */
+    public function createStage(Request $request, Token $token) {
+        $this->validate($request, [
+            'price' => 'required|numeric',
+            'supply' => 'required|numeric',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date'
+        ]);
+
+        $startDate = new Carbon($request->input('start_date'));
+        $endtDate = new Carbon($request->input('end_date'));
+        $price = $request->input('price') * 100;
+        $client = new Client([
+            // Base URI is used with relative requests
+            'base_uri' => env('TOKEN_API_URL'),
+            // You can set any number of default request options.
+            'timeout'  => 10.0
+        ]);
+        $tokenRequestParams = [
+            "artist_address" => $token->artist_address,
+            "start_date" => $startDate->timestamp,
+            "end_date" => $endtDate->timestamp,
+            "price" => $price,
+            "supply" => $request->input('supply')
+        ];
+        $response = $client->request('POST', 'ico/stage/create', [
+            'body' => json_encode($tokenRequestParams),
+            'headers' => [
+                "Authorization" => "API-KEY TESTKEY",
+                "Content-Type" => "application/json"
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) {
+            $result = json_decode($response->getBody()->getContents());
+            if ($result->success) {
+
+                $token->stages()->create([
+                    'start_at' => $startDate,
+                    'end_at' => $endtDate,
+                    'supply' => $request->input('supply'),
+                    'price' => $price,
+                    'tx_hash' => $result->tx_hash
+                ]);
+            }
+        }
+        
+        return redirect()->route('tokens.show', [$token]);
     }
 }

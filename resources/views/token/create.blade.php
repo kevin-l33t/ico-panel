@@ -77,70 +77,13 @@
                                                 <span class="help-block pull-left">Please choose Token Symbol</span></div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3" for="token_rate">Rate</label>
-                                        <div class="col-md-8">
-                                            <div class="col-md-10">
-                                                <input type="number" id="token_rate" name="token_rate" placeholder="i.e., 40" class="form-control" required>
-                                                <span class="help-block">How many token units a buyer gets per ETH</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3" for="total_supply">Total Supply</label>
-                                        <div class="col-md-8">
-                                            <div class="col-md-10">
-                                                <input type="number" id="total_supply" name="total_supply" placeholder="i.e., 200000000" class="form-control" required>
-                                                <span class="help-block">Total tokens to be supplied.</span></div>
-                                        </div>
-                                    </div>
                                 </fieldset>
                             </form>
                         </div>
                         <div class="tab-pane" id="tab3">
-                            <form id="form3" class="form-horizontal mt-sm" action='' method="POST">
-                                <fieldset>
-                                    <div class="form-group">
-                                        <label for="start_date" class="control-label col-md-3">ICO Start Date</label>
-                                        <div class="col-md-8">
-                                            <div class="col-md-10"><input type="text" id="start_date" name="start_date" class="form-control" required>
-                                            <span class="help-block">Please choose ICO start date</span>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3"  for="bonus1">Stage 1 Bonus</label>
-                                        <div class="col-md-8">
-                                            <div class="col-md-10"><input type="number" id="bonus1" name="bonus1" placeholder="" class="form-control" required>
-                                            <span class="help-block">First stage bonus rate.</span>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3"  for="bonus2">Stage 2 Bonus</label>
-                                        <div class="col-md-8">
-                                            <div class="col-md-10"><input type="number" id="bonus2" name="bonus2" placeholder="" class="form-control" required>
-                                            <span class="help-block">Second stage bonus rate.</span>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3"  for="bonus3">Stage 3 Bonus</label>
-                                        <div class="col-md-8">
-                                            <div class="col-md-10"><input type="number" id="bonus3" name="bonus3" placeholder="" class="form-control" required>
-                                            <span class="help-block">Third stage bonus rate.</span>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3"  for="bonus4">Stage 4 Bonus</label>
-                                        <div class="col-md-8">
-                                            <div class="col-md-10"><input type="number" id="bonus4" name="bonus4" placeholder="" class="form-control" required>
-                                            <span class="help-block">Forth stage bonus rate.</span>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </form>
+                            <h2>ICO Stage can be released after deploy</h2>
+                            <p class="mb-lg">Please set number of coin, duration for each stage after deploy</p>
+                            <br>
                         </div>
                         <div class="tab-pane" id="tab4">
                             <h2>Issue ICO</h2>
