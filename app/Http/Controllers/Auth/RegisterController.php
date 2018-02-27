@@ -6,6 +6,8 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use GuzzleHttp\Client;
+use App\Wallet;
 
 class RegisterController extends Controller
 {
@@ -62,11 +64,38 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'role_id' => 2
         ]);
+
+        $client = new Client([
+            // Base URI is used with relative requests
+            'base_uri' => env('TOKEN_API_URL'),
+            // You can set any number of default request options.
+            'timeout'  => 10.0
+        ]);
+
+        $response = $client->request('GET', 'account/create', [
+            'headers' => [
+                "Authorization" => "API-KEY TESTKEY",
+                "Content-Type" => "application/json"
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) {
+            $result = json_decode($response->getBody()->getContents());
+            if ($result->success) {
+                $user->wallet()->create([
+                    'address' => $result->address,
+                    'private_key' => $result->privateKey
+                ]);
+            }
+        }
+
+        return $user;
     }
 }

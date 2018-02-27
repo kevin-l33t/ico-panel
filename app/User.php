@@ -30,4 +30,8 @@ class User extends Authenticatable
     public function role() {
         return $this->belongsTo('App\UserRole');
     }
+
+    public function wallet() {
+        return $this->hasMany('App\Wallet');
+    }
 }
