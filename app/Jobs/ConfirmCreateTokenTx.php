@@ -54,25 +54,22 @@ class ConfirmCreateTokenTx implements ShouldQueue
         $try = 30;
 
         while ($try > 0) {
-            try {
-                $response = $client->request('GET', 'ico/contract/'.$this->token->artist_address, [
-                    'headers' => [
-                        "Authorization" => "API-KEY TESTKEY",
-                        "Content-Type" => "application/json"
-                    ]
-                ]);
-                if ($response->getStatusCode() == 200) {
-                    $result = json_decode($response->getBody()->getContents());
-                    if ($result->success) {
-                        $this->token->crowdsale_address = $result->crowdsale;
-                        $this->token->token_address = $result->token;
-                        $this->token->status = 1;
-                        $this->token->save();
-                        break;
-                    }
+            $response = $client->request('GET', 'ico/contract/'.$this->token->artist_address, [
+                'http_errors' => false,
+                'headers' => [
+                    "Authorization" => "API-KEY TESTKEY",
+                    "Content-Type" => "application/json"
+                ]
+            ]);
+            if ($response->getStatusCode() == 200) {
+                $result = json_decode($response->getBody()->getContents());
+                if ($result->success) {
+                    $this->token->crowdsale_address = $result->crowdsale;
+                    $this->token->token_address = $result->token;
+                    $this->token->status = 1;
+                    $this->token->save();
+                    break;
                 }
-            } catch (\Exception $ex) {
-                report($ex);
             }
             $try--;
             sleep(10);

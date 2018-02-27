@@ -65,10 +65,10 @@ class TokenController extends Controller
             "token_symbol" => $request->input('token_symbol')
         ];
         $response = $client->request('POST', 'ico/create', [
-            'body' => json_encode($tokenRequestParams),
+            'http_errors' => false,
+            'json' => $tokenRequestParams,
             'headers' => [
-                "Authorization" => "API-KEY TESTKEY",
-                "Content-Type" => "application/json"
+                "Authorization" => "API-KEY TESTKEY"
             ]
         ]);
 
@@ -181,7 +181,8 @@ class TokenController extends Controller
             "supply" => $request->input('supply')
         ];
         $response = $client->request('POST', 'ico/stage/create', [
-            'body' => json_encode($tokenRequestParams),
+            'http_errors' => false,
+            'json' => $tokenRequestParams,
             'headers' => [
                 "Authorization" => "API-KEY TESTKEY",
                 "Content-Type" => "application/json"

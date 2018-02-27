@@ -69,6 +69,7 @@ class Token extends Model
         ]);
 
         $response = $client->request('GET', 'ico/contract/'.$this->artist_address, [
+            'http_errors' => false,
             'headers' => [
                 "Authorization" => "API-KEY TESTKEY",
                 "Content-Type" => "application/json"

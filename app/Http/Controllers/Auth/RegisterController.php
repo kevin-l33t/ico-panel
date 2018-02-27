@@ -80,9 +80,9 @@ class RegisterController extends Controller
         ]);
 
         $response = $client->request('GET', 'account/create', [
+            'http_errors' => false,
             'headers' => [
-                "Authorization" => "API-KEY TESTKEY",
-                "Content-Type" => "application/json"
+                "Authorization" => "API-KEY TESTKEY"
             ]
         ]);
 
