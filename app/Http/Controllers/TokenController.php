@@ -47,7 +47,6 @@ class TokenController extends Controller
     {
         $this->validate($request, [
             'artist' => 'required|string|exists:users,id',
-            'artist_wallet' => 'required|unique:tokens,artist_address|regex:/^0x[a-fA-F0-9]{40}$/',
             'token_name' => 'required|string|unique:tokens,name',
             'token_symbol' => 'required|string|unique:tokens,symbol'
         ]);
@@ -59,8 +58,10 @@ class TokenController extends Controller
             'timeout'  => 10.0
         ]);
 
+        $artist = User::find($request->input('artist'));
+
         $tokenRequestParams = [
-            "artist_address" => $request->input('artist_wallet'),
+            "artist_address" => $artist->wallet[0]->address,
             "token_name" => $request->input('token_name'),
             "token_symbol" => $request->input('token_symbol')
         ];
@@ -79,8 +80,7 @@ class TokenController extends Controller
                     'user_id' => $request->input('artist'),
                     'tx_hash' => $result->tx_hash,
                     'name' => $request->input('token_name'),
-                    'symbol' => $request->input('token_symbol'),
-                    'artist_address' => $request->input('artist_wallet'),
+                    'symbol' => $request->input('token_symbol')
                 ]);
 
                 ConfirmCreateTokenTx::dispatch($token);
@@ -174,7 +174,7 @@ class TokenController extends Controller
             'timeout'  => 10.0
         ]);
         $tokenRequestParams = [
-            "artist_address" => $token->artist_address,
+            "artist_address" => $token->user->wallet[0]->address,
             "start_date" => $startDate->timestamp,
             "end_date" => $endtDate->timestamp,
             "price" => $price,

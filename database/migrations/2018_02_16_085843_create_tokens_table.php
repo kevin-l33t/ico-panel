@@ -21,7 +21,6 @@ class CreateTokensTable extends Migration
             $table->string("tx_hash", 66);
             $table->string("name");
             $table->string("symbol");
-            $table->string("artist_address", 42);
             $table->tinyInteger("status")->default(0);
 
             $table->timestamps();

@@ -68,7 +68,7 @@ class Token extends Model
             'timeout'  => 10.0
         ]);
 
-        $response = $client->request('GET', 'ico/contract/'.$this->artist_address, [
+        $response = $client->request('GET', 'ico/contract/'.$this->user->wallet[0]->address, [
             'http_errors' => false,
             'headers' => [
                 "Authorization" => "API-KEY TESTKEY",

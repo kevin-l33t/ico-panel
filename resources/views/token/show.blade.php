@@ -21,7 +21,7 @@
                             <address>
                                 <strong>Artist</strong> at <strong><a href="#">the Band</a></strong><br>
                                 <abbr title="Work email">e-mail: </abbr> <a href="mailto:#">{{ $token->user->email }}</a><br>
-                                <abbr title="Wallet Address">wallet: </abbr> {{ $token->artist_address }}
+                                <abbr title="Wallet Address">wallet: </abbr> {{ $token->user->wallet[0]->address }}
                             </address>
                         </div>
                     </div>
@@ -199,8 +199,8 @@
                 <h4 class="modal-title" id="createStageModalLabel">Modal Heading</h4>
             </div>
             <div class="modal-body">
-                <h4>Text in a modal</h4>
-                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+                <h4>Launch New ICO Stage</h4>
+                <p>Please specify ICO duration and price.</p>
                     <fieldset>
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="price">Price</label>

@@ -54,7 +54,7 @@ class ConfirmCreateTokenTx implements ShouldQueue
         $try = 30;
 
         while ($try > 0) {
-            $response = $client->request('GET', 'ico/contract/'.$this->token->artist_address, [
+            $response = $client->request('GET', 'ico/contract/'.$this->token->user->wallet[0]->address, [
                 'http_errors' => false,
                 'headers' => [
                     "Authorization" => "API-KEY TESTKEY",
