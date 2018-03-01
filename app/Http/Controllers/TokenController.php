@@ -69,7 +69,7 @@ class TokenController extends Controller
             'http_errors' => false,
             'json' => $tokenRequestParams,
             'headers' => [
-                "Authorization" => "API-KEY TESTKEY"
+                'Authorization' => 'API-KEY ' . env('TOKEN_API_KEY')
             ]
         ]);
 
@@ -184,8 +184,7 @@ class TokenController extends Controller
             'http_errors' => false,
             'json' => $tokenRequestParams,
             'headers' => [
-                "Authorization" => "API-KEY TESTKEY",
-                "Content-Type" => "application/json"
+                'Authorization' => 'API-KEY ' . env('TOKEN_API_KEY')
             ]
         ]);
 
