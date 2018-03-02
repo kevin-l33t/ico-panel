@@ -26,7 +26,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
         <section class="widget">
             <header>
                 <h5>ICO Investment <span class="fw-semi-bold">Opportunities</span></h5>
@@ -41,7 +41,7 @@
                         <th>Price</th>
                         <th>Max Coins Available</th>
                         <th>Closing Date</th>
-                        <th>Action</th>
+                        <th class="text-align-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -59,6 +59,46 @@
                 @endforeach
                     </tbody>
                 </table>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <section class="widget">
+            <header>
+                <h5>Coin <span class="fw-semi-bold">Balances</span></h5>
+                <div class="widget-controls">
+                    <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                    <a data-widgster="close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </header>
+            <div class="widget-body">
+                <h3>Your <span class="fw-semi-bold">Portfolio</span></h3>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Artist</th>
+                            <th>Coins you hold</th>
+                            <th>USD Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                    @foreach($tokens as $item)
+                        @if ($user->wallet[0]->getTokenBalance($item) > 0)
+                        <tr>
+                            <td>{{ $loop->index }}</td>
+                            <td>{{ $item->user->name }}</td>
+                            <td>{{ $user->wallet[0]->getTokenBalance($item) }} {{ $item->symbol }}</td>
+                            <td>{{ round($user->wallet[0]->getTokenBalance($item) * $item->currentStage()->price / 100, 2) }} $</td>
+                        </tr>
+                        @endif
+                    @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
     </div>

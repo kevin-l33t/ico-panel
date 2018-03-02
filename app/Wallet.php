@@ -9,6 +9,7 @@ use Token;
 class Wallet extends Model
 {
     protected $guarded = [];
+    private $tokenBalance = [];
 
      /**
      * Get Ether balance of the wallet
@@ -21,6 +22,10 @@ class Wallet extends Model
     }
 
     public function getTokenBalance($token) {
+        if (isset($this->tokenBalance[$token->id])) {
+            return $this->tokenBalance[$token->id];
+        }
+
         $client = new Client([
             // Base URI is used with relative requests
             'base_uri' => env('TOKEN_API_URL'),
@@ -37,8 +42,9 @@ class Wallet extends Model
         if ($response->getStatusCode() == 200) {
             $result = json_decode($response->getBody()->getContents());
             if ($result->success) {
-                return round(fromWei($result->balance, 'ether'), 3);
+                $this->tokenBalance[$token->id] = round(fromWei($result->balance, 'ether'), 3);
             }
         }
+        return $this->tokenBalance[$token->id];
     }
 }
