@@ -78,7 +78,7 @@
                             <div class="col-sm-8 col-sm-offset-4">
                                 <button id="button_buy" type="button" class="btn btn-danger">Buy Now</button>
                                 &nbsp;
-                                <a href="{{ route('home') }}" class="btn btn-default">Back</a>
+                                <a href="{{ route('users.dashboard') }}" class="btn btn-default">Back</a>
                             </div>
                         </div>
                     </div>

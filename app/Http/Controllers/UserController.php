@@ -16,6 +16,19 @@ class UserController extends Controller
     }
 
     /**
+     * Show the User dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dashboard()
+    {
+        $data['user'] = Auth::user();
+        $data['tokens'] = Token::has('stages')->get();
+        $data['transactions'] = Auth::user()->wallet[0]->transactions;
+        return view('user.dashboard', $data);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  Token  $token
