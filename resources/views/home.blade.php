@@ -53,7 +53,7 @@
                         <td>{{ $item->currentStage()->supply }} <small>{{ $item->symbol }}</small></td>
                         <td>{{ $item->currentStage()->end_at }}</td>
                         <td class="text-align-center width-100">
-                            <a href="http://localhost:8000/tokens/2" class="btn btn-info">&nbsp;Buy&nbsp;</a>
+                            <a href="{{ route('users.buy', $item) }}" class="btn btn-info">&nbsp;Buy&nbsp;</a>
                         </td>
                     </tr>
                 @endforeach

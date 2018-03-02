@@ -27,7 +27,7 @@ function getEtherBalance($address) {
     if ($response->getStatusCode() == 200) {
         $result = json_decode($response->getBody()->getContents());
         if ($result->status == 1) {
-            return fromWei($result->result, 'ether');
+            return round(fromWei($result->result, 'ether'), 3);
         }
     }
 }
@@ -71,5 +71,5 @@ function getEtherUSDPrice() {
 
 function ethToUsd($ether) {
 
-    return empty($ether) ? $ether :  getEtherUSDPrice() / $ether;
+    return empty($ether) ? $ether :  round(getEtherUSDPrice() * $ether, 2);
 }
