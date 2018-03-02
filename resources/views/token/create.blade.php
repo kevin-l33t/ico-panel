@@ -43,17 +43,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <!-- Artist's wallet -->
-                                        <label class="control-label col-md-3"  for="artist_wallet">Artist's Wallet Address</label>
-                                        <div class="col-md-8">
-                                            <div class="col-md-10">
-                                                <input type="text" id="artist_wallet" name="artist_wallet"
-                                                       placeholder="i.e., 0xe0014f07625ae3ef38050B28339b0203DDCdf045" class="form-control" pattern="^0x[a-fA-F0-9]{40}$" required>
-                                                <span class="help-block">Please provide artist's ETH wallet address. 50 million tokens will be deposited there.</span>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </fieldset>
                             </form>
                         </div>

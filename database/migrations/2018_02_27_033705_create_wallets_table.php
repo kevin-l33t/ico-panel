@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTokensTable extends Migration
+class CreateWalletsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,13 @@ class CreateTokensTable extends Migration
      */
     public function up()
     {
-        Schema::create('tokens', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('wallets', function (Blueprint $table) {
+            $table->char('address', 42);
+            $table->char('private_key', 66);
             $table->integer('user_id')->unsigned();
-            $table->string("crowdsale_address", 42)->nullable();
-            $table->string("token_address", 42)->nullable();
-            $table->string("tx_hash", 66);
-            $table->string("name");
-            $table->string("symbol");
-            $table->tinyInteger("status")->default(0);
-
             $table->timestamps();
+
+            $table->primary('address');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -35,6 +31,6 @@ class CreateTokensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contracts');
+        Schema::dropIfExists('wallets');
     }
 }

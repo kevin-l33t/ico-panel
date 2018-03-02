@@ -51,10 +51,11 @@ class ConfirmCreateTokenTx implements ShouldQueue
             'timeout'  => 10.0
         ]);
 
-        $try = 10;
+        $try = 30;
 
         while ($try > 0) {
-            $response = $client->request('GET', 'ico/contract/'.$this->token->artist_address, [
+            $response = $client->request('GET', 'ico/contract/'.$this->token->user->wallet[0]->address, [
+                'http_errors' => false,
                 'headers' => [
                     "Authorization" => "API-KEY TESTKEY",
                     "Content-Type" => "application/json"
@@ -71,7 +72,7 @@ class ConfirmCreateTokenTx implements ShouldQueue
                 }
             }
             $try--;
-            sleep(20);
+            sleep(10);
         }
     }
 }
