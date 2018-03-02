@@ -11,6 +11,11 @@ class Wallet extends Model
     protected $guarded = [];
     private $tokenBalance = [];
 
+    public function transactions()
+    {
+        return $this->hasMany('App\TransactionLog', 'from', 'address');
+    }
+
      /**
      * Get Ether balance of the wallet
      *

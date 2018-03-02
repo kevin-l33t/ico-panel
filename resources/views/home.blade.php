@@ -64,7 +64,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-5">
         <section class="widget">
             <header>
                 <h5>Coin <span class="fw-semi-bold">Balances</span></h5>
@@ -79,7 +79,6 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th>#</th>
                             <th>Artist</th>
                             <th>Coins you hold</th>
                             <th>USD Value</th>
@@ -89,13 +88,50 @@
                     @foreach($tokens as $item)
                         @if ($user->wallet[0]->getTokenBalance($item) > 0)
                         <tr>
-                            <td>{{ $loop->index }}</td>
                             <td>{{ $item->user->name }}</td>
                             <td>{{ $user->wallet[0]->getTokenBalance($item) }} {{ $item->symbol }}</td>
                             <td>{{ round($user->wallet[0]->getTokenBalance($item) * $item->currentStage()->price / 100, 2) }} $</td>
                         </tr>
                         @endif
                     @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="col-md-7">
+        <section class="widget">
+            <header>
+                <h5>Transaction <span class="fw-semi-bold">History</span></h5>
+                <div class="widget-controls">
+                    <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                    <a data-widgster="close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </header>
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Action</th>
+                            <th>To</th>
+                            <th>Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                    @forelse ($transactions as $item)
+                        <tr>
+                            <td>{{ $loop->index + 1}}</td>
+                            <td>Purchase</td>
+                            <td>{{ $item->token->name }} / {{ $item->token->symbol }}</td>
+                            <td>{{ round($item->eth_value, 2) }} ETH / {{ ethToUsd($item->eth_value) }} $</td>
+                        </tr>
+                    @empty
+                        <p>No transactions</p>
+                    @endforelse
                         </tbody>
                     </table>
                 </div>

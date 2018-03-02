@@ -27,6 +27,7 @@ class HomeController extends Controller
     {
         $data['user'] = Auth::user();
         $data['tokens'] = Token::has('stages')->get();
+        $data['transactions'] = Auth::user()->wallet[0]->transactions;
         return view('home', $data);
     }
 }
