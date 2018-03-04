@@ -24,6 +24,7 @@
                     <h4>Register your account</h4>
                 </header>
                 <div class="body">
+                    @include('layouts.partials.formErrors')
                     <form class="no-margin" action="{{ route('register') }}" method="POST" data-parsley-validate>
                         @csrf
                         <fieldset>
@@ -34,6 +35,10 @@
                             <div class="form-group">
                                 <label for="email" >Email</label>
                                 <input id="email" type="email" class="form-control input-lg input-transparent {{ $errors->has('email') ? ' parsley-error' : '' }}" name="email" value="{{ old('email') }}" placeholder="Your Email" required autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" >Phone Number</label>
+                                <input id="phone" type="text" class="form-control input-lg input-transparent {{ $errors->has('phone') ? ' parsley-error' : '' }}" name="phone" value="{{ old('phone') }}" minlength="4" placeholder="Phone Number" required>
                             </div>
                             <div class="form-group">
                                 <label for="password" >Password</label>

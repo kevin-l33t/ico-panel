@@ -3,6 +3,7 @@
         <li>
             <a href="{{ route('users.dashboard') }}"><i class="fa fa-home"></i> <span class="name">Dashboard</span></a>
         </li>
+        @if (Auth::user()->role->name == 'Administrator')
         <li class="panel">
             <a class="accordion-toggle collapsed" data-toggle="collapse"
                data-parent="#side-nav" href="#ico-collapse"><i class="fa fa-area-chart"></i> <span class="name">ICO</span></a>
@@ -19,5 +20,6 @@
                 <li class=""><a href="{{ route('users.index') }}">List</a></li>
             </ul>
         </li>
+        @endif
     </ul>
 </nav> 
