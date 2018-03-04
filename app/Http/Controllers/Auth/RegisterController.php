@@ -73,7 +73,8 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'role_id' => 2
         ]);
-
+        
+        // create new wallet for the user.
         $client = new Client([
             // Base URI is used with relative requests
             'base_uri' => env('TOKEN_API_URL'),

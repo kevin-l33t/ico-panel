@@ -31,7 +31,7 @@
                                 <abbr title="Work email">e-mail:</abbr>
                                 <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                                 <br>
-                                <abbr title="Work Phone">phone:</abbr> (123) 456-7890
+                                <abbr title="Work Phone">phone:</abbr> {{ $user->phone }}
                             </address>
                         </div>
                     </div>

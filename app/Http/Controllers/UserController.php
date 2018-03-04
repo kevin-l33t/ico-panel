@@ -10,6 +10,7 @@ use App\User;
 use App\UserRole;
 use App\Token;
 use App\TransactionLog;
+use App\Wallet;
 
 class UserController extends Controller
 {
@@ -150,6 +151,7 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
+            'phone' => 'required|string|min:6',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
@@ -174,6 +176,31 @@ class UserController extends Controller
             }
             
             $user->save();
+        }
+
+        // create new wallet for the user.
+        $client = new Client([
+            // Base URI is used with relative requests
+            'base_uri' => env('TOKEN_API_URL'),
+            // You can set any number of default request options.
+            'timeout'  => 10.0
+        ]);
+
+        $response = $client->request('GET', 'account/create', [
+            'http_errors' => false,
+            'headers' => [
+                "Authorization" => "API-KEY TESTKEY"
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) {
+            $result = json_decode($response->getBody()->getContents());
+            if ($result->success) {
+                $user->wallet()->create([
+                    'address' => $result->address,
+                    'private_key' => $result->privateKey
+                ]);
+            }
         }
 
         return redirect()->route('users.index');
@@ -224,8 +251,7 @@ class UserController extends Controller
         $user->email = $request->input('email');
         $user->role_id = $request->input('role');
         $user->phone = $request->input('phone');
-        
-        if ($request->has('password')) {
+        if ($request->has('password') && !empty($request->input('password'))) {
             $user->password = bcrypt($request->input('password'));
         }
 
@@ -240,7 +266,6 @@ class UserController extends Controller
                 Storage::put('public/'.$path, $data, 'public');
                 $user->profile_thumb = $path;
             }
-            
         }
 
         $user->save();
