@@ -17,7 +17,7 @@
                 </thead>
                 <tbody>
                 @foreach($users as $user)
-                    <tr>
+                    <tr class="clickable-row" data-href="{{ route('users.edit', $user) }}">
                         <td>{{ $loop->index + 1 }}</td>
                         <td><span class="fw-semi-bold">{{ $user->name }}</span></td>
                         <td>{{ $user->email }}</td>

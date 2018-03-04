@@ -276,11 +276,25 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        try{
+            if (count($user->wallet) > 0) {
+                $user->wallet[0]->delete();
+            }
+            $user->delete();
+        } catch ( \Illuminate\Database\QueryException $ex ) {
+            return response()->json([
+                'success' => false,
+                'msg' => $ex->getMessage()
+            ], 500);
+        }
+        
+        return response()->json([
+            'success' => true
+        ]);
     }
 }
