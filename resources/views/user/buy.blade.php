@@ -99,7 +99,7 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="text-align-center">
-                                <img class="img-circle" src="{{ asset('img/3.png') }}" alt="64x64" style="height: 112px;">
+                                <img class="img-circle" src="{{ empty($token->user->profile_thumb) ? asset('img/default_avatar.png') : asset('storage/'.$token->user->profile_thumb) }}" alt="64x64" style="height: 112px;">
                             </div>
                         </div>
                         <div class="col-sm-8">

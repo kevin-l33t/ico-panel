@@ -33,7 +33,7 @@ class TokenController extends Controller
      */
     public function create()
     {
-        $data['artists'] = User::where('role_id', 2)->get();
+        $data['artists'] = User::where('role_id', 3)->get();
         return view('token.create', $data);
     }
 

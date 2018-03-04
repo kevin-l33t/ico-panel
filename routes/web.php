@@ -21,6 +21,7 @@ Auth::routes();
 Route::resource('tokens', 'TokenController');
 Route::post('tokens/create/stage/{token}', 'TokenController@createStage')->name('tokens.createStage');
 
+Route::resource('users', 'UserController');
 Route::get('users/buy/{token}', 'UserController@buyToken')->name('users.buy');
 Route::post('users/send/ether', 'UserController@sendEther')->name('users.sendEther');
 Route::get('dashboard', 'UserController@dashboard')->name('users.dashboard')->middleware('auth');

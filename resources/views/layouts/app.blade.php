@@ -7,12 +7,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <link href="{{ asset('css/application.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.12.11/sweetalert2.min.css" />
+    <link href="{{ asset('lib/cropperjs/cropper.min.css') }}" rel="stylesheet">
     <link rel="shortcut icon" href="img/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <meta charset="utf-8">
+    @yield('styles')
     <script>
         /* yeah we need this empty stylesheet here. It's cool chrome & chromium fix
            chrome fix https://code.google.com/p/chromium/issues/detail?id=167083
@@ -59,6 +62,5 @@
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/settings.js') }}"></script>
 
-@section('scripts')
-@show
+@yield('scripts')
 </body>

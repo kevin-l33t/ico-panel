@@ -9,11 +9,11 @@
                 </a>
                 <ul id="account-menu" class="dropdown-menu account" role="menu">
                     <li role="presentation" class="account-picture">
-                        <img src="{{ asset('img/1.png') }}" alt="">
+                        <img src="{{ empty($user->profile_thumb) ? asset('img/default_avatar.png') : asset('storage/'.$user->profile_thumb) }}" class="img-circle" alt="">
                         {{ Auth::user()->name }}
                     </li>
                     <li role="presentation">
-                        <a href="form_account.html" class="link">
+                        <a href="{{ route('users.edit', Auth::user()) }}" class="link">
                             <i class="fa fa-user"></i>
                             Profile
                         </a>

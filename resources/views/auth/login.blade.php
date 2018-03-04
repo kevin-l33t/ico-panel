@@ -18,6 +18,7 @@
                     <h4>Login to your account</h4>
                 </header>
                 <div class="body">
+                    @include('layouts.partials.formErrors')
                     <form class="no-margin" action="{{ route('login') }}" method="POST">
                         @csrf
                         <fieldset>
