@@ -28,7 +28,7 @@
                     <tr>
                         <td class="hidden-xs">{{ $loop->index + 1 }}</td>
                         <td>
-                            <img class="img-rounded" src="img/1.png" alt="" height="50">
+                            <img class="img-rounded" src="{{ empty($token->user->profile_thumb) ? asset('img/default_avatar.png') : asset('storage/'.$token->user->profile_thumb) }}" alt="" height="50">
                         </td>
                         <td>
                             {{ $token->user->name }}
