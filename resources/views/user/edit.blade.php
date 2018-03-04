@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="text-align-center">
-                                <img class="img-circle" src="{{ empty($user->profile) ? asset('img/14.png') : asset('storage/'.$user->profile) }}" alt="64x64" style="height: 112px;">
+                                <img class="img-circle" src="{{ empty($user->profile_thumb) ? asset('img/default_avatar.png') : asset('storage/'.$user->profile_thumb) }}" alt="64x64" style="height: 112px;">
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -30,6 +30,8 @@
                             <address>
                                 <abbr title="Work email">e-mail:</abbr>
                                 <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
+                                <br>
+                                <abbr title="Work Phone">phone:</abbr> (123) 456-7890
                             </address>
                         </div>
                     </div>
