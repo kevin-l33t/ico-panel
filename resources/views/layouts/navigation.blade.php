@@ -15,8 +15,8 @@
             <a class="accordion-toggle collapsed" data-toggle="collapse"
                data-parent="#side-nav" href="#users-collapse"><i class="fa fa-users"></i> <span class="name">Users</span></a>
             <ul id="users-collapse" class="panel-collapse collapse ">
+                <li class=""><a href="{{ route('users.create') }}">New Artist</a></li>
                 <li class=""><a href="{{ route('users.index') }}">List</a></li>
-                <li class=""><a href="{{ route('users.create') }}">Add New</a></li>
             </ul>
         </li>
     </ul>

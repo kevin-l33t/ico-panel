@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use GuzzleHttp\Client;
 use App\User;
+use App\UserRole;
 use App\Token;
 use App\TransactionLog;
 
@@ -130,7 +132,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $data['action'] = route('users.store');
+        $data['user'] = new User;
+        $data['user']->role_id = 3; // create artist
+        $data['roles'] = UserRole::all();
+        return view('user.edit', $data);
     }
 
     /**
@@ -141,7 +147,36 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'email' => 'required|unique:users|max:255',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'password' => bcrypt($request->input('password')),
+            'role_id' =>$request->input('role')
+        ]);
+
+        if($request->hasFile('profile_picture') && $request->file('profile_picture')->isValid()) {
+            $user->profile_picture = $request->file('profile_picture')->store('profile', 'public');
+
+            if($request->has('profile_thumb')) {
+                $user->profile_thumb = $request->input('profile_thumb');
+                list($meta, $data) = explode(',', $request->input('profile_thumb'));
+                $data = base64_decode($data);
+                $path = 'profile_thumb/thumb_' . $user->id . '.png';
+                Storage::put('public/'.$path, $data, 'public');
+                $user->profile_thumb = $path;
+            }
+            
+            $user->save();
+        }
+
+        return redirect()->route('users.index');
     }
 
     /**
