@@ -61,6 +61,7 @@
                                 <input type="text" id="phone" name="phone" value="{{ old('phone', $user->phone) }}" required="required" class="form-control input-transparent">
                             </div>
                         </div>
+                        @empty($user->email)
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="password">Password
                                 <span class="required">*</span>
@@ -77,6 +78,21 @@
                                 <input type="password" id="password_confirmation" name="password_confirmation" required="required" data-parsley-equalto="#password" class="form-control input-transparent">
                             </div>
                         </div>
+                        @endempty
+                        @isset($user->email)
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="password">Password</label>
+                            <div class="col-sm-4">
+                                <input type="password" id="password" name="password" value="{{ old('password', '') }}" class="form-control input-transparent" minlength="6">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="password_confirmation">Confirm Password</label>
+                            <div class="col-sm-4">
+                                <input type="password" id="password_confirmation" name="password_confirmation" data-parsley-equalto="#password" class="form-control input-transparent">
+                            </div>
+                        </div>
+                        @endisset
 
                         <div class="form-group">
                             <label class="control-label col-sm-4">Role</label>

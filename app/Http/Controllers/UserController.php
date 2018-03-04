@@ -196,21 +196,56 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $data['action'] = route('users.update', [$user]);
+        $data['method'] = method_field('PUT');
+        $data['user'] = $user;
+        $data['roles'] = UserRole::all();
+        return view('user.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'email' => 'required|max:255',
+            'password' => 'nullable|string|min:6|confirmed',
+        ]);
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->role_id = $request->input('role');
+        $user->phone = $request->input('phone');
+        
+        if ($request->has('password')) {
+            $user->password = bcrypt($request->input('password'));
+        }
+
+        if($request->hasFile('profile_picture') && $request->file('profile_picture')->isValid()) {
+            $user->profile_picture = $request->file('profile_picture')->store('profile', 'public');
+
+            if($request->has('profile_thumb')) {
+                $user->profile_thumb = $request->input('profile_thumb');
+                list($meta, $data) = explode(',', $request->input('profile_thumb'));
+                $data = base64_decode($data);
+                $path = 'profile_thumb/thumb_' . $user->id . '.png';
+                Storage::put('public/'.$path, $data, 'public');
+                $user->profile_thumb = $path;
+            }
+            
+        }
+
+        $user->save();
+
+        return redirect()->route('users.edit', $user);
     }
 
     /**
