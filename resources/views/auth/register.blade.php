@@ -38,7 +38,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="phone" >Phone Number</label>
-                                <input id="phone" type="text" class="form-control input-lg input-transparent {{ $errors->has('phone') ? ' parsley-error' : '' }}" name="phone" value="{{ old('phone') }}" minlength="4" placeholder="Phone Number" required>
+                                <input id="phone" type="text" class="form-control input-lg input-transparent {{ $errors->has('phone') ? ' parsley-error' : '' }}" name="phone" value="{{ old('phone') }}" minlength="4" placeholder="Phone Number" required autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <label for="password" >Password</label>
