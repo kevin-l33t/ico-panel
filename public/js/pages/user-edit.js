@@ -22,16 +22,29 @@ $(function () {
                 }
 
                 file = files[0];
-
-                if (/^image\/\w+$/.test(file.type)) {
-                    fileReader.readAsDataURL(file);
-                    fileReader.onload = function () {
-                        //$inputImage.val("");
-                        $image.cropper("reset", true).cropper("replace", this.result);
-                    };
-                } else {
-                    showMessage("Please choose an image file.");
+                
+                if (file.size > 8388608) {
+                    swal(
+                        'Error',
+                        'Max file size is 8M',
+                        'error'
+                    );
+                    return;
                 }
+
+                if (! /^image\/\w+$/.test(file.type)) {
+                    swal(
+                        'Error',
+                        'Please choose an image file.',
+                        'error'
+                    );
+                    return;
+                }
+                fileReader.readAsDataURL(file);
+                fileReader.onload = function () {
+                    //$inputImage.val("");
+                    $image.cropper("reset", true).cropper("replace", this.result);
+                };
             });
         } else {
             $inputImage.addClass("hide");
