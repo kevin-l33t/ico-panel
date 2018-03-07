@@ -77,9 +77,9 @@ class Token extends Model
         if ($response->getStatusCode() == 200) {
             $result = json_decode($response->getBody()->getContents());
             if ($result->success) {
-                $this->tokenSold = $result->token_sold;
+                $this->tokenSold = round($result->token_sold, 3);
                 $this->totalSupply = $result->total_supply;
-                $this->ethRaised = $result->eth_raised;
+                $this->ethRaised = round($result->eth_raised, 3);
                 $this->isInfoLoaded = true;
             }
         }
