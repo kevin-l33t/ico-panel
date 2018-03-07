@@ -1,7 +1,4 @@
-@extends('layouts.app')
-@section('styles')
-@endsection
-@section('content')
+@extends('layouts.app') @section('styles') @endsection @section('content')
 <h2 class="page-title">User Account
 </h2>
 <div class="row">
@@ -13,16 +10,14 @@
                 </h4>
             </header>
             <div class="body">
-                <form id="user-form" class="form-horizontal form-label-left" method="post" enctype="multipart/form-data" action="{{ $action }}" data-parsley-validate>
-                    @csrf
-                    @isset($method)
-                        {{ $method }}
-                    @endisset
-                    @isset($user->email)
+                <form id="user-form" class="form-horizontal form-label-left" method="post" enctype="multipart/form-data" action="{{ $action }}"
+                    data-parsley-validate>
+                    @csrf @isset($method) {{ $method }} @endisset @isset($user->email)
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="text-align-center">
-                                <img class="img-circle" src="{{ empty($user->profile_thumb) ? asset('img/default_avatar.png') : asset('storage/'.$user->profile_thumb) }}" alt="64x64" style="height: 112px;">
+                                <img class="img-circle" src="{{ empty($user->profile_thumb) ? asset('img/default_avatar.png') : asset('storage/'.$user->profile_thumb) }}"
+                                    alt="64x64" style="height: 112px;">
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -69,7 +64,8 @@
                                 <span class="required">*</span>
                             </label>
                             <div class="col-sm-4">
-                                <input type="password" id="password" name="password" value="{{ old('password', '') }}" required="required" class="form-control input-transparent" minlength="6">
+                                <input type="password" id="password" name="password" value="{{ old('password', '') }}" required="required" class="form-control input-transparent"
+                                    minlength="6">
                             </div>
                         </div>
                         <div class="form-group">
@@ -77,15 +73,16 @@
                                 <span class="required">*</span>
                             </label>
                             <div class="col-sm-4">
-                                <input type="password" id="password_confirmation" name="password_confirmation" required="required" data-parsley-equalto="#password" class="form-control input-transparent">
+                                <input type="password" id="password_confirmation" name="password_confirmation" required="required" data-parsley-equalto="#password"
+                                    class="form-control input-transparent">
                             </div>
                         </div>
-                        @endempty
-                        @isset($user->email)
+                        @endempty @isset($user->email)
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="password">Password</label>
                             <div class="col-sm-4">
-                                <input type="password" id="password" name="password" value="{{ old('password', '') }}" class="form-control input-transparent" minlength="6">
+                                <input type="password" id="password" name="password" value="{{ old('password', '') }}" class="form-control input-transparent"
+                                    minlength="6">
                             </div>
                         </div>
                         <div class="form-group">
@@ -101,44 +98,45 @@
                             <div class="col-sm-8">
                                 <div id="role" class="btn-group" data-toggle="buttons">
                                     @foreach ($roles as $role)
-                                    <label class="btn {{ $user->role_id == $role->id ? 'btn-primary active' :  'btn-default' }}" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                        <input type="radio" name="role" value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'checked' :  '' }} >{{ $role->name }}
+                                    <label class="btn {{ $user->role_id == $role->id ? 'btn-primary active' :  'btn-default' }}" data-toggle-class="btn-primary"
+                                        data-toggle-passive-class="btn-default">
+                                        <input type="radio" name="role" value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'checked' : '' }} >{{ $role->name }}
                                     </label>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend class="section">Profile Picture</legend>
                         <div class="form-group">
-                                <div class="col-md-6">
-                                    <label class="control-label">Profile Picture</label>
-                                    <div class="image-crop">
-                                        <img src="{{ empty($user->profile_picture) ? '' : asset('storage/'.$user->profile_picture) }}">
-                                    </div>
+                            <div class="col-md-6">
+                                <div class="image-crop">
+                                    <img src="{{ empty($user->profile_picture) ? '' : asset('storage/'.$user->profile_picture) }}">
                                 </div>
-                                <div class="col-md-6">
-                                    <h4>Preview image</h4>
-                                    <div class="img-preview profile-pic-preview"></div>
-                                    <h4>Usage</h4>
-                                    <p>
-                                        You can upload profile picture to crop container. It will saved as profile picture after save.
-                                    </p>
-                                    <div class="btn-group">
-                                        <label title="Upload image file" for="inputImage" class="btn btn-primary">
-                                            <input name="profile_picture" type="file" accept="image/*" id="inputImage" class="hide">
-                                            Upload photo
-                                        </label>
-                                        <input id="profile_thumb" name="profile_thumb" type="hidden">
-                                    </div>
-                                    <h4>Picture manipulation</h4>
-                                    <div class="btn-group">
-                                        <button class="btn btn-default" id="zoomIn" type="button">Zoom In</button>
-                                        <button class="btn btn-default" id="zoomOut" type="button">Zoom Out</button>
-                                        <button class="btn btn-default" id="rotateLeft" type="button">Rotate Left</button>
-                                        <button class="btn btn-default" id="rotateRight" type="button">Rotate Right</button>
-                                    </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h4>Preview image</h4>
+                                <div class="img-preview profile-pic-preview"></div>
+                                <h4>Usage</h4>
+                                <p>
+                                    You can upload profile picture to crop container. It will saved as profile picture after save. Max filesize is <strong>8M</strong>.
+                                </p>
+                                <div class="btn-group">
+                                    <label title="Upload image file" for="inputImage" class="btn btn-primary">
+                                        <input name="profile_picture" type="file" accept="image/*" id="inputImage" class="hide"> Upload photo
+                                    </label>
+                                    <input id="profile_thumb" name="profile_thumb" type="hidden">
                                 </div>
+                                <h4>Picture manipulation</h4>
+                                <div class="btn-group">
+                                    <button class="btn btn-default" id="zoomIn" type="button">Zoom In</button>
+                                    <button class="btn btn-default" id="zoomOut" type="button">Zoom Out</button>
+                                    <button class="btn btn-default" id="rotateLeft" type="button">Rotate Left</button>
+                                    <button class="btn btn-default" id="rotateRight" type="button">Rotate Right</button>
+                                </div>
+                            </div>
                         </div>
-    
                     </fieldset>
                     <div class="form-actions">
                         <div class="row">
@@ -153,8 +151,7 @@
         </section>
     </div>
 </div>
-@endsection
-@section('scripts')
+@endsection @section('scripts')
 <!-- Page Lib -->
 <script src="{{ asset('lib/parsleyjs/dist/parsley.min.js') }}"></script>
 <script src="{{ asset('lib/cropperjs/cropper.min.js') }}"></script>

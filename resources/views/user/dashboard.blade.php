@@ -36,24 +36,41 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
+                        <th class="width-50"></th>
                         <th>Artist / Coin</th>
                         <th>Stage</th>
                         <th>Price</th>
                         <th>Max Coins Available</th>
-                        <th>Closing Date</th>
+                        <th>Duration</th>
                         <th class="text-align-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                 @foreach($tokens as $item)
                     <tr>
+                        <td>
+                            <img class="img-rounded" src="{{ empty($item->user->profile_thumb) ? asset('img/default_avatar.png') : asset('storage/'.$item->user->profile_thumb) }}" alt="" height="50">
+                        </td>
                         <td>{{ $item->user->name }} / {{ $item->symbol }}</td>
                         <td>{{ count($item->stages) }}</td>
-                        <td>{{ $item->currentStage()->price / 100 }}</td>
+                        <td><i class="fa fa-usd"></i> {{ $item->currentStage()->price / 100 }}</td>
                         <td>{{ $item->currentStage()->supply }} <small>{{ $item->symbol }}</small></td>
-                        <td>{{ $item->currentStage()->end_at }}</td>
+                        <td>
+                            <p class="no-margin">
+                                <small>
+                                    <span class="fw-semi-bold">Start:</span>
+                                    <span class="text-muted">&nbsp; {{ substr($item->currentStage()->start_at, 0, 10) }}</span>
+                                </small>
+                            </p>
+                            <p>
+                                <small>
+                                    <span class="fw-semi-bold">End:</span>
+                                    <span class="text-muted">&nbsp; {{ substr($item->currentStage()->end_at, 0, 10) }}</span>
+                                </small>
+                            </p>
+                        </td>
                         <td class="text-align-center width-100">
-                            <a href="{{ route('users.buy', $item) }}" class="btn btn-info">&nbsp;Buy&nbsp;</a>
+                            <a href="{{ route('users.buy', $item) }}" class="btn btn-info {{ (date('Y-m-d H:i:s') >= $item->currentStage()->start_at && date('Y-m-d H:i:s') < $item->currentStage()->end_at  ) ? '' : 'disabled' }} ">&nbsp;Buy&nbsp;</a>
                         </td>
                     </tr>
                 @endforeach
