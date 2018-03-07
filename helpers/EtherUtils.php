@@ -46,22 +46,20 @@ function getEtherUSDPrice() {
     if (empty($etherPriceUsd)) {
         $client = new Client([
             // Base URI is used with relative requests
-            'base_uri' => env('ETHERSCAN_API_URL'),
+            'base_uri' => env('TOKEN_API_URL'),
             // You can set any number of default request options.
             'timeout'  => 10.0
         ]);
-        $response = $client->request('GET', 'api', [
+        $response = $client->request('GET', 'ico/ethusd', [
             'http_errors' => false,
-            'query' => [
-                'module' => 'stats',
-                'action' => 'ethprice',
-                'apikey' => env('ETHERSCAN_API_KEY')
+            'headers' => [
+                'Authorization' => 'API-KEY ' . env('TOKEN_API_KEY')
             ]
         ]);
         if ($response->getStatusCode() == 200) {
             $result = json_decode($response->getBody()->getContents());
-            if ($result->status == 1) {
-                $etherPriceUsd = $result->result->ethusd;
+            if ($result->success) {
+                $etherPriceUsd = $result->ethusd;
             }
         }
     }
