@@ -3,7 +3,7 @@
     <small>Artist Coin</small>
 </h2>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8 col-lg-6">
         <section class="widget">
             <header>
                 <h4>
@@ -42,7 +42,7 @@
                             <label for="middle-name" class="control-label col-sm-4">Amount to Buy</label>
                             <div class="col-sm-6">
                                 <div class="input-group">
-                                    <input id="amount" class="form-control input-transparent text-right" min="10" max="50000" value="10" type="number" required>
+                                    <input id="amount" name="token_amount" class="form-control input-transparent text-right" min="10" max="50000" value="10" type="number" required>
                                     <input type="hidden" name="eth_value" id="eth_value">
                                     <span class="input-group-addon">{{ $token->symbol }}</span>
                                 </div>
@@ -75,8 +75,12 @@
                     </fieldset>
                     <div class="form-actions">
                         <div class="row">
-                            <div class="col-sm-8 col-sm-offset-4">
-                                <button id="button_buy" type="button" class="btn btn-danger">Buy Now</button>
+                            <div class="col-sm-12 text-center">
+                                <button id="button_buy" type="button" class="btn btn-danger">ETH</button>
+                                &nbsp;
+                                <button id="button_buy_bank" type="button" class="btn btn-primary" data-action="{{ route('receipts.create') }}">Bank Transfer</button>
+                                &nbsp;
+                                <button id="button_buy_card" type="button" class="btn btn-info" disabled>Credit Card(comming soon)</button>
                                 &nbsp;
                                 <a href="{{ route('users.dashboard') }}" class="btn btn-default">Back</a>
                             </div>
@@ -86,7 +90,7 @@
             </div>
         </section>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-8 col-lg-6">
         <section class="widget">
             <header>
                 <h4>

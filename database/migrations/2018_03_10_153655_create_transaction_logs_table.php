@@ -21,8 +21,11 @@ class CreateTransactionLogsTable extends Migration
             $table->unsignedDecimal('eth_value', 12, 4)->nullable();
             $table->unsignedDecimal('token_value', 12, 4)->nullable();
             $table->integer('token_id')->unsigned()->nullable();
+            $table->integer('ref_id')->unsigned()->nullable();
+            $table->integer('transaction_type_id')->unsigned();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
+
             $table->foreign('token_id')->references('id')->on('tokens');
             $table->foreign('from')->references('address')->on('wallets');
         });

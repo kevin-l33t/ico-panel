@@ -1,8 +1,8 @@
-var slider;
+var slider, ethAmount, usdAmount;
 function updatePrice() {
     var ethBalance = Number($('#eth_balance').html().split(' ')[0]);
-    var ethAmount = $('#amount').val() * tokenEthPrice;
-    var usdAmount = $('#amount').val() * tokenUsdPrice;
+    ethAmount = $('#amount').val() * tokenEthPrice;
+    usdAmount = $('#amount').val() * tokenUsdPrice;
     $('#eth_amount').html(ethAmount.toFixed(5) + ' ETH');
     $('#usd_amount').html(usdAmount.toFixed(2) + ' USD');
     $('#eth_value').val(ethAmount);
@@ -85,6 +85,15 @@ $(function(){
                     buy();
                 }
             });
+        });
+
+        $('#button_buy_bank').click(function() {
+            $('<input />').attr('type', 'hidden')
+                .attr('name', 'usd_value')
+                .attr('value', usdAmount)
+                .appendTo('#form_buy');
+            $('#form_buy').attr('action', $(this).data('action'));
+            $('#form_buy').submit();
         });
 
         $('.widget').widgster();
