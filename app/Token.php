@@ -10,7 +10,7 @@ class Token extends Model
     protected $guarded = [];
 
     private $isInfoLoaded = false;
-    private $totalSupply, $ethRaised, $tokenSold;
+    private $totalSupply, $ethRaised, $tokenSold, $ethRaisedCurrentStage, $tokenSoldCurrentStage;
 
     public function user() {
         return $this->belongsTo('App\User');
@@ -47,6 +47,17 @@ class Token extends Model
     }
 
     /**
+     * Get Token Sold
+     *
+     * @return string
+     */
+    public function getTokenSoldCurrentStageAttribute()
+    {
+        $this->loadInfo();
+        return $this->tokenSoldCurrentStage;
+    }
+
+    /**
      * Get Ether Raised
      *
      * @return string
@@ -55,6 +66,17 @@ class Token extends Model
     {
         $this->loadInfo();
         return $this->ethRaised;
+    }
+
+    /**
+     * Get Ether Raised
+     *
+     * @return string
+     */
+    public function getEtherRaisedCurrentStageAttribute()
+    {
+        $this->loadInfo();
+        return $this->ethRaisedCurrentStage;
     }
 
     private function loadInfo() {
@@ -80,6 +102,8 @@ class Token extends Model
                 $this->tokenSold = round($result->token_sold, 3);
                 $this->totalSupply = $result->total_supply;
                 $this->ethRaised = round($result->eth_raised, 3);
+                $this->ethRaisedCurrentStage = round($result->eth_raised_current_stage, 3);
+                $this->tokenSoldCurrentStage = round($result->token_sold_current_stage, 3);
                 $this->isInfoLoaded = true;
             }
         }
