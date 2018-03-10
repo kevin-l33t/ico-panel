@@ -136,6 +136,7 @@
                             <th>Action</th>
                             <th>To</th>
                             <th>Value</th>
+                            <td>Date</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -144,7 +145,8 @@
                             <td>{{ $loop->index + 1}}</td>
                             <td>Purchase</td>
                             <td>{{ $item->token->name }} / {{ $item->token->symbol }}</td>
-                            <td>{{ round($item->eth_value, 2) }} ETH / {{ ethToUsd($item->eth_value) }} $</td>
+                            <td>{{ round($item->eth_value, 2) }} ETH / {{ $item->usd_value }} $</td>
+                            <td>{{ $item->created_at }}</td>
                         </tr>
                     @empty
                         <p>No transactions</p>
@@ -156,4 +158,10 @@
         </section>
     </div>
 </div>
+@endsection
+@section('scripts')
+<!-- Page Lib -->
+
+<!-- page specific scripts -->
+<script src="{{ asset('js/pages/user-dashboard.js') }}"></script>
 @endsection
