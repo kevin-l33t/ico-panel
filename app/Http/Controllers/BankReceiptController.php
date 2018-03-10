@@ -48,6 +48,7 @@ class BankReceiptController extends Controller
             'token' => 'required|exists:tokens,id',
             'token_amount' => 'required|numeric',
             'usd_value' => 'required|numeric',
+            'eth_value' => 'required|numeric',
             'order_id' => 'required|string',
             'bank_name' => 'required|string',
             'account_name' => 'required|string',
@@ -66,7 +67,8 @@ class BankReceiptController extends Controller
             'bank_name' => $request->input('bank_name'),
             'account_name' => $request->input('account_name'),
             'account_number' => $request->input('account_number'),
-            'usd_value' => $request->input('usd_value'),
+            'usd_value' => 100 * $request->input('usd_value'),
+            'eth_value' => $request->input('eth_value'),
             'token_value' => $request->input('token_amount'),
             'receipt' => $receipt
         ]);
@@ -87,7 +89,7 @@ class BankReceiptController extends Controller
      */
     public function index()
     {
-        $data['receipts'] = BankReceipt::orderBy('created_at')->get();
+        $data['receipts'] = BankReceipt::orderBy('status')->orderBy('created_at', 'desc')->get();
         return view('receipt.index', $data);
     }
 
@@ -117,9 +119,10 @@ class BankReceiptController extends Controller
             if ($result->success) {
                 $receipt->status = 1;
                 $receipt->transactionLogs()->create([
-                    'from' => $tokenRequestParams['artist_address'],
-                    'to' => $tokenRequestParams['beneficiary_address'],
+                    'from' => $tokenRequestParams['beneficiary_address'],
+                    'to' => '0x0',
                     'usd_value' => $receipt->usd_value,
+                    'eth_value' => $receipt->eth_value,
                     'token_value' => $receipt->token_value,
                     'token_id' => $receipt->token->id,
                     'tx_hash' => $result->tx_hash,

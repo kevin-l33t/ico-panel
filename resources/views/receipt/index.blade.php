@@ -54,7 +54,7 @@
                                 &nbsp; {{ $item->account_number }}
                             </small>
                         </td>
-                        <td><i class="fa fa-usd"></i> {{ $item->usd_value }}</td>
+                        <td><i class="fa fa-usd"></i> {{ $item->usd_value / 100 }}</td>
                         <td>
                             <small>
                                 <span class="fw-semi-bold">Name:</span>

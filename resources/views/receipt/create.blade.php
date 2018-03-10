@@ -46,10 +46,12 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input id="usd_value" name="usd_value" class="form-control input-transparent text-right" value="{{ $usd_value }}" readonly>
+                                    <input name="eth_value" value="{{ $eth_value }}" type="hidden">
                                     <span class="input-group-addon">
                                         <i class="fa fa-usd"></i>
                                     </span>
                                 </div>
+                                <p class="help-block text-right">Ethereum Value: {{ round($eth_value, 3) }} ETH</p>
                             </div>
                         </div>
                         <div class="form-group">
