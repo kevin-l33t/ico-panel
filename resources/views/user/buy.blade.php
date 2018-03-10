@@ -39,11 +39,12 @@
                         <legend class="section">Buy Tokens with ETH</legend>
                         <div class="form-group">
 
-                            <label for="middle-name" class="control-label col-sm-4">Amount to Buy</label>
+                            <label for="amount" class="control-label col-sm-4">Amount to Buy</label>
                             <div class="col-sm-6">
                                 <div class="input-group">
-                                    <input id="amount" name="token_amount" class="form-control input-transparent text-right" min="10" max="50000" value="10" type="number" required>
+                                    <input id="amount" name="token_value" class="form-control input-transparent text-right" min="10" max="50000" value="10" type="number" required>
                                     <input type="hidden" name="eth_value" id="eth_value">
+                                    <input type="hidden" name="usd_value" id="usd_value">
                                     <span class="input-group-addon">{{ $token->symbol }}</span>
                                 </div>
                                 <div class="slider-inverse mt-sm">
