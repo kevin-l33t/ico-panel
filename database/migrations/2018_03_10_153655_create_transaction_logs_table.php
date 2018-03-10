@@ -20,9 +20,10 @@ class CreateTransactionLogsTable extends Migration
             $table->char("tx_hash", 66);
             $table->unsignedDecimal('eth_value', 12, 4)->nullable();
             $table->unsignedDecimal('token_value', 12, 4)->nullable();
+            $table->unsignedInteger('usd_value')->nullable();
             $table->integer('token_id')->unsigned()->nullable();
             $table->integer('ref_id')->unsigned()->nullable();
-            $table->integer('transaction_type_id')->unsigned();
+            $table->integer('transaction_type_id')->unsigned()->default(0);
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
 

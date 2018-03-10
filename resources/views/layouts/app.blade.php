@@ -25,7 +25,7 @@
 </head>
 <body>
     <div class="logo">
-        <h4><a href="index.html">Hunter Corp Records <strong>ICO</strong></a></h4>
+        <h4><a href="index.html">HCR <strong>Artists</strong> ICO</a></h4>
     </div>
 
     <!-- Navigation -->

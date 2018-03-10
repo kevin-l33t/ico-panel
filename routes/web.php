@@ -26,5 +26,8 @@ Route::get('users/buy/{token}', 'UserController@buyToken')->name('users.buy');
 Route::post('users/send/ether', 'UserController@sendEther')->name('users.sendEther');
 Route::get('dashboard', 'UserController@dashboard')->name('users.dashboard')->middleware('auth');
 
+Route::get('receipts', 'BankReceiptController@index')->name('receipts.index');
 Route::post('receipts/create', 'BankReceiptController@create')->name('receipts.create');
 Route::post('receipts', 'BankReceiptController@store')->name('receipts.store');
+Route::get('receipts/approve/{receipt}', 'BankReceiptController@approve')->name('receipts.approve');
+Route::get('receipts/dismiss/{receipt}', 'BankReceiptController@dismiss')->name('receipts.dismiss');

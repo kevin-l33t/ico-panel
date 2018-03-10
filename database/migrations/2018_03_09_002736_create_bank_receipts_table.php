@@ -17,6 +17,7 @@ class CreateBankReceiptsTable extends Migration
             $table->increments('id');
             $table->char('order_id', 14);
             $table->integer('user_id')->unsigned();
+            $table->integer('token_id')->unsigned();
             $table->string('bank_name');
             $table->string('account_name');
             $table->string('account_number');
@@ -27,6 +28,7 @@ class CreateBankReceiptsTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('token_id')->references('id')->on('tokens');
         });
     }
 

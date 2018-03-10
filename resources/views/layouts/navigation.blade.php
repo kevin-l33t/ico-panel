@@ -12,6 +12,9 @@
                 <li class=""><a href="{{ route('tokens.create') }}">Issue New</a></li>
             </ul>
         </li>
+        <li>
+            <a href="{{ route('receipts.index') }}"><i class="fa fa-university"></i> <span class="name">Bank Receipts</span></a>
+        </li>
         <li class="panel">
             <a class="accordion-toggle collapsed" data-toggle="collapse"
                data-parent="#side-nav" href="#users-collapse"><i class="fa fa-users"></i> <span class="name">Users</span></a>
