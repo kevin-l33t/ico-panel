@@ -65,7 +65,7 @@
                     </form>
                 </div>
                 <footer>
-                    <div class="facebook-login">
+                    <div class="facebook-login hidden">
                         <a href="#"><span><i class="fa fa-facebook-square fa-lg"></i> LogIn with Facebook</span></a>
                     </div>
                 </footer>

@@ -24,14 +24,14 @@ class BankReceiptController extends Controller
     public function create(Request $request) {
         $this->validate($request, [
             'token' => 'required|exists:tokens,id',
-            'token_amount' => 'required|numeric',
+            'token_value' => 'required|numeric',
             'eth_value' => 'required|numeric',
             'usd_value' => 'required|numeric'
         ]);
         $data['token'] = Token::find($request->input('token'));
         $data['eth_value'] = $request->input('eth_value');
         $data['usd_value'] = $request->input('usd_value');
-        $data['token_amount'] = $request->input('token_amount');
+        $data['token_value'] = $request->input('token_value');
         $data['order_id'] = date('Ym') . substr(hexdec(uniqid()), 0, 8);
 
         return view('receipt.create', $data);
@@ -46,7 +46,7 @@ class BankReceiptController extends Controller
     public function store(Request $request) {
         $this->validate($request, [
             'token' => 'required|exists:tokens,id',
-            'token_amount' => 'required|numeric',
+            'token_value' => 'required|numeric',
             'usd_value' => 'required|numeric',
             'eth_value' => 'required|numeric',
             'order_id' => 'required|string',
@@ -69,7 +69,7 @@ class BankReceiptController extends Controller
             'account_number' => $request->input('account_number'),
             'usd_value' => 100 * $request->input('usd_value'),
             'eth_value' => $request->input('eth_value'),
-            'token_value' => $request->input('token_amount'),
+            'token_value' => $request->input('token_value'),
             'receipt' => $receipt
         ]);
         

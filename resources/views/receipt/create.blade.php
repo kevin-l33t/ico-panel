@@ -17,7 +17,7 @@
                     @csrf
                     <input name="order_id" type="hidden" value="{{ $order_id }}">
                     <input name="token" type="hidden" value="{{ $token->id }}">
-                    <input name="token_amount" type="hidden" value="{{ $token_amount }}">
+                    <input name="token_value" type="hidden" value="{{ $token_value }}">
                     <fieldset>
                         <legend class="section">From Account Info</legend>
                         @include('layouts.partials.formErrors')
@@ -130,7 +130,7 @@
                         <tr>
                             <td>1</td>
                             <td>{{ $token->name }}</td>
-                            <td>{{ $token_amount }} {{ $token->symbol }}</td>
+                            <td>{{ $token_value }} {{ $token->symbol }}</td>
                             <td class="hidden-xs">{{ $token->currentStage()->price }}</td>
                             <td>$ {{ $usd_value }}</td>
                         </tr>
