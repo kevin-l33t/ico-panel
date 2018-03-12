@@ -153,7 +153,7 @@
                     @forelse ($transactions as $item)
                         <tr>
                             <td>{{ $loop->index + 1}}</td>
-                            <td>Purchase</td>
+                            <td>{{ $item->type->name }}</td>
                             <td>{{ $item->token->name }} / {{ $item->token->symbol }}</td>
                             <td>{{ round($item->eth_value, 2) }} ETH / {{ $item->usd_value / 100 }} $</td>
                             <td>{{ $item->created_at }}</td>

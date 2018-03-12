@@ -93,6 +93,7 @@ class UserController extends Controller
                         'usd_value' => $request->input('usd_value'),
                         'token_value' => $request->input('token_value'),
                         'token_id' => $token->id,
+                        'transaction_type_id' => 1,
                         'tx_hash' => $result->tx_hash
                     ]);
 

@@ -73,9 +73,9 @@ class BankReceiptController extends Controller
             'receipt' => $receipt
         ]);
         
-        $data['heading'] = 'Thank you';
-        $data['message'] = 'Successfully submitted receipt. We will review soon and deliver coins';
-        $data['description'] = 'Please email me if you have any questions';
+        $data['heading'] = 'Thank You';
+        $data['message'] = 'Successfully submitted receipt. We will review soon and transfer coins';
+        $data['description'] = 'Please email me transfers@huntercorprecords.com if you have any inquires.';
         $data['link_label'] = 'Go to Dashboard';
         $data['link'] = route('users.dashboard');
 
