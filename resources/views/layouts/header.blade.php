@@ -9,7 +9,7 @@
                 </a>
                 <ul id="account-menu" class="dropdown-menu account" role="menu">
                     <li role="presentation" class="account-picture">
-                        <img src="{{ empty($user->profile_thumb) ? asset('img/default_avatar.png') : asset('storage/'.$user->profile_thumb) }}" class="img-circle" alt="">
+                        <img src="{{ empty(Auth::user()->profile_thumb) ? asset('img/default_avatar.png') : asset('storage/'.Auth::user()->profile_thumb) }}" class="img-circle" alt="">
                         {{ Auth::user()->name }}
                     </li>
                     <li role="presentation">

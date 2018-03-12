@@ -10,7 +10,6 @@
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.12.11/sweetalert2.min.css" />
     <link href="{{ asset('lib/cropperjs/cropper.min.css') }}" rel="stylesheet">
-    <link rel="shortcut icon" href="img/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -25,7 +24,7 @@
 </head>
 <body>
     <div class="logo">
-        <h4><a href="index.html">Hunter Corp Records <strong>ICO</strong></a></h4>
+        <h4><a href="index.html">HCR <strong>Artists</strong> ICO</a></h4>
     </div>
 
     <!-- Navigation -->

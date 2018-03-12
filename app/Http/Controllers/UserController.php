@@ -54,7 +54,9 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'token' => 'required|exists:tokens,id',
-            'eth_value' => 'required|numeric'
+            'eth_value' => 'required|numeric',
+            'usd_value' => 'required|numeric',
+            'token_value' => 'required|numeric'
         ]);
 
         $client = new Client([
@@ -88,7 +90,10 @@ class UserController extends Controller
                         'from' => $user->wallet[0]->address,
                         'to' => $token->crowdsale_address,
                         'eth_value' => $request->input('eth_value'),
+                        'usd_value' => $request->input('usd_value'),
+                        'token_value' => $request->input('token_value'),
                         'token_id' => $token->id,
+                        'transaction_type_id' => 1,
                         'tx_hash' => $result->tx_hash
                     ]);
 

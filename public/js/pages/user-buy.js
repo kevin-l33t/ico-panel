@@ -1,11 +1,12 @@
-var slider;
+var slider, ethAmount, usdAmount;
 function updatePrice() {
     var ethBalance = Number($('#eth_balance').html().split(' ')[0]);
-    var ethAmount = $('#amount').val() * tokenEthPrice;
-    var usdAmount = $('#amount').val() * tokenUsdPrice;
+    ethAmount = $('#amount').val() * tokenEthPrice;
+    usdAmount = $('#amount').val() * tokenUsdPrice;
     $('#eth_amount').html(ethAmount.toFixed(5) + ' ETH');
     $('#usd_amount').html(usdAmount.toFixed(2) + ' USD');
     $('#eth_value').val(ethAmount);
+    $('#usd_value').val(usdAmount);
 
     $('#button_buy').prop('disabled', ethBalance < ethAmount);
 }
@@ -39,7 +40,7 @@ function buy() {
                 type : 'success',
                 title : 'Good job!',
                 text : 'Token was issued. It will take some time to approve.',
-                footer : `check transaction on <a href="https://ropsten.etherscan.io/tx/${data.tx_hash}">Etherscan.io</a>`
+                footer : `check transaction on <a target="_blank" href="https://ropsten.etherscan.io/tx/${data.tx_hash}">Etherscan.io</a>`
             }).then(result => {
                 $('#wrapper_console').show(500);
                 $('#link_tx_hash').html(data.tx_hash.substring(1, 30) + "...");
@@ -85,6 +86,11 @@ $(function(){
                     buy();
                 }
             });
+        });
+
+        $('#button_buy_bank').click(function() {
+            $('#form_buy').attr('action', $(this).data('action'));
+            $('#form_buy').submit();
         });
 
         $('.widget').widgster();

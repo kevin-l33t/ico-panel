@@ -11,4 +11,8 @@ class TransactionLog extends Model
     public function token() {
         return $this->belongsTo('App\Token');
     }
+
+    public function type() {
+        return $this->belongsTo('App\TransactionType', 'transaction_type_id', 'id');
+    }
 }

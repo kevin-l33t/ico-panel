@@ -40,9 +40,9 @@
                         <th>Artist / Coin</th>
                         <th>Stage</th>
                         <th>Price</th>
-                        <th>Max Coins Available</th>
-                        <th>Duration</th>
-                        <th class="text-align-center">Action</th>
+                        <th class="width-200 text-center" >Progress</th>
+                        <th class="text-center">Duration</th>
+                        <th class="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -54,8 +54,18 @@
                         <td>{{ $item->user->name }} / {{ $item->symbol }}</td>
                         <td>{{ count($item->stages) }}</td>
                         <td><i class="fa fa-usd"></i> {{ $item->currentStage()->price / 100 }}</td>
-                        <td>{{ $item->currentStage()->supply }} <small>{{ $item->symbol }}</small></td>
-                        <td>
+                        <td class="text-center">
+                            <p class="no-margin">
+                                <small>
+                                    <span class="fw-semi-bold">{{ intval($item->token_sold_current_stage) }}</span>
+                                    <span class="text-muted">&nbsp;/&nbsp; {{ $item->currentStage()->supply }}</span>
+                                </small>
+                            </p>
+                            <div class="progress progress-sm mt-xs js-progress-animate">
+                                <div class="progress-bar progress-bar-success" data-width="{{ ceil($item->token_sold_current_stage * 100 / $item->currentStage()->supply) }} %" style="width: {{ ceil($item->token_sold_current_stage * 100 / $item->currentStage()->supply) }}%;"></div>
+                            </div>
+                        </td>
+                        <td class="text-center">
                             <p class="no-margin">
                                 <small>
                                     <span class="fw-semi-bold">Start:</span>
@@ -136,15 +146,17 @@
                             <th>Action</th>
                             <th>To</th>
                             <th>Value</th>
+                            <td>Date</th>
                         </tr>
                         </thead>
                         <tbody>
                     @forelse ($transactions as $item)
                         <tr>
                             <td>{{ $loop->index + 1}}</td>
-                            <td>Purchase</td>
+                            <td>{{ $item->type->name }}</td>
                             <td>{{ $item->token->name }} / {{ $item->token->symbol }}</td>
-                            <td>{{ round($item->eth_value, 2) }} ETH / {{ ethToUsd($item->eth_value) }} $</td>
+                            <td>{{ round($item->eth_value, 2) }} ETH / {{ $item->usd_value / 100 }} $</td>
+                            <td>{{ $item->created_at }}</td>
                         </tr>
                     @empty
                         <p>No transactions</p>
@@ -156,4 +168,10 @@
         </section>
     </div>
 </div>
+@endsection
+@section('scripts')
+<!-- Page Lib -->
+
+<!-- page specific scripts -->
+<script src="{{ asset('js/pages/user-dashboard.js') }}"></script>
 @endsection
