@@ -17,4 +17,4 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::get('/artist_ico', 'APIController@icoInfo');
+Route::get('/ico_info', 'APIController@icoInfo');

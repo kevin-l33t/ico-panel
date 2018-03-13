@@ -19,7 +19,9 @@ class APIController extends Controller
                 'symbol' => $item->symbol,
                 'supply' => $item->currentStage()->supply,
                 'tokens_sold' => $item->token_sold_current_stage,
-                'ether_raised' => $item->ether_raised_current_stage
+                'ether_raised' => $item->ether_raised_current_stage,
+                'start_at' => $item->currentStage()->start_at,
+                'end_at' => $item->currentStage()->end_at
             ];
         }
 
