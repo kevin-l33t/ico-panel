@@ -51,7 +51,7 @@ class ConfirmCreateTokenTx implements ShouldQueue
             'timeout'  => 10.0
         ]);
 
-        $try = 30;
+        $try = 50;
 
         while ($try > 0) {
             $response = $client->request('GET', 'ico/contract/'.$this->token->user->wallet[0]->address, [
