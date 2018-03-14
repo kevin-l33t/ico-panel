@@ -38,7 +38,7 @@
                     <tr>
                         <th class="width-50"></th>
                         <th>Artist / Coin</th>
-                        <th>Stage</th>
+                        <th class="text-center">Stage</th>
                         <th>Price</th>
                         <th class="width-200 text-center" >Progress</th>
                         <th class="text-center">Duration</th>
@@ -52,7 +52,7 @@
                             <img class="img-rounded" src="{{ empty($item->user->profile_thumb) ? asset('img/default_avatar.png') : asset('storage/'.$item->user->profile_thumb) }}" alt="" height="50">
                         </td>
                         <td>{{ $item->user->name }} / {{ $item->symbol }}</td>
-                        <td>{{ count($item->stages) }}</td>
+                        <td class="text-center">{{ count($item->stages) }}</td>
                         <td><i class="fa fa-usd"></i> {{ $item->currentStage()->price / 100 }}</td>
                         <td class="text-center">
                             <p class="no-margin">
@@ -146,7 +146,8 @@
                             <th>Action</th>
                             <th>To</th>
                             <th>Value</th>
-                            <td>Date</th>
+                            <th>Date</th>
+                            <th class="text-center">Status</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -157,6 +158,18 @@
                             <td>{{ $item->token->name }} / {{ $item->token->symbol }}</td>
                             <td>{{ round($item->eth_value, 2) }} ETH / {{ $item->usd_value / 100 }} $</td>
                             <td>{{ $item->created_at }}</td>
+                            <td class="text-center">
+                            @switch($item->status)
+                                @case(0)
+                                    <span class="badge bg-gray-lighter text-gray"><i class="glyphicon glyphicon-time"></i> Pending</span>
+                                    @break
+                                @case(1)
+                                    <span class="badge badge-success"><i class="fa fa-check"></i> Confirmed</span>
+                                    @break
+                                @default
+                                <span class="badge badge-success"><i class="fa fa-ban"></i> Failed</span>
+                            @endswitch
+                            </td>
                         </tr>
                     @empty
                         <p>No transactions</p>
