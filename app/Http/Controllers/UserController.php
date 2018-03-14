@@ -176,7 +176,7 @@ class UserController extends Controller
                 list($meta, $data) = explode(',', $request->input('profile_thumb'));
                 $data = base64_decode($data);
                 $path = 'profile_thumb/thumb_' . $user->id . '.png';
-                Storage::put('public/'.$path, $data, 'public');
+                Storage::put($path, $data, 'public');
                 $user->profile_thumb = $path;
             }
             
