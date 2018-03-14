@@ -150,7 +150,7 @@
                             <label class="control-label col-sm-4">Crwodsale Address</label>
                             <div class="col-sm-8">
                                 <p class="form-control-static">
-                                    <a target="_blank" href="https://ropsten.etherscan.io/address/{{ $token->crowdsale_address }}">{{ $token->crowdsale_address }}</a>
+                                    <a target="_blank" href="https://etherscan.io/address/{{ $token->crowdsale_address }}">{{ $token->crowdsale_address }}</a>
                                 </p>
                             </div>
                         </div>

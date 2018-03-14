@@ -38,7 +38,7 @@
                                 <small>
                                     <span class="badge bg-gray-lighter text-gray fw-semi-bold">Pending</span>
                                     <br>
-                                    <span class="text-muted"><a href="https://ropsten.etherscan.io/tx/{{ $token->tx_hash }}" target="_blank">Check on Etherscan.io</a></span>
+                                    <span class="text-muted"><a href="https://etherscan.io/tx/{{ $token->tx_hash }}" target="_blank">Check on Etherscan.io</a></span>
                                 </small>
                                 @else
                                 <p class="no-margin">
@@ -92,7 +92,7 @@
                     <div class="pull-right">
                         
                     </div>
-                    <p>You can check pending ICOs on <a href="https://ropsten.etherscan.io" target="_blank">Etherscan.io</a></p>
+                    <p>You can check pending ICOs on <a href="https://etherscan.io" target="_blank">Etherscan.io</a></p>
                 </div>
             </div>
         </section>

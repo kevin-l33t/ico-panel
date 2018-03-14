@@ -40,11 +40,11 @@ function buy() {
                 type : 'success',
                 title : 'Good job!',
                 text : 'Token was issued. It will take some time to approve.',
-                footer : `check transaction on <a target="_blank" href="https://ropsten.etherscan.io/tx/${data.tx_hash}">Etherscan.io</a>`
+                footer : `check transaction on <a target="_blank" href="https://etherscan.io/tx/${data.tx_hash}">Etherscan.io</a>`
             }).then(result => {
                 $('#wrapper_console').show(500);
                 $('#link_tx_hash').html(data.tx_hash.substring(1, 30) + "...");
-                $('#link_tx_hash').attr('href', `https://ropsten.etherscan.io/tx/${data.tx_hash}`);
+                $('#link_tx_hash').attr('href', `https://etherscan.io/tx/${data.tx_hash}`);
             });
         },
         error: function(data) {
