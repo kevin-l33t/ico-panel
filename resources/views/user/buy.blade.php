@@ -31,7 +31,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-4">{{ $token->name }} Balance</label>
                             <div class="col-sm-8">
-                                <p class="form-control-static">{{ $user->wallet[0]->getTokenBalance($token) }} {{ $token->symbol }}</p>
+                                <p class="form-control-static">{{ number_format($user->wallet[0]->getTokenBalance($token)) }} {{ $token->symbol }}</p>
                             </div>
                         </div>
                     </fieldset>
@@ -136,14 +136,14 @@
                             <label class="control-label col-sm-4">Total Supply</label>
                             <div class="col-sm-4">
                                 <p class="form-control-static">
-                                    <strong>{{ $token->total_supply }}</strong> {{ $token->symbol }}</p>
+                                    <strong>{{ number_format($token->total_supply) }}</strong> {{ $token->symbol }}</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Tokens Sold out</label>
                             <div class="col-sm-8">
                                 <p class="form-control-static">
-                                    <strong>{{ round($token->token_sold, 3) }}</strong> {{ $token->symbol }}</p>
+                                    <strong>{{ number_format($token->token_sold) }}</strong> {{ $token->symbol }}</p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -173,7 +173,7 @@
                             <label class="control-label col-sm-4">Issued Amount</label>
                             <div class="col-sm-4">
                                 <p class="form-control-static">
-                                    <strong>{{ $token->currentStage()->supply }}</strong> {{ $token->symbol }}
+                                    <strong>{{ number_format($token->currentStage()->supply) }}</strong> {{ $token->symbol }}
                                 </p>
                             </div>
                         </div>

@@ -45,7 +45,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-4">Total Supply</label>
                             <div class="col-sm-4">
-                                <p class="form-control-static"><strong>{{ $token->total_supply }}</strong> {{ $token->symbol }}</p>
+                                <p class="form-control-static"><strong>{{ number_format($token->total_supply) }}</strong> {{ $token->symbol }}</p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -66,13 +66,13 @@
                         <div class="form-group">
                             <label class="control-label col-sm-4">Tokens Sold out</label>
                             <div class="col-sm-4">
-                                <p class="form-control-static"><strong>{{ $token->token_sold }}</strong> {{ $token->symbol }}</p>
+                                <p class="form-control-static"><strong>{{ number_format($token->token_sold) }}</strong> {{ $token->symbol }}</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">ETH Raised</label>
                             <div class="col-sm-4">
-                                <p class="form-control-static"><strong>{{ $token->ether_raised }}</strong> ETH</p>
+                                <p class="form-control-static"><strong>{{ number_format($token->ether_raised, 3) }}</strong> ETH</p>
                             </div>
                         </div>
                     </fieldset>
@@ -94,7 +94,7 @@
                             <label class="control-label col-sm-4">Issued Amount</label>
                             <div class="col-sm-6">
                                 <p class="form-control-static">
-                                    <strong>{{ $token->currentStage()->supply }}</strong> {{ $token->symbol }}
+                                    <strong>{{ number_format($token->currentStage()->supply) }}</strong> {{ $token->symbol }}
                                 </p>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                             <label class="control-label col-sm-4">Token Sold</label>
                             <div class="col-sm-6">
                                 <p class="form-control-static">
-                                    <strong>{{ $token->token_sold_current_stage }}</strong> {{ $token->symbol }}
+                                    <strong>{{ number_format($token->token_sold_current_stage) }}</strong> {{ $token->symbol }}
                                 </p>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                             <label class="control-label col-sm-4">Ether Rised</label>
                             <div class="col-sm-6">
                                 <p class="form-control-static">
-                                    <strong>{{ $token->ether_raised_current_stage }}</strong> ETH
+                                    <strong>{{ number_format($token->ether_raised_current_stage, 3) }}</strong> ETH
                                 </p>
                             </div>
                         </div>
@@ -176,7 +176,7 @@
                             <label class="control-label col-sm-4">Issued Amount</label>
                             <div class="col-sm-4">
                                 <p class="form-control-static">
-                                    <strong>{{ $stage->supply }}</strong> {{ $token->symbol }}
+                                    <strong>{{ number_format($stage->supply) }}</strong> {{ $token->symbol }}
                                 </p>
                             </div>
                         </div>

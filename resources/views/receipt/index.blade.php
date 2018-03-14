@@ -54,7 +54,7 @@
                                 &nbsp; {{ $item->account_number }}
                             </small>
                         </td>
-                        <td><i class="fa fa-usd"></i> {{ $item->usd_value / 100 }}</td>
+                        <td><i class="fa fa-usd"></i> {{ number_format($item->usd_value / 100, 2) }}</td>
                         <td>
                             <small>
                                 <span class="fw-semi-bold">Name:</span>
@@ -68,7 +68,7 @@
                             <br>
                             <small>
                                 <span class="fw-semi-bold">Amount Purchased:</span>
-                                &nbsp; {{ round($item->token_value, 1) }}
+                                &nbsp; {{ number_format($item->token_value) }}
                             </small>
                         </td>
                         <td class="text-center">{{ $item->created_at }}</td>
@@ -77,7 +77,7 @@
                             @case(0)
                                 <a data-href="{{ route('receipts.approve', $item) }}" class="btn btn-info btn-sm btn-approve">
                                     Approve<i class="fa fa-check"></i>
-                                </a>
+                                </a>&nbsp;
                                 <a data-href="{{ route('receipts.dismiss', $item) }}" class="btn btn-danger btn-sm btn-dismiss">
                                     Dismiss<i class="fa fa-ban"></i>
                                 </a>
