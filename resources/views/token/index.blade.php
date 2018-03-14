@@ -40,6 +40,8 @@
                                     <br>
                                     <span class="text-muted"><a href="https://etherscan.io/tx/{{ $token->tx_hash }}" target="_blank">Check on Etherscan.io</a></span>
                                 </small>
+                                @elseif ($token->currentStage() == null)
+                                <p>No Sale Stages</p>
                                 @else
                                 <p class="no-margin">
                                     <small>
