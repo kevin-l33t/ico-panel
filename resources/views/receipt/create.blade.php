@@ -30,9 +30,9 @@
                         <tr>
                             <td>1</td>
                             <td>{{ $token->name }}</td>
-                            <td>{{ $token_value }} {{ $token->symbol }}</td>
+                            <td>{{ number_format($token_value) }} {{ $token->symbol }}</td>
                             <td class="hidden-xs">{{ $token->currentStage()->price }}</td>
-                            <td>$ {{ $usd_value }}</td>
+                            <td>$ {{ number_format($usd_value, 2) }}</td>
                         </tr>
                     </tbody>
                 </table>

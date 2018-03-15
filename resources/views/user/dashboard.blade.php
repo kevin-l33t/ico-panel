@@ -20,7 +20,7 @@
                 <h3>{{ $user->wallet[0]->address }}</h3>
             </div>
             <div class="description">
-                <strong>Wallet</strong> Address
+                <strong>{{ $user->name }}</strong> Wallet Address
             </div>
         </div>
     </div>
@@ -57,8 +57,8 @@
                         <td class="text-center">
                             <p class="no-margin">
                                 <small>
-                                    <span class="fw-semi-bold">{{ intval($item->token_sold_current_stage) }}</span>
-                                    <span class="text-muted">&nbsp;/&nbsp; {{ $item->currentStage()->supply }}</span>
+                                    <span class="fw-semi-bold">{{ number_format($item->token_sold_current_stage) }}</span>
+                                    <span class="text-muted">&nbsp;/&nbsp; {{ number_format($item->currentStage()->supply) }}</span>
                                 </small>
                             </p>
                             <div class="progress progress-sm mt-xs js-progress-animate">
@@ -103,7 +103,7 @@
             <div class="widget-body">
                 <h3>Your <span class="fw-semi-bold">Portfolio</span></h3>
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table">
                         <thead>
                         <tr>
                             <th>Artist</th>
@@ -112,15 +112,25 @@
                         </tr>
                         </thead>
                         <tbody>
-                    @foreach($tokens as $item)
+                    @foreach ($tokens as $item)
                         @if ($user->wallet[0]->getTokenBalance($item) > 0)
+                        @php
+                            $hasPortfolio_count = true;
+                        @endphp
                         <tr>
                             <td>{{ $item->user->name }}</td>
-                            <td>{{ $user->wallet[0]->getTokenBalance($item) }} {{ $item->symbol }}</td>
-                            <td>{{ round($user->wallet[0]->getTokenBalance($item) * $item->currentStage()->price / 100, 2) }} $</td>
+                            <td>{{ number_format($user->wallet[0]->getTokenBalance($item)) }} {{ $item->symbol }}</td>
+                            <td>{{ number_format($user->wallet[0]->getTokenBalance($item) * $item->currentStage()->price / 100) }} $</td>
                         </tr>
                         @endif
                     @endforeach
+                    @if (empty($hasPortfolio_count))
+                        <tr>
+                            <td colspan="3" class="text-center">
+                                No portfolios
+                            </td>
+                        </tr>
+                    @endif
                         </tbody>
                     </table>
                 </div>
@@ -139,7 +149,7 @@
             </header>
             <div class="widget-body">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table">
                         <thead>
                         <tr>
                             <th>#</th>
@@ -156,7 +166,7 @@
                             <td>{{ $loop->index + 1}}</td>
                             <td>{{ $item->type->name }}</td>
                             <td>{{ $item->token->name }} / {{ $item->token->symbol }}</td>
-                            <td>{{ round($item->eth_value, 2) }} ETH / {{ $item->usd_value / 100 }} $</td>
+                            <td>{{ round($item->eth_value, 2) }} ETH / {{ number_format($item->usd_value / 100) }} $</td>
                             <td>{{ $item->created_at }}</td>
                             <td class="text-center">
                             @switch($item->status)
@@ -172,7 +182,11 @@
                             </td>
                         </tr>
                     @empty
-                        <p>No transactions</p>
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                No transactions
+                            </td>
+                        </tr>
                     @endforelse
                         </tbody>
                     </table>

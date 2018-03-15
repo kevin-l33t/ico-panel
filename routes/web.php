@@ -12,7 +12,6 @@
 */
 
 Route::get('/', function () {
-    // return view('dashboard.index');
     return redirect()->route('users.dashboard');
 })->middleware('auth');
 

@@ -45,8 +45,8 @@
                                 @else
                                 <p class="no-margin">
                                     <small>
-                                        <span class="fw-semi-bold">{{ intval($token->token_sold_current_stage) }}</span>
-                                        <span class="text-muted">&nbsp;/&nbsp; {{ $token->currentStage()->supply }}</span>
+                                        <span class="fw-semi-bold">{{ number_format($token->token_sold_current_stage) }}</span>
+                                        <span class="text-muted">&nbsp;/&nbsp; {{ number_format($token->currentStage()->supply) }}</span>
                                     </small>
                                 </p>
                                 <div class="progress progress-sm mt-xs js-progress-animate">
