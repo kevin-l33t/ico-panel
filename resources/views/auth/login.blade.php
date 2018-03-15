@@ -1,5 +1,3 @@
-<!-- light-blue - v4.0.0 - 2017-12-04 -->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +13,7 @@
         <div class="single-widget-container">
             <section class="widget login-widget">
                 <header class="text-align-center">
+                <img src="{{ asset('img/logo.png') }}" alt="Hunter Records Corp">
                     <h4>Login to your account</h4>
                 </header>
                 <div class="body">
