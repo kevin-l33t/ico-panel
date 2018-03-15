@@ -33,12 +33,12 @@
                                 <input id="name" type="text" class="form-control input-lg input-transparent {{ $errors->has('name') ? ' parsley-error' : '' }}" name="name" value="{{ old('name') }}" minlength="4" placeholder="Your Name" required autofocus>
                             </div>
                             <div class="form-group">
-                                <label for="email" >Email</label>
-                                <input id="email" type="email" class="form-control input-lg input-transparent {{ $errors->has('email') ? ' parsley-error' : '' }}" name="email" value="{{ old('email') }}" placeholder="Your Email" required autofocus>
-                            </div>
-                            <div class="form-group">
                                 <label for="phone" >Phone Number</label>
                                 <input id="phone" type="text" class="form-control input-lg input-transparent {{ $errors->has('phone') ? ' parsley-error' : '' }}" name="phone" value="{{ old('phone') }}" minlength="4" placeholder="Phone Number" required autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="email" >Email</label>
+                                <input id="email" type="email" class="form-control input-lg input-transparent {{ $errors->has('email') ? ' parsley-error' : '' }}" name="email" value="{{ old('email') }}" placeholder="Your Email" required autofocus>
                             </div>
                             <div class="form-group">
                                 <label for="password" >Password</label>
