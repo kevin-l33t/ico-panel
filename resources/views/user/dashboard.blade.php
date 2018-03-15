@@ -103,7 +103,7 @@
             <div class="widget-body">
                 <h3>Your <span class="fw-semi-bold">Portfolio</span></h3>
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table">
                         <thead>
                         <tr>
                             <th>Artist</th>
@@ -112,8 +112,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                    @foreach($tokens as $item)
+                    @foreach ($tokens as $item)
                         @if ($user->wallet[0]->getTokenBalance($item) > 0)
+                        @php
+                            $hasPortfolio_count = true;
+                        @endphp
                         <tr>
                             <td>{{ $item->user->name }}</td>
                             <td>{{ number_format($user->wallet[0]->getTokenBalance($item)) }} {{ $item->symbol }}</td>
@@ -121,6 +124,13 @@
                         </tr>
                         @endif
                     @endforeach
+                    @if (empty($hasPortfolio_count))
+                        <tr>
+                            <td colspan="3" class="text-center">
+                                No portfolios
+                            </td>
+                        </tr>
+                    @endif
                         </tbody>
                     </table>
                 </div>
@@ -139,7 +149,7 @@
             </header>
             <div class="widget-body">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table">
                         <thead>
                         <tr>
                             <th>#</th>
@@ -172,7 +182,11 @@
                             </td>
                         </tr>
                     @empty
-                        <p>No transactions</p>
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                No transactions
+                            </td>
+                        </tr>
                     @endforelse
                         </tbody>
                     </table>
