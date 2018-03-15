@@ -76,21 +76,5 @@
 <!-- page specific scripts -->
     <!-- page specific libs -->
     <script src="lib/parsleyjs/dist/parsley.min.js"></script>
-    <script src="lib/messenger/build/js/messenger.js"></script>
-    <script src="lib/messenger/build/js/messenger-theme-flat.js"></script>
-
-@if ($errors->any())
-
-<script type="text/javascript">
-    @foreach ($errors->all() as $error)
-        Messenger().post({
-            message : '{{ $error }}',
-            type : 'info'
-        });
-    @endforeach
-</script>
-
-@endif
-
 </body>
 </html>
