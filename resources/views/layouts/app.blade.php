@@ -24,7 +24,7 @@
 </head>
 <body>
     <div class="logo">
-        <h4><a href="index.html">HCR <strong>Artists</strong> ICO</a></h4>
+        <img src="{{ asset('img/logo.png') }}" alt="Hunter Records Corp" class="width-200">
     </div>
 
     <!-- Navigation -->

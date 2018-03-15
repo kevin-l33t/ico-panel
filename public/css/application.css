@@ -22277,7 +22277,7 @@ a.text-gray-lighter:focus {
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   position: absolute;
-  left: 65px;
+  left: 20px;
   top: 17px;
   z-index: 1;
 }
