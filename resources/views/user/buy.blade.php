@@ -147,7 +147,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Crwodsale Address</label>
+                            <label class="control-label col-sm-4">Crowdsale Address</label>
                             <div class="col-sm-8">
                                 <p class="form-control-static">
                                     <a target="_blank" href="https://etherscan.io/address/{{ $token->crowdsale_address }}">{{ $token->crowdsale_address }}</a>
