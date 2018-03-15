@@ -1,14 +1,16 @@
-var slider, ethAmount, usdAmount;
+var slider, ethAmount, ethAmountWithFee, usdAmount;
+const MIN_REQUIRED_ETH = 0.0005;
 function updatePrice() {
     var ethBalance = Number($('#eth_balance').html().split(' ')[0]);
     ethAmount = $('#amount').val() * tokenEthPrice;
-    usdAmount = $('#amount').val() * tokenUsdPrice;
-    $('#eth_amount').html(ethAmount.toFixed(5) + ' ETH');
+    ethAmountWithFee = $('#amount').val() * tokenUsdPrice + MIN_REQUIRED_ETH * ethusd;
+    usdAmount = Math.ceil(ethAmountWithFee * tokenUsdPrice * 100) / 100;
+    $('#eth_amount').html(`${ethAmount.toFixed(5)} + ${MIN_REQUIRED_ETH} (Fee) = ${ethAmountWithFee.toFixed(5)} ETH`);
     $('#usd_amount').html(usdAmount.toFixed(2) + ' USD');
     $('#eth_value').val(ethAmount);
     $('#usd_value').val(usdAmount);
 
-    $('#button_buy').prop('disabled', ethBalance < ethAmount);
+    $('#button_buy').prop('disabled', ethBalance < ethAmount + MIN_REQUIRED_ETH);
 }
 
 function buy() {

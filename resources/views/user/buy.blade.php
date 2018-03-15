@@ -57,7 +57,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Ethereum</label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-8">
                                 <p id="eth_amount" class="form-control-static"></p>
                             </div>
                         </div>

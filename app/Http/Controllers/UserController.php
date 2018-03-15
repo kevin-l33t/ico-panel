@@ -103,7 +103,7 @@ class UserController extends Controller
                     ]);
                 }
             }
-        } catch(GuzzleHttp\Exception\ClientException $ex) {
+        } catch(\GuzzleHttp\Exception\ClientException $ex) {
             $message = "Transaction failed, insufficient funds for gas * price + value";
             if ($ex->hasResponse()) {
                 $response = json_decode($ex->getResponse()->getBody()->getContents());
@@ -113,7 +113,7 @@ class UserController extends Controller
                 'success' => false,
                 'message' => $message
             ], 400);
-        } catch(GuzzleHttp\Exception\ConnectException $ex) {
+        } catch(\GuzzleHttp\Exception\ConnectException $ex) {
             return response()->json([
                 'success' => false,
                 'message' => 'Cannot connect to Ethereum Node'
