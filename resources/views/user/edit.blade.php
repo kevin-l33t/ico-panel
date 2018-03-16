@@ -92,7 +92,7 @@
                             </div>
                         </div>
                         @endisset
-
+                        @if (Auth::user()->role->name == 'Administrator')
                         <div class="form-group">
                             <label class="control-label col-sm-4">Role</label>
                             <div class="col-sm-8">
@@ -106,6 +106,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </fieldset>
                     <fieldset>
                         <legend class="section">Profile Picture</legend>
@@ -138,13 +139,9 @@
                             </div>
                         </div>
                     </fieldset>
-                    <div class="form-actions">
-                        <div class="row">
-                            <div class="col-sm-8 col-sm-offset-4">
-                                <button type="submit" class="btn btn-primary">Save</button>
-                                <a href="javascript:history.back()" class="btn btn-default">Cancel</a>
-                            </div>
-                        </div>
+                    <div class="form-actions text-center">
+                        <button type="submit" class="btn btn-primary">Save</button>&nbsp;&nbsp;
+                        <a href="javascript:history.back()" class="btn btn-default">Cancel</a>
                     </div>
                 </form>
             </div>

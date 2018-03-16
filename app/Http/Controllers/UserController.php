@@ -16,6 +16,7 @@ class UserController extends Controller
 {
     public function __construct() {
         $this->middleware('auth');
+        $this->middleware('admin')->only(['create', 'store', 'destroy']);
     }
 
     /**
@@ -153,11 +154,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $this->middleware('admin');
         $this->validate($request, [
             'name' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
             'phone' => 'required|string|min:6',
             'password' => 'required|string|min:6|confirmed',
+            'role' => 'required|integer|exists:user_roles,id'
         ]);
 
         $user = User::create([
@@ -254,7 +257,9 @@ class UserController extends Controller
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->role_id = $request->input('role');
+        if ($request->has('role') && Auth::user()->role->name == 'Administrator') {
+            $user->role_id = $request->input('role');
+        }
         $user->phone = $request->input('phone');
         if ($request->has('password') && !empty($request->input('password'))) {
             $user->password = bcrypt($request->input('password'));
