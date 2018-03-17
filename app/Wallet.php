@@ -16,6 +16,10 @@ class Wallet extends Model
         return $this->hasMany('App\TransactionLog', 'from', 'address');
     }
 
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
+
      /**
      * Get Ether balance of the wallet
      *

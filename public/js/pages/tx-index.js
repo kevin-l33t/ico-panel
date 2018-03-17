@@ -158,48 +158,6 @@ $(function () {
                 window.location = $(this).data('href');
             }
         });
-
-        $('.btn-delete').click(function (e) {
-            e.stopPropagation();
-            var _this = this;
-            swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover this information",
-                type: "question",
-                showCancelButton: true,
-                confirmButtonText: "Yes, delete it!",
-                cancelButtonText: "No, cancel please!"
-            }).then(result => {
-                if (result.value) {
-                    $.post(
-                        $(_this).data('href'), {
-                            _method: "DELETE"
-                        },
-                        function (response) {
-                            if (response.success) {
-                                swal({
-                                    title: "Deleted",
-                                    text: "Record has been deleted.",
-                                    type: "success",
-                                    timer: 800
-                                });
-                                $(_this).closest('tr').remove();
-                            }
-                        },
-                        'json'
-                    ).fail(function () {
-                        swal("Failed", "This user has transactions, Cannot be deleted!", "error");
-                    });
-                } else {
-                    swal({
-                        title: "Cancelled",
-                        text: "Your information is safe.",
-                        type: "info",
-                        timer: 800
-                    });
-                }
-            });
-        });
     }
 
     pageLoad();
