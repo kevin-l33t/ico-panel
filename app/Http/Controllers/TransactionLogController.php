@@ -20,18 +20,19 @@ class TransactionLogController extends Controller
      */
     public function index()
     {
-        $data['logs'] = TransactionLog::orderBy('created_at')->get();
+        $data['logs'] = TransactionLog::orderBy('created_at', 'desc')->get();
         return view('tx_log.index', $data);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  TransactionLog  $log
      * @return \Illuminate\Http\Response
      */
     public function show(TransactionLog $log)
     {
-        
+        $data['log'] = $log;
+        return view('tx_log.show', $data);
     }
 }

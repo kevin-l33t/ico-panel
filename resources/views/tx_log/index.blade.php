@@ -28,7 +28,7 @@
                         <td class="text-center hidden-xs">{{ $item->type->name }}</td>
                         <td class="text-center hidden-xs">{{ $item->token->name }}</td>
                         <td class="text-center">{{ number_format($item->token_value) }} {{ $item->token->symbol }}</td>
-                        <td class="text-center hidden-xs">{{ number_format($item->eth_value, 3) }} ETH / {{ number_format($item->usd_value) }} $</td>
+                        <td class="text-center hidden-xs">{{ number_format($item->eth_value, 3) }} ETH / {{ number_format($item->usd_value / 100) }} $</td>
                         <td class="text-center text-muted hidden-xs">{{ $item->created_at }}</td>
                         <td>
                             @switch($item->status)
