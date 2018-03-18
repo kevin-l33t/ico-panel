@@ -47,7 +47,7 @@
                                     <input type="hidden" name="usd_value" id="usd_value">
                                     <span class="input-group-addon">{{ $token->symbol }}</span>
                                 </div>
-                                <div class="slider-inverse mt-sm">
+                                <div class="slider-inverse mt-sm ml-md">
                                     <input class="js-slider" id="slider-ex5" data-slider-id='ex5Slider' type="text" data-slider-min="10" data-slider-max="1000"
                                         data-slider-step="10" data-slider-value="10" />
                                 </div>
@@ -74,6 +74,21 @@
                             </div>
                         </div>
                     </fieldset>
+                    <fieldset>
+                        <legend class="section">Transfer Fees</legend>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">ETH Transfer Fees</label>
+                            <div class="col-sm-4">
+                                <p class="form-control-static">0.0005 ETH</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Bank Transfer Fees</label>
+                            <div class="col-sm-4">
+                                <p class="form-control-static">5.5 %</p>
+                            </div>
+                        </div>
+                    </fieldset>
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-sm-12 text-center">
@@ -81,7 +96,7 @@
                                 &nbsp;
                                 <button id="button_buy_bank" type="button" class="btn btn-primary" data-action="{{ route('receipts.create') }}">Bank Transfer</button>
                                 &nbsp;
-                                <button id="button_buy_card" type="button" class="btn btn-info" disabled>Credit Card(comming soon)</button>
+                                <button id="button_buy_card" type="button" class="btn btn-info hidden-xs" disabled>Credit Card(comming soon)</button>
                                 &nbsp;
                                 <a href="{{ route('users.dashboard') }}" class="btn btn-default">Back</a>
                             </div>
