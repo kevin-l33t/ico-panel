@@ -28,7 +28,7 @@ class UserController extends Controller
     {
         $data['user'] = Auth::user();
         $data['tokens'] = Token::has('stages')->get();
-        $data['transactions'] = Auth::user()->wallet[0]->transactions;
+        $data['transactions'] = Auth::user()->wallet[0]->transactions()->orderBy('created_at', 'desc')->get();
         return view('user.dashboard', $data);
     }
 

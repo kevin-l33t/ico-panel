@@ -149,11 +149,11 @@
             </header>
             <div class="widget-body">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Action</th>
+                            <th>Paid By</th>
                             <th>To</th>
                             <th>Value</th>
                             <th>Date</th>
@@ -162,7 +162,7 @@
                         </thead>
                         <tbody>
                     @forelse ($transactions as $item)
-                        <tr>
+                        <tr class="clickable-row" data-href="{{ route('tx.show', $item) }}">
                             <td>{{ $loop->index + 1}}</td>
                             <td>{{ $item->type->name }}</td>
                             <td>{{ $item->token->name }} / {{ $item->token->symbol }}</td>

@@ -76,7 +76,7 @@
                         </div>
                     </fieldset>
                     <div class="form-actions text-center">
-                        <a href="{{ route('tx.index') }}" class="btn btn-primary">Back</a>
+                        <a href="javascript:history.back()" class="btn btn-default">Back</a>
                     </div>
                 </form>
             </div>
