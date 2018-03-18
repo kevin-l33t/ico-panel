@@ -30,3 +30,6 @@ Route::post('receipts/create', 'BankReceiptController@create')->name('receipts.c
 Route::post('receipts', 'BankReceiptController@store')->name('receipts.store');
 Route::get('receipts/approve/{receipt}', 'BankReceiptController@approve')->name('receipts.approve')->middleware('admin');
 Route::get('receipts/dismiss/{receipt}', 'BankReceiptController@dismiss')->name('receipts.dismiss')->middleware('admin');
+
+Route::get('tx', 'TransactionLogController@index')->name('tx.index');
+Route::get('tx/{log}', 'TransactionLogController@show')->name('tx.show');

@@ -48,7 +48,9 @@ class TxReceipt extends Command
 
         $this->info("Transaction Receipt Worker is started. Monitoring unconfirmed transactions");
         while(true) {
-            $logs = TransactionLog::where('status', 0)->get();
+            $logs = TransactionLog::where('status', 0)
+                                    ->whereNotNull('tx_hash')
+                                    ->get();
             try {
                 foreach($logs as $item) {
                     // create new wallet for the user.

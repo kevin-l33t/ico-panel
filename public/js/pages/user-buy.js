@@ -4,7 +4,7 @@ function updatePrice() {
     var ethBalance = Number($('#eth_balance').html().split(' ')[0]);
     ethAmount = $('#amount').val() * tokenEthPrice;
     ethAmountWithFee = ethAmount + MIN_REQUIRED_ETH;
-    usdAmount = ethAmountWithFee * ethusd;
+    usdAmount = $('#amount').val() * tokenUsdPrice;
     $('#eth_amount').html(`${ethAmount.toFixed(5)} + ${MIN_REQUIRED_ETH} (Fee) = ${ethAmountWithFee.toFixed(5)} ETH`);
     $('#usd_amount').html(usdAmount.toFixed(2) + ' USD');
     $('#eth_value').val(ethAmount);

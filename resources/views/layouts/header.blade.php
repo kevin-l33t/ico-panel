@@ -40,7 +40,7 @@
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
         </form>
-        <div class="notifications pull-right">
+        <div class="notifications pull-right hidden-xs">
             <div class="alert pull-right">
                 <a href="#" class="close ml-xs" data-dismiss="alert">×</a>
                 <i class="fa fa-info-circle mr-xs"></i> Logged in as <a id="notification-link" href="{{ route('users.edit', Auth::user()) }}">{{ Auth::user()->name }}</a>

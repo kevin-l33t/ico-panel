@@ -13,6 +13,9 @@
             </ul>
         </li>
         <li>
+            <a href="{{ route('tx.index') }}"><i class="fa fa-exchange"></i> <span class="name">Transactions</span></a>
+        </li>
+        <li>
             <a href="{{ route('receipts.index') }}"><i class="fa fa-university"></i> <span class="name">Bank Receipts</span></a>
         </li>
         <li class="panel">

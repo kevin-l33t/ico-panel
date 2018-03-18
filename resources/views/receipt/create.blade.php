@@ -21,7 +21,7 @@
                         <tr>
                             <th>#</th>
                             <th>Coin</th>
-                            <th>Quantity</th>
+                            <th class="hidden-xs">Quantity</th>
                             <th class="hidden-xs">Price per Coin</th>
                             <th>Total (USD)</th>
                         </tr>
@@ -30,12 +30,30 @@
                         <tr>
                             <td>1</td>
                             <td>{{ $token->name }}</td>
-                            <td>{{ number_format($token_value) }} {{ $token->symbol }}</td>
+                            <td class="hidden-xs">{{ number_format($token_value) }} {{ $token->symbol }}</td>
                             <td class="hidden-xs">{{ $token->currentStage()->price }}</td>
                             <td>$ {{ number_format($usd_value, 2) }}</td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="row">
+                    <div class="col-sm-5">
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="row text-align-right">
+                            <div class="col-xs-6">
+                                <p>Subtotal</p>
+                                <p>Transfer Fee(5.5%)</p>
+                                <p class="no-margin"><strong>Total</strong></p>
+                            </div>
+                            <div class="col-xs-4">
+                                <p>$ {{ number_format($usd_value, 2) }}</p>
+                                <p>$ {{ number_format($usd_value * 0.055, 2) }}</p>
+                                <p class="no-margin"><strong>$ {{ number_format($usd_value * 1.055, 2) }}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <hr>
                 <legend>Step 1. <small>Go to your personal online or physical bank and transfer the amount list above in USD to the Hunter Corp rcords Bank Account</small></legend>
                 <section class="invoice-info well">
@@ -103,7 +121,7 @@
                             <label class="control-label col-sm-4" for="usd_value">Transfer Amount</label>
                             <div class="col-sm-6">
                                 <div class="input-group">
-                                    <input id="usd_value" name="usd_value" class="form-control input-transparent text-right" value="{{ $usd_value }}" readonly>
+                                    <input id="usd_value" name="usd_value" class="form-control input-transparent text-right" value="{{ $usd_value * 1.055 }}" readonly>
                                     <input name="eth_value" value="{{ $eth_value }}" type="hidden">
                                     <span class="input-group-addon">
                                         <i class="fa fa-usd"></i>
@@ -122,13 +140,9 @@
                             </div>
                         </div>
                     </fieldset>
-                    <div class="form-actions">
-                        <div class="row">
-                            <div class="col-sm-8 col-sm-offset-4">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="javascript:history.back()" class="btn btn-default">Cancel</a>
-                            </div>
-                        </div>
+                    <div class="form-actions text-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a href="{{ route('users.buy', $token) }}" class="btn btn-default">Cancel</a>
                     </div>
                 </form>
                 <hr>
