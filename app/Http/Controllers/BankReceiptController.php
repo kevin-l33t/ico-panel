@@ -60,7 +60,7 @@ class BankReceiptController extends Controller
             $receipt = $request->file('receipt')->store('receipt', 'public');
         }
 
-        BankReceipt::create([
+        $receipt = BankReceipt::create([
             'user_id' => Auth::user()->id,
             'token_id' => $request->input('token'),
             'order_id' => $request->input('order_id'),
@@ -71,6 +71,16 @@ class BankReceiptController extends Controller
             'eth_value' => $request->input('eth_value'),
             'token_value' => $request->input('token_value'),
             'receipt' => $receipt
+        ]);
+
+        $receipt->transactionLogs()->create([
+            'from' => Auth::user()->wallet[0]->address,
+            'to' => '0x0',
+            'usd_value' => $receipt->usd_value,
+            'eth_value' => $receipt->eth_value,
+            'token_value' => $receipt->token_value,
+            'token_id' => $receipt->token->id,
+            'transaction_type_id' => 2
         ]);
         
         $data['heading'] = 'Thank You';
@@ -118,16 +128,9 @@ class BankReceiptController extends Controller
             $result = json_decode($response->getBody()->getContents());
             if ($result->success) {
                 $receipt->status = 1;
-                $receipt->transactionLogs()->create([
-                    'from' => $tokenRequestParams['beneficiary_address'],
-                    'to' => '0x0',
-                    'usd_value' => $receipt->usd_value,
-                    'eth_value' => $receipt->eth_value,
-                    'token_value' => $receipt->token_value,
-                    'token_id' => $receipt->token->id,
-                    'tx_hash' => $result->tx_hash,
-                    'transaction_type_id' => 2
-                ]);
+                $txLog = $receipt->transactionLogs[0];
+                $txLog->tx_hash = $result->tx_hash;
+                $txLog->save();
                 $receipt->save();
                 return response()->json([
                     'success' => true
