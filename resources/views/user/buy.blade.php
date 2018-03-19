@@ -42,14 +42,14 @@
                             <label for="amount" class="control-label col-sm-4">Amount to Buy</label>
                             <div class="col-sm-6">
                                 <div class="input-group">
-                                    <input id="amount" name="token_value" class="form-control input-transparent text-right" min="10" max="50000" value="10" type="number" required>
+                                    <input id="amount" name="token_value" class="form-control input-transparent text-right" min="{{ round(1000 / $token->currentStage()->price) }}" max="{{ round(1000000 / $token->currentStage()->price) }}" value="{{ round(1000 / $token->currentStage()->price) }}" type="number" required>
                                     <input type="hidden" name="eth_value" id="eth_value">
                                     <input type="hidden" name="usd_value" id="usd_value">
                                     <span class="input-group-addon">{{ $token->symbol }}</span>
                                 </div>
                                 <div class="slider-inverse mt-sm ml-md">
-                                    <input class="js-slider" id="slider-ex5" data-slider-id='ex5Slider' type="text" data-slider-min="10" data-slider-max="1000"
-                                        data-slider-step="10" data-slider-value="10" />
+                                    <input class="js-slider" id="slider-ex5" data-slider-id='ex5Slider' type="text" data-slider-min="{{ round(1000 / $token->currentStage()->price) }}" data-slider-max="{{ round(1000000 / $token->currentStage()->price) }}"
+                                        data-slider-step="10" data-slider-value="{{ round(1000 / $token->currentStage()->price) }}" />
                                 </div>
                             </div>
 
