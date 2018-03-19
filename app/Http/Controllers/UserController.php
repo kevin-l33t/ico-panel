@@ -237,6 +237,7 @@ class UserController extends Controller
         $data['method'] = method_field('PUT');
         $data['user'] = $user;
         $data['roles'] = UserRole::all();
+        $data['transactions'] = $user->wallet[0]->transactions()->orderBy('created_at', 'desc')->get();
         return view('user.edit', $data);
     }
 

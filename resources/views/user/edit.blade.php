@@ -2,7 +2,7 @@
 <h2 class="page-title">User Account
 </h2>
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-lg-6">
         <section class="widget">
             <header>
                 <h4>
@@ -38,7 +38,7 @@
                             <label class="control-label col-sm-4" for="name">Name
                                 <span class="required">*</span>
                             </label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" minlength="4" required="required" class="form-control input-transparent">
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                             <label class="control-label col-sm-4" for="email">Email
                                 <span class="required">*</span>
                             </label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required="required" class="form-control input-transparent">
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                             <label class="control-label col-sm-4" for="phone">Phone Number
                                 <span class="required">*</span>
                             </label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <input type="text" id="phone" name="phone" value="{{ old('phone', $user->phone) }}" required="required" class="form-control input-transparent">
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                             <label class="control-label col-sm-4" for="password">Password
                                 <span class="required">*</span>
                             </label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <input type="password" id="password" name="password" value="{{ old('password', '') }}" required="required" class="form-control input-transparent"
                                     minlength="6">
                             </div>
@@ -72,7 +72,7 @@
                             <label class="control-label col-sm-4" for="password_confirmation">Confirm Password
                                 <span class="required">*</span>
                             </label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <input type="password" id="password_confirmation" name="password_confirmation" required="required" data-parsley-equalto="#password"
                                     class="form-control input-transparent">
                             </div>
@@ -80,14 +80,14 @@
                         @endempty @isset($user->email)
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="password">Password</label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <input type="password" id="password" name="password" value="{{ old('password', '') }}" class="form-control input-transparent"
                                     minlength="6">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="password_confirmation">Confirm Password</label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <input type="password" id="password_confirmation" name="password_confirmation" data-parsley-equalto="#password" class="form-control input-transparent">
                             </div>
                         </div>
@@ -144,6 +144,62 @@
                         <a href="javascript:history.back()" class="btn btn-default">Cancel</a>
                     </div>
                 </form>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-6">
+        <section class="widget">
+            <header>
+                <h5>Transaction <span class="fw-semi-bold">History</span></h5>
+                <div class="widget-controls">
+                    <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                    <a data-widgster="close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </header>
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Paid By</th>
+                            <th>To</th>
+                            <th>Value</th>
+                            <th>Date</th>
+                            <th class="text-center">Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                    @forelse ($transactions as $item)
+                        <tr class="clickable-row" data-href="{{ route('tx.show', $item) }}">
+                            <td>{{ $loop->index + 1}}</td>
+                            <td>{{ $item->type->name }}</td>
+                            <td>{{ $item->token->name }} / {{ $item->token->symbol }}</td>
+                            <td>{{ round($item->eth_value, 2) }} ETH / {{ number_format($item->usd_value / 100) }} $</td>
+                            <td>{{ $item->created_at }}</td>
+                            <td class="text-center">
+                            @switch($item->status)
+                                @case(0)
+                                    <span class="badge bg-gray-lighter text-gray"><i class="glyphicon glyphicon-time"></i> Pending</span>
+                                    @break
+                                @case(1)
+                                    <span class="badge badge-success"><i class="fa fa-check"></i> Confirmed</span>
+                                    @break
+                                @default
+                                <span class="badge badge-success"><i class="fa fa-ban"></i> Failed</span>
+                            @endswitch
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                No transactions
+                            </td>
+                        </tr>
+                    @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
     </div>
