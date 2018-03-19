@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <hr>
-                <legend>Step 1. <small>Go to your personal online or physical bank and transfer the amount list above in USD to the Hunter Corp rcords Bank Account</small></legend>
+                <legend>Step 1. <small>Go to your personal online or physical bank and transfer the amount list above in USD to the Hunter Corp records Bank Account</small></legend>
                 <section class="invoice-info well">
                     <div class="row">
                         <div class="col-sm-12">
@@ -64,13 +64,13 @@
                                 HSBC Hong Kong
                             </h3>
                             <address>
-                                <br> Address:&nbsp;&nbsp;&nbsp;SUN HUNG KAI CENTRE
+                                <br>Bank Address:&nbsp;&nbsp;&nbsp;SUN HUNG KAI CENTRE
                                 <br> 30 Harbour Road, Wan Chai, Hong Kong Island, Hong Kong
                                 <br>
-                                <abbr title="Account">Account: </abbr>
+                                <abbr title="Account">Account Name: </abbr>
                                 &nbsp;&nbsp;&nbsp;LENYORK LIMITED
                                 <br>
-                                <abbr title="Work Phone">Account Number: </abbr> &nbsp;&nbsp;&nbsp;
+                                <abbr title="Account Number">Account Number: </abbr> &nbsp;&nbsp;&nbsp;
                                 <strong>499-792844-838</strong>
                                 <br>
                                 <abbr title="SWIFT Code">SWIFT Code: </abbr> &nbsp;&nbsp;&nbsp;
