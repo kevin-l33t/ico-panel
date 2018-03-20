@@ -157,8 +157,8 @@ class UserController extends Controller
         $this->middleware('admin');
         $this->validate($request, [
             'name' => 'required|max:255',
-            'email' => 'required|unique:users|max:255',
-            'phone' => 'required|string|min:6',
+            'email' => 'required|email|unique:users|max:255',
+            'phone' => 'required|string|max:25|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'role' => 'required|integer|exists:user_roles,id'
         ]);

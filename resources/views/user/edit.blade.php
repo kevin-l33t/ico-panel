@@ -147,6 +147,7 @@
             </div>
         </section>
     </div>
+    @isset ($user->email)
     <div class="col-lg-6">
         <section class="widget">
             <header>
@@ -203,6 +204,7 @@
             </div>
         </section>
     </div>
+    @endisset
 </div>
 @endsection @section('scripts')
 <!-- Page Lib -->
