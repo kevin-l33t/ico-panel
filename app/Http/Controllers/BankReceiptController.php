@@ -8,6 +8,8 @@ use GuzzleHttp\Client;
 use App\Token;
 use App\BankReceipt;
 use App\TransactionLog;
+use Mail;
+use App\Mail\BankReceiptSubmitted;
 
 class BankReceiptController extends Controller
 {
@@ -82,6 +84,9 @@ class BankReceiptController extends Controller
             'token_id' => $receipt->token->id,
             'transaction_type_id' => 2
         ]);
+
+        Mail::to(Auth::user())
+            ->queue(new BankReceiptSubmitted($receipt));
         
         $data['heading'] = 'Thank You';
         $data['message'] = 'Successfully submitted receipt. We will review soon and transfer coins';

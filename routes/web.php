@@ -33,3 +33,12 @@ Route::get('receipts/dismiss/{receipt}', 'BankReceiptController@dismiss')->name(
 
 Route::get('tx', 'TransactionLogController@index')->name('tx.index')->middleware('admin');
 Route::get('tx/{log}', 'TransactionLogController@show')->name('tx.show');
+
+Route::get('/mailable', function() {
+    $receipt = App\BankReceipt::find(1);
+
+    // Mail::to('yoshiro.sakanishi@hotmail.com')
+    //         ->queue(new App\Mail\BankReceiptSubmitted($receipt));
+
+    return new App\Mail\BankReceiptSubmitted($receipt);
+});
