@@ -6,19 +6,22 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\BankReceipt;
 
 class BankReceiptApproved extends Mailable
 {
     use Queueable, SerializesModels;
+
+    protected $receipt;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(BankReceipt $receipt)
     {
-        //
+        $this->receipt = $receipt;
     }
 
     /**
@@ -28,6 +31,7 @@ class BankReceiptApproved extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        $data['receipt'] = $this->receipt;
+        return $this->view('mail.bank_receipt_approved', $data);
     }
 }

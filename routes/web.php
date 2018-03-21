@@ -41,4 +41,5 @@ Route::get('/mailable', function() {
     //         ->queue(new App\Mail\BankReceiptSubmitted($receipt));
 
     return new App\Mail\BankReceiptSubmitted($receipt);
+    // return new App\Mail\BankReceiptApproved($receipt);
 });

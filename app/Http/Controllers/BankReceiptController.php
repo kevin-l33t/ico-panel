@@ -10,6 +10,7 @@ use App\BankReceipt;
 use App\TransactionLog;
 use Mail;
 use App\Mail\BankReceiptSubmitted;
+use App\Mail\BankReceiptApproved;
 
 class BankReceiptController extends Controller
 {
@@ -137,6 +138,10 @@ class BankReceiptController extends Controller
                 $txLog->tx_hash = $result->tx_hash;
                 $txLog->save();
                 $receipt->save();
+
+                Mail::to($receipt->user)
+                        ->queue(new BankReceiptApproved($receipt));
+
                 return response()->json([
                     'success' => true
                 ]);

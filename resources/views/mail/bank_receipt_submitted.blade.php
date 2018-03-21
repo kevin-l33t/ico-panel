@@ -68,6 +68,9 @@
                                                                 <td>Transfer Date</td>
                                                                 <td>{{ date_create($receipt->created_at)->format('F jS Y g:i A') }}</td>
                                                             </tr>
+                                                            <tr>
+                                                                <td colspan="2"></td>
+                                                            </tr>
                                                         </table>
                                                     </td>
                                                 </tr>
@@ -75,8 +78,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="content-block">
-                                            Thanks for choosing Hunter Copr Records.
+                                        <td class="content-block aligncenter">
+                                        For customer inquires, please contact <a href="mailto:support@huntercorprecords.com">Customer support</a>.<br>
+                                        Please Include your transaction link with your request.
                                         </td>
                                     </tr>
                                 </table>
@@ -86,8 +90,7 @@
                     <div class="footer">
                         <table width="100%">
                             <tr>
-                                <td class="aligncenter content-block">For customer inquires, please contact
-                                    <a href="mailto:support@huntercorprecords.com">Customer support</a>. Please Include your transaction link with your request.</td>
+                                <td class="aligncenter content-block">&copy; Hunter Corp Records 2018</td>
                             </tr>
                         </table>
                     </div>

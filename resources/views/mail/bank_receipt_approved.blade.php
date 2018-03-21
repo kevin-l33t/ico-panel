@@ -26,12 +26,17 @@
                                 <table width="100%" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td class="content-block aligncenter">
-                                            <a class="btn btn-warning">Pending</a>
+                                            <a class="btn btn-success">Confirmed</a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="content-block">
-                                            Congratulations in completing the purchase of HCR Artist Coins paying with an Ethereum transfer.
+                                            Congratulations as your <strong>Bank Transfer</strong> has cleared and your payment has been confirmed.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="content-block">
+                                        Your coins have been deposited into your HCR wallet.  Please login to your HCR account to refresh your wallet portfolio.
                                         </td>
                                     </tr>
                                     <tr>
@@ -62,6 +67,13 @@
                                                                 <td>Transfer Date</td>
                                                                 <td>{{ date_create($receipt->created_at)->format('F jS Y g:i A') }}</td>
                                                             </tr>
+                                                            <tr>
+                                                                <td>Confirmed Date</td>
+                                                                <td>{{ date_create($receipt->update_at)->format('F jS Y g:i A') }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2"></td>
+                                                            </tr>
                                                         </table>
                                                     </td>
                                                 </tr>
@@ -69,8 +81,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="content-block">
-                                            Thanks for choosing Hunter Copr Records.
+                                        <td class="content-block aligncenter">
+                                        For customer inquires, please contact <a href="mailto:support@huntercorprecords.com">Customer support</a>.<br>
+                                        Please Include your transaction link with your request.
                                         </td>
                                     </tr>
                                 </table>
@@ -80,8 +93,7 @@
                     <div class="footer">
                         <table width="100%">
                             <tr>
-                                <td class="aligncenter content-block">For customer inquires, please contact
-                                    <a href="mailto:support@huntercorprecords.com">Customer support</a>. Please Include your transaction link with your request.</td>
+                                <td class="aligncenter content-block">&copy; Hunter Corp Records 2018</td>
                             </tr>
                         </table>
                     </div>

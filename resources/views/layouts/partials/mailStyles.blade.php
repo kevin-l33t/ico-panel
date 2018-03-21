@@ -153,9 +153,11 @@ a {
 .btn-primary {
     background-color: #1ab394;
 }
-
 .btn-warning {
     background-color: #f8ac59;
+}
+.btn-success {
+    background-color: #1ab394;
 }
 
 /* -------------------------------------
