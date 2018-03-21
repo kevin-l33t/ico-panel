@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use GuzzleHttp\Client;
 use App\TransactionLog;
+use Mail;
 
 class TxReceipt extends Command
 {
@@ -70,6 +71,10 @@ class TxReceipt extends Command
                                 $item->token_value = $result->data;
                             }
                             $item->save();
+                            if ($item->type->name == 'Ethereum') {
+                                Mail::to($item->wallet->user)
+                                    ->queue(new \App\Mail\EtherTxApproved($item));
+                            }
                             $this->info("tx: $result->tx_hash staus: $result->status data: $result->data");
                         }
                     }

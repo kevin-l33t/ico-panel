@@ -63,7 +63,7 @@
                             <br>
                             <small>
                                 <span class="fw-semi-bold">Price:</span>
-                                &nbsp; $ {{ $item->token->currentStage()->price }}
+                                &nbsp; $ {{ $item->token->currentStage()->price / 100 }}
                             </small>
                             <br>
                             <small>
