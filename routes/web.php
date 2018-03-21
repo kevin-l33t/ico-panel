@@ -40,6 +40,6 @@ Route::get('/mailable', function() {
     // Mail::to('yoshiro.sakanishi@hotmail.com')
     //         ->queue(new App\Mail\BankReceiptSubmitted($receipt));
 
-    return new App\Mail\BankReceiptSubmitted($receipt);
-    // return new App\Mail\BankReceiptApproved($receipt);
+    // return new App\Mail\BankReceiptSubmitted($receipt);
+    return new App\Mail\BankReceiptApproved($receipt);
 });

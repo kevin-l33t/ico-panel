@@ -9,7 +9,9 @@
 </head>
 
 <body>
-
+    <div class="logo">
+        <img src="{{ asset('img/logo.png') }}" alt="Hunter Records Corp" width="200px;">
+    </div>
     <table class="body-wrap">
         <tr>
             <td></td>

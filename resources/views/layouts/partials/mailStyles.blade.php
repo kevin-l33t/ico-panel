@@ -239,6 +239,11 @@ a {
     font-weight: 700;
 }
 
+.logo {
+    text-align: center;
+    margin-top: 20px;
+}
+
 /* -------------------------------------
     RESPONSIVE AND MOBILE FRIENDLY STYLES
 ------------------------------------- */
