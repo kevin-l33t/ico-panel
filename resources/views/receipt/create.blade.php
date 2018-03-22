@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-<h2 class="page-title">Process
-    <small>for purchasing ICO</small>
+<h2 class="page-title">
+Complete Payment
 </h2>
 <div class="row">
     <div class="col-sm-10 col-md-8">
@@ -13,26 +13,26 @@
                 </h4>
             </header>
             <div class="body">
-                <legend><small>Buying artist coins using bank transfer is a 3 step process</small></legend>
+                <legend></legend>
                 <h4>You are agreeing to purchase the following coins</h4>
                 <br>
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Coin</th>
-                            <th class="hidden-xs">Quantity</th>
-                            <th class="hidden-xs">Price per Coin</th>
-                            <th>Total (USD)</th>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Coin</th>
+                            <th class="text-center hidden-xs">Quantity</th>
+                            <th class="text-center hidden-xs">Price per Coin</th>
+                            <th class="text-center">Total</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="text-center">
                         <tr>
                             <td>1</td>
                             <td>{{ $token->name }}</td>
                             <td class="hidden-xs">{{ number_format($token_value) }} {{ $token->symbol }}</td>
-                            <td class="hidden-xs">{{ $token->currentStage()->price }}</td>
-                            <td>$ {{ number_format($usd_value, 2) }}</td>
+                            <td class="hidden-xs">USD {{ $token->currentStage()->price / 100 }}</td>
+                            <td>USD {{ number_format($usd_value, 2) }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -43,39 +43,37 @@
                         <div class="row text-align-right">
                             <div class="col-xs-6">
                                 <p>Subtotal</p>
-                                <p>Transfer Fee(5.5%)</p>
+                                <p>Transfer Fee</p>
                                 <p class="no-margin"><strong>Total</strong></p>
                             </div>
                             <div class="col-xs-4">
-                                <p>$ {{ number_format($usd_value, 2) }}</p>
-                                <p>$ {{ number_format($usd_value * 0.055, 2) }}</p>
-                                <p class="no-margin"><strong>$ {{ number_format($usd_value * 1.055, 2) }}</strong></p>
+                                <p>USD {{ number_format($usd_value, 2) }}</p>
+                                <p>USD 30</p>
+                                <p class="no-margin"><strong>USD {{ number_format($usd_value + 30, 2) }}</strong></p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <hr>
-                <legend>Step 1. <small>Go to your personal online or physical bank and transfer the amount list above in USD to the Hunter Corp records Bank Account</small></legend>
+                <legend>Step 1: Transfer Funds: <small>Please transfer the amount above in USD from your bank account to the Hunter Corp Records account below.</small></legend>
                 <section class="invoice-info well">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h4 class="details-title">Bank Information</h4>
-                            <h3 class="company-name">
-                                HSBC Hong Kong
-                            </h3>
-                            <address>
-                                <br>Bank Address:&nbsp;&nbsp;&nbsp;SUN HUNG KAI CENTRE
-                                <br> 30 Harbour Road, Wan Chai, Hong Kong Island, Hong Kong
+                            <h4 class="details-title"><strong>Bank Information</strong></h4>
+                            <p id="bank-info" class="mt-lg">
+                                Bank Name:&nbsp;&nbsp;&nbsp;HSBC Hong Kong
+                                <br>Bank Address:&nbsp;&nbsp;&nbsp;SUN HUNG KAI CENTRE 30 Harbour Road, Wan Chai, Hong Kong Island, Hong Kong
                                 <br>
-                                <abbr title="Account">Account Name: </abbr>
-                                &nbsp;&nbsp;&nbsp;LENYORK LIMITED
+                                Account Name:&nbsp;&nbsp;&nbsp;
+                                LENYORK LIMITED
                                 <br>
-                                <abbr title="Account Number">Account Number: </abbr> &nbsp;&nbsp;&nbsp;
-                                <strong>499-792844-838</strong>
+                                Account Number:&nbsp;&nbsp;&nbsp;
+                                499-792844-838
                                 <br>
-                                <abbr title="SWIFT Code">SWIFT Code: </abbr> &nbsp;&nbsp;&nbsp;
-                                <strong>HSBCHKHHHKH</strong>
-                            </address>
+                                SWIFT Code: &nbsp;&nbsp;&nbsp;
+                                HSBCHKHHHKH
+                            </p>
+                            <button id="copy_bank_info" type="button" class="btn btn-default" title="Copied!" data-clipboard-text="Bank Name: HSBC Hong Kong&#10;Bank Address: SUN HUNG KAI CENTRE 30 Harbour Road, Wan Chai, Hong Kong Island, Hong Kong&#10;Account Name: LENYORK LIMITED&#10;Account Number: 499-792844-838&#10;SWIFT Code: HSBCHKHHHKH"><i class="fa fa-clipboard"></i> Copy to clipboard</a>
                         </div>
                     </div>
                 </section>
@@ -95,10 +93,10 @@
                     <input name="token" type="hidden" value="{{ $token->id }}">
                     <input name="token_value" type="hidden" value="{{ $token_value }}">
                     <fieldset>
-                        <legend>Step 2.<small> After you complete the transfer please insert the relevant information into the boxes below and attach a screenshot or photo of the transfer receipt and attach it to this transaction. This will assist the HCR team to track your deposit.</small></legend>
+                        <legend>Step 2: Verify Transfer: <small>Please provide proof of transfer by completing the information below and attaching a copy of the transfer receipt (Screenshot/photo). This will help HCR to track and process your payment.</small></legend>
                         @include('layouts.partials.formErrors')
                         <div class="form-group">
-                            <label class="control-label col-sm-4" for="bank_name">Bank</label>
+                            <label class="control-label col-sm-4" for="bank_name">Bank Name</label>
                             <div class="col-sm-6">
                                 <input type="text" id="bank_name" name="bank_name" value="{{ old('bank_name', '') }}" minlength="4" required="required" class="form-control input-transparent">
                             </div>
@@ -121,7 +119,7 @@
                             <label class="control-label col-sm-4" for="usd_value">Transfer Amount</label>
                             <div class="col-sm-6">
                                 <div class="input-group">
-                                    <input id="usd_value" name="usd_value" class="form-control input-transparent text-right" value="{{ $usd_value * 1.055 }}" readonly>
+                                    <input id="usd_value" name="usd_value" class="form-control input-transparent text-right" value="{{ $usd_value + 30 }}" lang="en-150" readonly>
                                     <input name="eth_value" value="{{ $eth_value }}" type="hidden">
                                     <span class="input-group-addon">
                                         <i class="fa fa-usd"></i>
@@ -146,7 +144,7 @@
                     </div>
                 </form>
                 <hr>
-                <legend>Step 3.<small> Your artist coins are transferred to trust until your funds have been cleared, At which time your coins will be automatically transferred into your account. This process normally takes 3 working days.</small></legend>
+                <legend>Please Note: <small>The coins you have purchased have now been reserved for you. They will be transferred into your HCR wallet when we have received payment. This normally takes 3 working days.</small></legend>
                 <p>If you have any transaction inquiries please email: transfers@huntercorprecords.com<br> A member of the HCR accounts team will respond to your inquiry within 1 working day.</p>
                 <p class="text-align-right mt-lg mb-xs">
                     HUNTER CORP RECORDS
@@ -163,5 +161,22 @@
 <!-- Page Lib -->
 <script src="{{ asset('lib/parsleyjs/dist/parsley.min.js') }}"></script>
 
-<!-- page specific scripts -->
+    <!-- page specific scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <script>
+        $(function () {
+            var clipboard = new ClipboardJS('#copy_bank_info');
+            $('#copy_bank_info').tooltip({
+                trigger: 'click',
+                placement: 'bottom',
+                delay: { show: 100, hide: 500 }
+            });
+
+            $('#copy_bank_info').on('shown.bs.tooltip', function (e) {
+                setTimeout(function () {
+                    $(e.target).tooltip('hide');
+                }, 1000);
+            });
+        });
+    </script>
 @endsection
