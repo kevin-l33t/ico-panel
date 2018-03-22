@@ -32,6 +32,8 @@ class BankReceiptSubmitted extends Mailable
     public function build()
     {
         $data['receipt'] = $this->receipt;
-        return $this->view('mail.bank_receipt_submitted', $data);
+        return $this->bcc(env('MAIL_FROM_ADDRESS'))
+                    ->view('mail.bank_receipt_submitted', $data);
+
     }
 }

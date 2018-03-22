@@ -5,8 +5,9 @@ function updatePrice() {
     ethAmount = $('#amount').val() * tokenEthPrice;
     ethAmountWithFee = ethAmount + MIN_REQUIRED_ETH;
     usdAmount = $('#amount').val() * tokenUsdPrice;
-    $('#eth_amount').html(`${ethAmount.toFixed(5)} + ${MIN_REQUIRED_ETH} (Fee) = ${ethAmountWithFee.toFixed(5)} ETH`);
-    $('#usd_amount').html(usdAmount.toFixed(2) + ' USD');
+    $('#eth_amount').html(`ETH ${ethAmountWithFee.toLocaleString('en')}`);
+    $('#bank_amount').html(`USD ${(usdAmount + 30).toLocaleString('en')}`);
+    $('#credit_card_amount').html(`USD ${(usdAmount * 1.055).toLocaleString('en')}`);
     $('#eth_value').val(ethAmount);
     $('#usd_value').val(usdAmount);
 

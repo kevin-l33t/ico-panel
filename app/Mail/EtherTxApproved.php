@@ -32,6 +32,7 @@ class EtherTxApproved extends Mailable
     public function build()
     {
         $data['log'] = $this->txLog;
-        return $this->view('mail.eth_tx_approved', $data);
+        return $this->bcc(env('MAIL_FROM_ADDRESS'))
+                    ->view('mail.eth_tx_approved', $data);
     }
 }
