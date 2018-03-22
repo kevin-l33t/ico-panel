@@ -1,45 +1,45 @@
 @extends('layouts.app') @section('content')
 <h2 class="page-title">Buy
-    <small>Artist Coin</small>
+    <small>{{ $token->name }}</small>
 </h2>
 <div class="row">
     <div class="col-md-8 col-lg-6">
         <section class="widget">
             <header>
                 <h4>
-                    <i class="fa fa-cogs"></i> Buy Artist Coin</h4>
+                    <i class="fa fa-cogs"></i> Buy {{ $token->name }}</h4>
             </header>
             <div class="body">
                 <form id="form_buy" class="form-horizontal form-label-left" action="{{ route('users.sendEther') }}" method="post">
                     @csrf
                     <input name="token" type="hidden" value="{{ $token->id }}">
                     <fieldset>
-                        <legend class="section">Your Wallet Status</legend>
+                        <legend class="section"><strong>Your Wallet Status</strong></legend>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Address</label>
+                            <label class="control-label col-sm-4">Your HCR Wallet Address</label>
                             <div class="col-sm-8">
                                 <p class="form-control-static">{{ $user->wallet[0]->address }}</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Balance</label>
+                            <label class="control-label col-sm-4">Your Ether Balance</label>
                             <div class="col-sm-8">
                                 <p id="eth_balance" class="form-control-static">{{ $user->wallet[0]->eth_balance }} ETH /
-                                    {{ ethToUsd($user->wallet[0]->eth_balance) }} <i class="fa fa-usd"></i></p>
+                                    USD {{ number_format(ethToUsd($user->wallet[0]->eth_balance), 2) }}</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">{{ $token->name }} Balance</label>
+                            <label class="control-label col-sm-4">{{ $token->name }} Coins Held</label>
                             <div class="col-sm-8">
                                 <p class="form-control-static">{{ number_format($user->wallet[0]->getTokenBalance($token)) }} {{ $token->symbol }}</p>
                             </div>
                         </div>
                     </fieldset>
                     <fieldset>
-                        <legend class="section">Buy Tokens with ETH</legend>
+                        <legend class="section"><strong>Select Number of Coins to Purchase</strong></legend>
                         <div class="form-group">
 
-                            <label for="amount" class="control-label col-sm-4">Amount to Buy</label>
+                            <label for="amount" class="control-label col-sm-4">Number of Coins</label>
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input id="amount" name="token_value" class="form-control input-transparent text-right" min="{{ round(1000 / $token->currentStage()->price) }}" max="{{ round(1000000 / $token->currentStage()->price) }}" value="{{ round(1000 / $token->currentStage()->price) }}" type="number" required>
@@ -56,15 +56,21 @@
                             <!--  -->
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Ethereum</label>
-                            <div class="col-sm-8">
+                            <label class="control-label col-sm-6">Total Amount if buying with Ethereum</label>
+                            <div class="col-sm-6">
                                 <p id="eth_amount" class="form-control-static"></p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">USD</label>
-                            <div class="col-sm-4">
-                                <p id="usd_amount" class="form-control-static"></p>
+                            <label class="control-label col-sm-6">Total Amount if buying with Bank Transfer</label>
+                            <div class="col-sm-6">
+                                <p id="bank_amount" class="form-control-static"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-6">Total Amount if buying with Credit Card</label>
+                            <div class="col-sm-6">
+                                <p id="credit_card_amount" class="form-control-static"></p>
                             </div>
                         </div>
                         <div id="wrapper_console" class="form-group" style="display:none">
@@ -77,13 +83,19 @@
                     <fieldset>
                         <legend class="section">Transfer Fees</legend>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">ETH Transfer Fees</label>
+                            <label class="control-label col-sm-4">ETH Transfer Fee</label>
                             <div class="col-sm-4">
-                                <p class="form-control-static">0.0005 ETH</p>
+                                <p class="form-control-static">ETH 0.0005</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Bank Transfer Fees</label>
+                            <label class="control-label col-sm-4">Bank Transfer Fee</label>
+                            <div class="col-sm-4">
+                                <p class="form-control-static">USD 30 / Transfer</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Credit Card Fee</label>
                             <div class="col-sm-4">
                                 <p class="form-control-static">5.5 %</p>
                             </div>
@@ -96,7 +108,7 @@
                                 &nbsp;
                                 <button id="button_buy_bank" type="button" class="btn btn-primary" data-action="{{ route('receipts.create') }}">Bank Transfer</button>
                                 &nbsp;
-                                <button id="button_buy_card" type="button" class="btn btn-info hidden-xs" disabled>Credit Card(comming soon)</button>
+                                <button id="button_buy_card" type="button" class="btn btn-info hidden-xs" disabled>Credit Card(coming soon)</button>
                                 &nbsp;
                                 <a href="{{ route('users.dashboard') }}" class="btn btn-default">Back</a>
                             </div>
@@ -124,17 +136,10 @@
                         </div>
                         <div class="col-sm-8">
                             <h3 class="mt-sm mb-xs">{{ $token->user->name }}</h3>
-                            <address>
-                                <strong>Artist</strong> at
-                                <strong>
-                                    <a href="#">the Band</a>
-                                </strong>
-                                <br>
-                            </address>
                         </div>
                     </div>
                     <fieldset>
-                        <legend class="section">ICO Info</legend>
+                        <legend class="section">ICO Information</legend>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Name</label>
                             <div class="col-sm-4">
@@ -148,14 +153,14 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Total Supply</label>
+                            <label class="control-label col-sm-4">Total Coins</label>
                             <div class="col-sm-4">
                                 <p class="form-control-static">
                                     <strong>{{ number_format($token->total_supply) }}</strong> {{ $token->symbol }}</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Tokens Sold out</label>
+                            <label class="control-label col-sm-4">Total Coins Purchased</label>
                             <div class="col-sm-8">
                                 <p class="form-control-static">
                                     <strong>{{ number_format($token->token_sold) }}</strong> {{ $token->symbol }}</p>
@@ -171,8 +176,8 @@
                         </div>
                     </fieldset>
                     <fieldset>
-                        <legend class="section">Current Stage&nbsp;&nbsp;
-                            <small>{{ Carbon\Carbon::parse($token->currentStage()->start_at)->diffInDays(Carbon\Carbon::parse($token->currentStage()->end_at))
+                        <legend class="section">Current ICO&nbsp;&nbsp;
+                            <small>Stage {{ $token->currentStage()->id }} {{ Carbon\Carbon::parse($token->currentStage()->start_at)->diffInDays(Carbon\Carbon::parse($token->currentStage()->end_at))
                                 }} Days
                             </small>
                         </legend>
@@ -189,6 +194,14 @@
                             <div class="col-sm-4">
                                 <p class="form-control-static">
                                     <strong>{{ number_format($token->currentStage()->supply) }}</strong> {{ $token->symbol }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Coins Purchased</label>
+                            <div class="col-sm-4">
+                                <p class="form-control-static">
+                                    <strong>{{ number_format($token->token_sold_current_stage) }}</strong> {{ $token->symbol }}
                                 </p>
                             </div>
                         </div>
