@@ -277,4 +277,11 @@ a {
         width: 100% !important;
     }
 }
+.hr-line-dashed {
+    border-top: 1px dashed #e7eaec;
+    color: #ffffff;
+    background-color: #ffffff;
+    height: 1px;
+    margin: 10px 0;
+}
 </style>

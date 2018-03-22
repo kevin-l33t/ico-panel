@@ -9,8 +9,7 @@
                 {{ $user->wallet[0]->eth_balance }} ETH
             </div>
             <div class="description">
-                <i class="fa fa-usd"></i>
-                {{ ethToUsd($user->wallet[0]->eth_balance) }}
+                USD {{ number_format(ethToUsd($user->wallet[0]->eth_balance), 2) }}
             </div>
         </div>
     </div>
@@ -53,7 +52,7 @@
                         </td>
                         <td>{{ $item->user->name }} / {{ $item->symbol }}</td>
                         <td class="text-center">{{ count($item->stages) }}</td>
-                        <td><i class="fa fa-usd"></i> {{ $item->currentStage()->price / 100 }}</td>
+                        <td>USD {{ $item->currentStage()->price / 100 }}</td>
                         <td class="text-center">
                             <p class="no-margin">
                                 <small>
@@ -96,7 +95,6 @@
             <header>
                 <h5>Coin <span class="fw-semi-bold">Balances</span></h5>
                 <div class="widget-controls">
-                    <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
                     <a data-widgster="close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
                 </div>
             </header>
@@ -106,12 +104,12 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Artist</th>
-                            <th>Coins you hold</th>
-                            <th>USD Value</th>
+                            <th class="text-center">Artist</th>
+                            <th class="text-center">Coins you hold</th>
+                            <th class="text-center">USD Value</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="text-center">
                     @foreach ($tokens as $item)
                         @if ($user->wallet[0]->getTokenBalance($item) > 0)
                         @php
@@ -120,7 +118,7 @@
                         <tr>
                             <td>{{ $item->user->name }}</td>
                             <td>{{ number_format($user->wallet[0]->getTokenBalance($item)) }} {{ $item->symbol }}</td>
-                            <td>{{ number_format($user->wallet[0]->getTokenBalance($item) * $item->currentStage()->price / 100) }} $</td>
+                            <td>USD {{ number_format($user->wallet[0]->getTokenBalance($item) * $item->currentStage()->price / 100) }}</td>
                         </tr>
                         @endif
                     @endforeach
@@ -143,7 +141,6 @@
             <header>
                 <h5>Transaction <span class="fw-semi-bold">History</span></h5>
                 <div class="widget-controls">
-                    <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
                     <a data-widgster="close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
                 </div>
             </header>
@@ -152,23 +149,29 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Paid By</th>
-                            <th>To</th>
-                            <th>Value</th>
-                            <th>Date</th>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Paid By</th>
+                            <th class="text-center">To</th>
+                            <th class="text-center">Value</th>
+                            <th class="text-center">Date (GTM)</th>
                             <th class="text-center">Status</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="text-center">
                     @forelse ($transactions as $item)
                         <tr class="clickable-row" data-href="{{ route('tx.show', $item) }}">
                             <td>{{ $loop->index + 1}}</td>
                             <td>{{ $item->type->name }}</td>
                             <td>{{ $item->token->name }} / {{ $item->token->symbol }}</td>
-                            <td>{{ round($item->eth_value, 2) }} ETH / {{ number_format($item->usd_value / 100) }} $</td>
+                            <td>
+                            @if ($item->type->name == 'Ethereum')
+                                {{ round($item->eth_value, 2) }} ETH / USD {{ number_format($item->usd_value / 100, 2) }}
+                            @else
+                                USD {{ number_format($item->usd_value / 100, 2) }}
+                            @endif
+                            </td>
                             <td>{{ $item->created_at }}</td>
-                            <td class="text-center">
+                            <td>
                             @switch($item->status)
                                 @case(0)
                                     <span class="badge bg-gray-lighter text-gray"><i class="glyphicon glyphicon-time"></i> Pending</span>
