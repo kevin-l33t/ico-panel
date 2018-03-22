@@ -5,10 +5,10 @@
 <div class="row">
     <div class="col-md-8 col-lg-6">
         <section class="widget">
-            <header>
+            <!-- <header>
                 <h4>
                     <i class="fa fa-cogs"></i> Buy {{ $token->name }}</h4>
-            </header>
+            </header> -->
             <div class="body">
                 <form id="form_buy" class="form-horizontal form-label-left" action="{{ route('users.sendEther') }}" method="post">
                     @csrf
@@ -108,7 +108,7 @@
                                 &nbsp;
                                 <button id="button_buy_bank" type="button" class="btn btn-primary" data-action="{{ route('receipts.create') }}">Bank Transfer</button>
                                 &nbsp;
-                                <button id="button_buy_card" type="button" class="btn btn-info hidden-xs" disabled>Credit Card(coming soon)</button>
+                                <button id="button_buy_card" type="button" class="btn btn-info hidden-xs" disabled>Credit Card (coming soon)</button>
                                 &nbsp;
                                 <a href="{{ route('users.dashboard') }}" class="btn btn-default">Back</a>
                             </div>
@@ -156,14 +156,7 @@
                             <label class="control-label col-sm-4">Total Coins</label>
                             <div class="col-sm-4">
                                 <p class="form-control-static">
-                                    <strong>{{ number_format($token->total_supply) }}</strong> {{ $token->symbol }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Total Coins Purchased</label>
-                            <div class="col-sm-8">
-                                <p class="form-control-static">
-                                    <strong>{{ number_format($token->token_sold) }}</strong> {{ $token->symbol }}</p>
+                                    <strong>200,000,000</strong> {{ $token->symbol }}</p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -176,16 +169,14 @@
                         </div>
                     </fieldset>
                     <fieldset>
-                        <legend class="section">Current ICO&nbsp;&nbsp;
-                            <small>Stage {{ $token->currentStage()->id }} {{ Carbon\Carbon::parse($token->currentStage()->start_at)->diffInDays(Carbon\Carbon::parse($token->currentStage()->end_at))
-                                }} Days
-                            </small>
+                        <legend class="section">Current ICO: 
+                            <small>Stage {{ $token->currentStage()->id }}</small>
                         </legend>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Price</label>
                             <div class="col-sm-4">
                                 <p class="form-control-static">
-                                    <strong>{{ $token->currentStage()->price / 100 }}</strong> $
+                                    USD <strong>{{ $token->currentStage()->price / 100 }}</strong>
                                 </p>
                             </div>
                         </div>

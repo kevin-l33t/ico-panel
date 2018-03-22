@@ -153,7 +153,7 @@
                             <th class="text-center">Paid By</th>
                             <th class="text-center">To</th>
                             <th class="text-center">Value</th>
-                            <th class="text-center">Date (GTM)</th>
+                            <th class="text-center">Date (GMT)</th>
                             <th class="text-center">Status</th>
                         </tr>
                         </thead>
