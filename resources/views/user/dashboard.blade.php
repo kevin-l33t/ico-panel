@@ -165,7 +165,7 @@
                             <td>{{ $item->token->name }} / {{ $item->token->symbol }}</td>
                             <td>
                             @if ($item->type->name == 'Ethereum')
-                                {{ round($item->eth_value, 2) }} ETH / USD {{ number_format($item->usd_value / 100, 2) }}
+                                ETH {{ round($item->eth_value, 2) }} / USD {{ number_format($item->usd_value / 100, 2) }}
                             @else
                                 USD {{ number_format($item->usd_value / 100, 2) }}
                             @endif

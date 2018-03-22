@@ -135,6 +135,7 @@ $(function () {
                 "sFilterInput": "form-control input-transparent ml-sm"
             },
             "pageLength": 25,
+            "order": [[6, "desc"]],
             "aoColumns": unsortableColumns
         });
 

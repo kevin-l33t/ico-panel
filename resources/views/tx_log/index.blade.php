@@ -23,12 +23,18 @@
                 <tbody>
                 @foreach($logs as $item)
                     <tr class="clickable-row" data-href="{{ route('tx.show', $item) }}">
-                        <td class="text-center hidden-xs">{{ $loop->index + 1 }}</td>
+                        <td class="text-center hidden-xs">{{ $item->id }}</td>
                         <td class="text-center">{{ $item->wallet->user->name }}</td>
                         <td class="text-center hidden-xs">{{ $item->type->name }}</td>
                         <td class="text-center hidden-xs">{{ $item->token->name }}</td>
                         <td class="text-center">{{ number_format($item->token_value) }} {{ $item->token->symbol }}</td>
-                        <td class="text-center hidden-xs">{{ number_format($item->eth_value, 3) }} ETH / {{ number_format($item->usd_value / 100) }} $</td>
+                        <td class="text-center hidden-xs">
+                            @if ($item->type->name == 'Ethereum')
+                            ETH {{ round($item->eth_value, 3) }} / USD {{ number_format($item->usd_value / 100, 2) }}
+                            @else
+                                USD {{ number_format($item->usd_value / 100, 2) }}
+                            @endif    
+                       </td>
                         <td class="text-center text-muted hidden-xs">{{ $item->created_at }}</td>
                         <td>
                             @switch($item->status)
