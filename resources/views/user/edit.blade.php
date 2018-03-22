@@ -187,7 +187,7 @@
                                     <span class="badge badge-success"><i class="fa fa-check"></i> Confirmed</span>
                                     @break
                                 @default
-                                <span class="badge badge-success"><i class="fa fa-ban"></i> Failed</span>
+                                <span class="badge badge-danger"><i class="fa fa-ban"></i> Failed</span>
                             @endswitch
                             </td>
                         </tr>

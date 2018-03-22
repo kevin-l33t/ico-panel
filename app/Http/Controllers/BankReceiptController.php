@@ -157,6 +157,9 @@ class BankReceiptController extends Controller
     {
         $receipt->status = 3;
         $receipt->save();
+        $txLog = $receipt->transactionLogs[0];
+        $txLog->status = 3;
+        $txLog->save();
         return response()->json([
             'success' => true
         ]);
