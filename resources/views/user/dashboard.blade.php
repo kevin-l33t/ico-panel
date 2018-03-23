@@ -36,11 +36,11 @@
                     <thead>
                     <tr>
                         <th class="width-50"></th>
-                        <th>Artist / Coin</th>
-                        <th class="text-center">Stage</th>
-                        <th>Price</th>
+                        <th class="width-200">Artist / Coin</th>
+                        <th class="text-center width-50">Stage</th>
+                        <th class="text-center width-200">Price</th>
                         <th class="width-200 text-center" >Progress</th>
-                        <th class="text-center">Duration</th>
+                        <th class="width-200 text-center">Duration</th>
                         <th class="text-center">Action</th>
                     </tr>
                     </thead>
@@ -48,11 +48,11 @@
                 @foreach($tokens as $item)
                     <tr>
                         <td>
-                            <img class="img-rounded" src="{{ empty($item->user->profile_thumb) ? asset('img/default_avatar.png') : asset('storage/'.$item->user->profile_thumb) }}" alt="" height="50">
+                            <a href="{{ $item->user->whitepaper }}" target="_blank"><img class="img-rounded" src="{{ empty($item->user->profile_thumb) ? asset('img/default_avatar.png') : asset('storage/'.$item->user->profile_thumb) }}" alt="" height="50"></a>
                         </td>
-                        <td>{{ $item->user->name }} / {{ $item->symbol }}</td>
+                        <td><a href="{{ $item->user->whitepaper }}" target="_blank">{{ $item->user->name }} / {{ $item->symbol }}</a></td>
                         <td class="text-center">{{ count($item->stages) }}</td>
-                        <td>USD {{ $item->currentStage()->price / 100 }}</td>
+                        <td class="text-center">USD {{ $item->currentStage()->price / 100 }}</td>
                         <td class="text-center">
                             <p class="no-margin">
                                 <small>
@@ -78,7 +78,7 @@
                                 </small>
                             </p>
                         </td>
-                        <td class="text-align-center width-100">
+                        <td class="text-center width-100">
                             <a href="{{ route('users.buy', $item) }}" class="btn btn-info {{ (date('Y-m-d H:i:s') >= $item->currentStage()->start_at && date('Y-m-d H:i:s') < $item->currentStage()->end_at  ) ? '' : 'disabled' }} ">&nbsp;Buy&nbsp;</a>
                         </td>
                     </tr>

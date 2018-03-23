@@ -136,6 +136,7 @@
                         </div>
                         <div class="col-sm-8">
                             <h3 class="mt-sm mb-xs">{{ $token->user->name }}</h3>
+                            <p><a href="{{ $token->user->whitepaper }}" target="_blank">Whitepaper</a></p>
                         </div>
                     </div>
                     <fieldset>
