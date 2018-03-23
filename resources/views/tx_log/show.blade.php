@@ -3,7 +3,7 @@
 @section('content')
 <h2 class="page-title">Transaction Details <small>{{ $log->type->name }}</small></h2>
 <div class="row">
-    <div class="col-sm-9 col-lg-6">
+    <div class="col-sm-9 col-lg-8">
         <section class="widget">
             <header>
                 <h4><i class="fa fa-user"></i> Transaction <small>information </small></h4>
@@ -13,52 +13,98 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="text-align-center">
-                            <img class="img-circle" src="{{ empty($log->wallet->user->profile_thumb) ? asset('img/default_avatar.png') : asset('storage/'.$log->wallet->user->profile_thumb) }}" alt="Avatar" style="height: 112px;">
+                                <img class="img-circle" src="{{ empty($log->wallet->user->profile_thumb) ? asset('img/default_avatar.png') : asset('storage/'.$log->wallet->user->profile_thumb) }}" alt="Avatar" style="height: 112px;">
                             </div>
                         </div>
                         <div class="col-sm-8">
                             <h3 class="mt-sm mb-xs">{{ $log->wallet->user->name }}</h3>
-                            <address>
-                                <abbr title="Work email">e-mail: </abbr> <a href="mailto:#">{{ $log->wallet->user->email }}</a><br>
-                                <abbr title="Work email">phone: </abbr> {{ $log->wallet->user->phone }}<br>
-                                <abbr title="Wallet Address">wallet: </abbr> {{ $log->wallet->address }}
-                            </address>
+                            <p>
+                                e-mail: <a href="mailto:#">{{ $log->wallet->user->email }}</a><br>
+                                phone: {{ $log->wallet->user->phone }}<br>
+                                wallet: {{ $log->wallet->address }}
+                            </p>
                         </div>
                     </div>
                     <fieldset>
                         <legend class="section">Transaction Info</legend>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Paid by</label>
+                            <label class="control-label col-sm-4">Purchase with:</label>
                             <div class="col-sm-8">
                                 <p class="form-control-static">{{ $log->type->name }}</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Token Amount</label>
+                            <label class="control-label col-sm-4">Artist Name:</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static">{{ $log->token->user->name }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Coin Name:</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static">{{ $log->token->symbol }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">ICO Stage:</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static">Stage {{ $log->stage->id }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Date Purchased:</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static">{{ $log->created_at }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Price per Coin:</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static">USD {{ $log->stage->price / 100 }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Coins Purchased:</label>
                             <div class="col-sm-8">
                                 <p class="form-control-static">{{ number_format($log->token_value) }} {{ $log->token->symbol }}</p>
                             </div>
                         </div>
+            
+                        @if ($log->type->name == 'Ethereum')
                         <div class="form-group">
-                            <label class="control-label col-sm-4">USD Value</label>
+                            <label class="control-label col-sm-4">Ether Paid:</label>
                             <div class="col-sm-8">
-                                <p class="form-control-static">{{ number_format($log->usd_value / 100, 2) }} $</p>
+                                <p class="form-control-static">ETH {{ number_format($log->eth_value, 3) }}</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">ETH Value</label>
+                            <label class="control-label col-sm-4">Value in USD:</label>
                             <div class="col-sm-8">
-                                <p class="form-control-static">{{ number_format($log->eth_value, 3) }} ETH</p>
+                                <p class="form-control-static">USD {{ number_format($log->token_value * $log->token->currentStage()->price / 100, 2) }}</p>
+                            </div>
+                        </div>
+                        @elseif ($log->type->name == 'Bank Transfer')
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">USD Amount Transfered:</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static">USD {{ number_format($log->usd_value / 100, 2) }}</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Current Value</label>
+                            <label class="control-label col-sm-4">Bank Name:</label>
                             <div class="col-sm-8">
-                                <p class="form-control-static">{{ number_format($log->token_value * $log->token->currentStage()->price / 100, 2) }} $</p>
+                                <p class="form-control-static">{{ $log->bankReceipt->bank_name }}</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Status</label>
+                            <label class="control-label col-sm-4">Bank Account Name / Number:</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static">{{ $log->bankReceipt->account_name }} / {{ $log->bankReceipt->account_number }}</p>
+                            </div>
+                        </div>
+                        @endif
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Status:</label>
                             <div class="col-sm-8">
                                 <p class="form-control-static">
                                 @switch($log->status)
@@ -69,131 +115,28 @@
                                         <span class="badge badge-success"><i class="fa fa-check"></i> Confirmed</span>
                                         @break
                                     @default
-                                    <span class="badge badge-success"><i class="fa fa-ban"></i> Failed</span>
+                                    <span class="badge badge-danger"><i class="fa fa-ban"></i> Failed</span>
                                 @endswitch
                                 </p>
                             </div>
                         </div>
+                        @if ($log->type->name == 'Bank Transfer' && $log->status == 1)
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Date Status Confirmed:</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static">{{ $log->updated_at }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Transaction Hash:</label>
+                            <div class="col-sm-7 text-truncate">
+                                <a href="https://etherscan.io/tx/{{ $log->tx_hash }}" target="_blank"><i class="fa fa-external-link"></i>{{ $log->tx_hash }}</a>
+                        </div>
+                        @endif
                     </fieldset>
                     <div class="form-actions text-center">
                         <a href="javascript:history.back()" class="btn btn-default">Back</a>
                     </div>
-                </form>
-            </div>
-        </section>
-    </div>
-    <div class="col-sm-9 col-lg-6">
-        <section class="widget">
-            <header>
-                <h4>
-                    <i class="fa fa-cogs"></i> ICO Info</h4>
-            </header>
-            <div class="body">
-                <form class="form-horizontal form-label-left">
-                    <fieldset>
-                        <legend class="section">Token Info</legend>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Name</label>
-                            <div class="col-sm-4">
-                                <p class="form-control-static">{{ $log->token->name }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Symbol</label>
-                            <div class="col-sm-4">
-                                <p class="form-control-static">{{ $log->token->symbol }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Total Supply</label>
-                            <div class="col-sm-4">
-                                <p class="form-control-static"><strong>{{ number_format($log->token->total_supply) }}</strong> {{ $log->token->symbol }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Address</label>
-                            <div class="col-sm-4">
-                                <p class="form-control-static"><a target="_blank" href="https://etherscan.io/address/{{ $log->token->token_address }}">{{ $log->token->token_address }}</a></p>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <legend class="section">Crowdsale Info</legend>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Address</label>
-                            <div class="col-sm-4">
-                                <p class="form-control-static"><a target="_blank" href="https://etherscan.io/address/{{ $log->token->crowdsale_address }}">{{ $log->token->crowdsale_address }}</a></p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Tokens Sold out</label>
-                            <div class="col-sm-4">
-                                <p class="form-control-static"><strong>{{ number_format($log->token->token_sold) }}</strong> {{ $log->token->symbol }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">ETH Raised</label>
-                            <div class="col-sm-4">
-                                <p class="form-control-static"><strong>{{ number_format($log->token->ether_raised, 3) }}</strong> ETH</p>
-                            </div>
-                        </div>
-                    </fieldset>
-                    @if(null !== $log->token->currentStage())
-                    <fieldset>
-                        <legend class="section">Current Stage&nbsp;&nbsp;
-                            <small>{{ Carbon\Carbon::parse($log->token->currentStage()->start_at)->diffInDays(Carbon\Carbon::parse($log->token->currentStage()->end_at)) }} Days
-                            </small>
-                        </legend>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Price</label>
-                            <div class="col-sm-4">
-                                <p class="form-control-static">
-                                    <strong>{{ $log->token->currentStage()->price / 100 }}</strong> $
-                                </p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Issued Amount</label>
-                            <div class="col-sm-6">
-                                <p class="form-control-static">
-                                    <strong>{{ number_format($log->token->currentStage()->supply) }}</strong> {{ $log->token->symbol }}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Token Sold</label>
-                            <div class="col-sm-6">
-                                <p class="form-control-static">
-                                    <strong>{{ number_format($log->token->token_sold_current_stage) }}</strong> {{ $log->token->symbol }}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Ether Rised</label>
-                            <div class="col-sm-6">
-                                <p class="form-control-static">
-                                    <strong>{{ number_format($log->token->ether_raised_current_stage, 3) }}</strong> ETH
-                                </p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Start At</label>
-                            <div class="col-sm-4">
-                                <p class="form-control-static">
-                                    {{ $log->token->currentStage()->start_at }}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">End At</label>
-                            <div class="col-sm-4">
-                                <p class="form-control-static">
-                                    {{ $log->token->currentStage()->end_at }}
-                                </p>
-                            </div>
-                        </div>
-                    </fieldset>
-                    @endisset
                 </form>
             </div>
         </section>

@@ -84,6 +84,17 @@ $(function () {
         }
     });
 
+    $('input[type=radio][name=role]').change(function() {
+        if (this.value == '3') {
+            $('#wrapper_whitepaper').show(300);
+        } else {
+            $('#wrapper_whitepaper').hide(100);
+        }
+    });
+
+    if ($('input[type=radio][name=role]:checked').val() != '3') {
+        $('#wrapper_whitepaper').hide(100);
+    }
     pageLoad();
     PjaxApp.onPageLoad(pageLoad);
 });

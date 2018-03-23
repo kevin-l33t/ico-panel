@@ -19,4 +19,15 @@ class TransactionLog extends Model
     public function wallet() {
         return $this->belongsTo('App\Wallet', 'from', 'address');
     }
+
+    public function bankReceipt() {
+        return $this->belongsTo('App\BankReceipt', 'ref_id', 'id');
+    }
+
+    public function getStageAttribute() {
+        $stage = $this->token->stages()
+                                ->whereRaw('"'.$this->created_at.'" between start_at and end_at')
+                                ->first();
+        return $stage;
+    }
 }

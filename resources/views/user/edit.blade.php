@@ -93,6 +93,12 @@
                         </div>
                         @endisset
                         @if (Auth::user()->role->name == 'Administrator')
+                        <div id="wrapper_whitepaper" class="form-group">
+                            <label class="control-label col-sm-4" for="whitepaper">Whitepaper</label>
+                            <div class="col-sm-6">
+                                <input type="url" id="whitepaper" name="whitepaper" value="{{ old('whitepaper', $user->whitepaper) }}" class="form-control input-transparent">
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Role</label>
                             <div class="col-sm-8">
@@ -176,7 +182,7 @@
                             <td>{{ $loop->index + 1}}</td>
                             <td>{{ $item->type->name }}</td>
                             <td>{{ $item->token->name }} / {{ $item->token->symbol }}</td>
-                            <td>{{ round($item->eth_value, 2) }} ETH / {{ number_format($item->usd_value / 100) }} $</td>
+                            <td>ETH {{ round($item->eth_value, 2) }} / USD {{ number_format($item->usd_value / 100) }}</td>
                             <td>{{ $item->created_at }}</td>
                             <td class="text-center">
                             @switch($item->status)
