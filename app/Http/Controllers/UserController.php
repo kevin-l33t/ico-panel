@@ -171,6 +171,11 @@ class UserController extends Controller
             'role_id' =>$request->input('role')
         ]);
 
+        if ($user->role->name == 'Artist' && $request->has('whitepaper')) {
+            $user->whitepaper = $request->input('whitepaper');
+            $user->save();
+        }
+
         if($request->hasFile('profile_picture') && $request->file('profile_picture')->isValid()) {
             $user->profile_picture = $request->file('profile_picture')->store('profile', 'public');
 
@@ -264,6 +269,10 @@ class UserController extends Controller
         $user->phone = $request->input('phone');
         if ($request->has('password') && !empty($request->input('password'))) {
             $user->password = bcrypt($request->input('password'));
+        }
+
+        if ($user->role->name == 'Artist') {
+            $user->whitepaper = $request->input('whitepaper');
         }
 
         if($request->hasFile('profile_picture') && $request->file('profile_picture')->isValid()) {
