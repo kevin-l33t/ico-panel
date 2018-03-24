@@ -309,7 +309,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Launch</button>
+                <button type="submit" class="btn btn-danger">Update</button>
             </div>
         </form>
         </div><!-- /.modal-content -->

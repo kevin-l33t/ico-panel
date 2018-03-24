@@ -52,8 +52,6 @@
                                         data-slider-step="10" data-slider-value="{{ round(1000 / $token->currentStage()->price) }}" />
                                 </div>
                             </div>
-
-                            <!--  -->
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-6">Total Amount if buying with Ethereum</label>
