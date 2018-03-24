@@ -1,0 +1,20 @@
+.img-container, .img-preview {
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+}
+
+.profile-pic-preview {
+    width: 256px;
+    height: 256px;
+}
+
+.clickable-row {
+    cursor: pointer;
+}
+
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
