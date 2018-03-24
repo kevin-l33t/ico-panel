@@ -1,7 +1,7 @@
 $(function(){
     function pageLoad(){
         $('.date-picker').datetimepicker({
-            format: false
+            format: 'YYYY-MM-DD HH:mm:ss'
         });
     }
 

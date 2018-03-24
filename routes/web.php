@@ -18,7 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('tokens', 'TokenController');
-Route::post('tokens/create/stage/{token}', 'TokenController@createStage')->name('tokens.createStage');
+Route::post('tokens/stage/create/{token}', 'TokenController@createStage')->name('tokens.createStage');
+Route::post('tokens/stage/update/{token}', 'TokenController@updateStage')->name('tokens.updateStage');
 
 Route::resource('users', 'UserController');
 Route::get('users/buy/{token}', 'UserController@buyToken')->name('users.buy');

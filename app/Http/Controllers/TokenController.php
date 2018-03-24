@@ -204,4 +204,53 @@ class TokenController extends Controller
         
         return redirect()->route('tokens.show', [$token]);
     }
+
+    /**
+     * Update latest ICO stage
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Token  $token
+     * @return \Illuminate\Http\Response
+     */
+    public function updateStage(Request $request, Token $token) {
+        $this->validate($request, [
+            'start_date' => 'required|date',
+            'end_date' => 'required|date'
+        ]);
+
+        $startDate = new Carbon($request->input('start_date'));
+        $endtDate = new Carbon($request->input('end_date'));
+        $client = new Client([
+            // Base URI is used with relative requests
+            'base_uri' => env('TOKEN_API_URL'),
+            // You can set any number of default request options.
+            'timeout'  => 10.0
+        ]);
+        $tokenRequestParams = [
+            "artist_address" => $token->user->wallet[0]->address,
+            "start_date" => $startDate->timestamp,
+            "end_date" => $endtDate->timestamp
+        ];
+        $response = $client->request('POST', 'ico/stage/update', [
+            'http_errors' => false,
+            'json' => $tokenRequestParams,
+            'headers' => [
+                'Authorization' => 'API-KEY ' . env('TOKEN_API_KEY')
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) {
+            $result = json_decode($response->getBody()->getContents());
+            if ($result->success) {
+
+                $currentStage = $token->currentStage();
+                $currentStage->start_at = $startDate;
+                $currentStage->end_at = $endtDate;
+                $currentStage->tx_hash = $result->tx_hash;
+
+                $currentStage->save();
+            }
+        }
+        
+        return redirect()->route('tokens.show', [$token]);
+    }
 }
