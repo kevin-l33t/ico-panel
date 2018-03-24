@@ -127,12 +127,12 @@
                                 <p class="form-control-static">{{ $log->updated_at }}</p>
                             </div>
                         </div>
+                        @endif
                         <div class="form-group">
                             <label class="control-label col-sm-4">Transaction Hash:</label>
                             <div class="col-sm-7 text-truncate">
-                                <a href="https://etherscan.io/tx/{{ $log->tx_hash }}" target="_blank"><i class="fa fa-external-link"></i>{{ $log->tx_hash }}</a>
+                                <i class="fa fa-external-link"></i>&nbsp;<a href="https://etherscan.io/tx/{{ $log->tx_hash }}" target="_blank">{{ $log->tx_hash }}</a>
                         </div>
-                        @endif
                     </fieldset>
                     <div class="form-actions text-center">
                         <a href="javascript:history.back()" class="btn btn-default">Back</a>

@@ -9,6 +9,7 @@
                data-parent="#side-nav" href="#ico-collapse"><i class="fa fa-area-chart"></i> <span class="name">ICO</span></a>
             <ul id="ico-collapse" class="panel-collapse collapse ">
                 <li class=""><a href="{{ route('tokens.index') }}">List</a></li>
+                <li class=""><a href="{{ route('tokens.allocatePage') }}">Allocate</a></li>
                 <li class=""><a href="{{ route('tokens.create') }}">Issue New</a></li>
             </ul>
         </li>

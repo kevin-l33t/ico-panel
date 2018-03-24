@@ -52,8 +52,6 @@
                                         data-slider-step="10" data-slider-value="{{ round(1000 / $token->currentStage()->price) }}" />
                                 </div>
                             </div>
-
-                            <!--  -->
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-6">Total Amount if buying with Ethereum</label>
@@ -74,9 +72,9 @@
                             </div>
                         </div>
                         <div id="wrapper_console" class="form-group" style="display:none">
-                            <label class="control-label col-sm-4">Latest Tx</label>
+                            <label class="control-label col-sm-3">Transaction Hash</label>
                             <div class="col-sm-8">
-                                <p class="form-control-static text-truncate"><i class="fa fa fa-arrow-right"></i>&nbsp;<a target="_blank" id="link_tx_hash"></a></p>
+                                <p class="form-control-static text-truncate"><i class="fa fa fa-external-link"></i>&nbsp;<a target="_blank" id="link_tx_hash"></a></p>
                             </div>
                         </div>
                     </fieldset>

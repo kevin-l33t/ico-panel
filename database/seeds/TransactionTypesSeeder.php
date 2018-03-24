@@ -23,5 +23,9 @@ class TransactionTypesSeeder extends Seeder
         DB::table('transaction_types')->insert([
             'name' => 'Credit Card'
         ]);
+
+        DB::table('transaction_types')->insert([
+            'name' => 'System Allocation'
+        ]);
     }
 }
