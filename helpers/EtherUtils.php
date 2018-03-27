@@ -68,6 +68,28 @@ function getEtherUSDPrice() {
 }
 
 function ethToUsd($ether) {
-
     return empty($ether) ? $ether :  round(getEtherUSDPrice() * $ether, 2);
+}
+
+function addToWhitelist($address) {
+    $client = new Client([
+            // Base URI is used with relative requests
+            'base_uri' => env('TOKEN_API_URL'),
+            // You can set any number of default request options.
+            'timeout'  => 10.0
+        ]);
+        $response = $client->request('GET', 'account/addToWhitelist/'.$address, [
+            'http_errors' => false,
+            'headers' => [
+                'Authorization' => 'API-KEY ' . env('TOKEN_API_KEY')
+            ]
+        ]);
+        if ($response->getStatusCode() == 200) {
+            $result = json_decode($response->getBody()->getContents());
+            if ($result->success) {
+                return true;
+            }
+        }
+
+    return false;
 }

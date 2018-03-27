@@ -20,14 +20,15 @@
                                     alt="64x64" style="height: 112px;">
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-8">
                             <h3 class="mt-sm mb-xs">{{ $user->name }}</h3>
-                            <address>
-                                <abbr title="Work email">e-mail:</abbr>
-                                <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
+                            <p>
+                                e-mail: <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                                 <br>
-                                <abbr title="Work Phone">phone:</abbr> {{ $user->phone }}
-                            </address>
+                                phone: {{ $user->phone }}
+                                <br>
+                                wallet: {{ $user->wallet[0]->address }}
+                            </p>
                         </div>
                     </div>
                     @endisset
