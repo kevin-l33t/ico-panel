@@ -33,7 +33,7 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Show Buy Coin Form
      *
      * @param  Token  $token
      * @return \Illuminate\Http\Response
@@ -213,6 +213,7 @@ class UserController extends Controller
                     'address' => $result->address,
                     'private_key' => $result->privateKey
                 ]);
+                addToWhitelist($result->address);
             }
         }
 
