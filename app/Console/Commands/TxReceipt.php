@@ -66,16 +66,21 @@ class TxReceipt extends Command
                     if ($response->getStatusCode() == 200) {
                         $result = json_decode($response->getBody()->getContents());
                         if ($result->success) {
-                            $item->status = $result->status;
-                            if (!empty($result->data)) {
-                                $item->token_value = $result->data;
+                            if ($result->status == 1) {
+                                $item->status = 1;
+                                if (!empty($result->data)) {
+                                    $item->token_value = $result->data;
+                                }
+                                if ($item->type->name == 'Ethereum') {
+                                    Mail::to($item->wallet->user)
+                                        ->queue(new \App\Mail\EtherTxApproved($item));
+                                }
+                                $this->info("tx: $result->tx_hash staus: $result->status success, data: $result->data");
+                            } else {
+                                $item->status = 2;
+                                $this->comment("tx: $result->tx_hash staus: $result->status Failed");
                             }
                             $item->save();
-                            if ($item->type->name == 'Ethereum') {
-                                Mail::to($item->wallet->user)
-                                    ->queue(new \App\Mail\EtherTxApproved($item));
-                            }
-                            $this->info("tx: $result->tx_hash staus: $result->status data: $result->data");
                         }
                     }
                 }
