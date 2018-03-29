@@ -38,13 +38,14 @@ Route::get('tx', 'TransactionLogController@index')->name('tx.index')->middleware
 Route::get('tx/{log}', 'TransactionLogController@show')->name('tx.show');
 
 Route::get('/mailable', function() {
-    $receipt = App\BankReceipt::find(1);
-    $log = App\TransactionLog::where('transaction_type_id', 1)->first();
+    // $receipt = App\BankReceipt::find(1);
+    $log = App\TransactionLog::where('transaction_type_id', 4)->first();
 
-    Mail::to('yoshiro.sakanishi@hotmail.com')
-            ->queue(new App\Mail\BankReceiptApproved($receipt));
+    // Mail::to('yoshiro.sakanishi@hotmail.com')
+    //         ->queue(new App\Mail\BankReceiptApproved($receipt));
 
     // return new App\Mail\BankReceiptSubmitted($receipt);
-    return new App\Mail\BankReceiptApproved($receipt);
+    // return new App\Mail\BankReceiptApproved($receipt);
     //return new App\Mail\EtherTxApproved($log);
+    return new App\Mail\SystemAllocation($log);
 });
