@@ -134,6 +134,8 @@ $(function () {
                 "sFilter": "pull-right",
                 "sFilterInput": "form-control input-transparent ml-sm"
             },
+            "pageLength": 25,
+            "order": [],
             "aoColumns": unsortableColumns
         });
 
