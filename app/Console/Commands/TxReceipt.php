@@ -74,6 +74,9 @@ class TxReceipt extends Command
                                 if ($item->type->name == 'Ethereum') {
                                     Mail::to($item->wallet->user)
                                         ->queue(new \App\Mail\EtherTxApproved($item));
+                                } elseif ($item->type->name == 'System Allocation') {
+                                    Mail::to($item->wallet->user)
+                                        ->queue(new \App\Mail\SystemAllocation($item));
                                 }
                                 $this->info("tx: $result->tx_hash staus: $result->status success, data: $result->data");
                             } else {

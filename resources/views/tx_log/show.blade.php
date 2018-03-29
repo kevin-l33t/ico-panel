@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Coin Name:</label>
+                            <label class="control-label col-sm-4">Coin Symbol:</label>
                             <div class="col-sm-8">
                                 <p class="form-control-static">{{ $log->token->symbol }}</p>
                             </div>
@@ -52,7 +52,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Date Purchased:</label>
+                            @if ($log->type->name == 'System Allocation')
+                                <label class="control-label col-sm-4">Date Received:</label>
+                            @else
+                                <label class="control-label col-sm-4">Date Purchased:</label>
+                            @endif
                             <div class="col-sm-8">
                                 <p class="form-control-static">{{ $log->created_at }}</p>
                             </div>
@@ -64,7 +68,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Coins Purchased:</label>
+                            @if ($log->type->name == 'System Allocation')
+                                <label class="control-label col-sm-4">Coins Received:</label>
+                            @else
+                                <label class="control-label col-sm-4">Coins Purchased:</label>
+                            @endif
                             <div class="col-sm-8">
                                 <p class="form-control-static">{{ number_format($log->token_value) }} {{ $log->token->symbol }}</p>
                             </div>
@@ -100,6 +108,13 @@
                             <label class="control-label col-sm-4">Bank Account Name / Number:</label>
                             <div class="col-sm-8">
                                 <p class="form-control-static">{{ $log->bankReceipt->account_name }} / {{ $log->bankReceipt->account_number }}</p>
+                            </div>
+                        </div>
+                        @elseif ($log->type->name == 'System Allocation')
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Value in USD:</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static">USD {{ number_format($log->token_value * $log->token->currentStage()->price / 100, 2) }}</p>
                             </div>
                         </div>
                         @endif
