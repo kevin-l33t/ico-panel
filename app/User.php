@@ -34,4 +34,14 @@ class User extends Authenticatable
     public function wallet() {
         return $this->hasMany('App\Wallet');
     }
+
+    public function getTotalAssetAttribute() {
+        $tokens = Token::has('stages')->get();
+        $total = 0;
+        foreach($tokens as $token) {
+            $total += $this->wallet[0]->getTokenBalance($token) * $token->currentStage()->price;
+        }
+
+        return $total;
+    }
 }
