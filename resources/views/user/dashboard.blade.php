@@ -6,7 +6,7 @@
     <div class="col-sm-6">
         <div class="box">
             <div class="big-text">
-                {{ $user->wallet[0]->eth_balance, 2 }} ETH
+                {{ $user->wallet[0]->eth_balance }} ETH
             </div>
             <div class="description">
                 USD {{ number_format(ethToUsd($user->wallet[0]->eth_balance), 2) }}
@@ -66,7 +66,7 @@
                         </td>
                         <td><a href="{{ $item->user->whitepaper }}" target="_blank">{{ $item->user->name }} / {{ $item->symbol }}</a></td>
                         <td class="text-center">{{ count($item->stages) }}</td>
-                        <td class="text-center">USD {{ $item->currentStage()->price / 100 }}</td>
+                        <td class="text-center">USD {{ number_format($item->currentStage()->price / 100, 2) }}</td>
                         <td class="text-center">
                             <p class="no-margin">
                                 <small>
@@ -132,7 +132,7 @@
                         <tr>
                             <td>{{ $item->user->name }}</td>
                             <td>{{ number_format($user->wallet[0]->getTokenBalance($item)) }} {{ $item->symbol }}</td>
-                            <td>USD {{ number_format($user->wallet[0]->getTokenBalance($item) * $item->currentStage()->price / 100) }}</td>
+                            <td>USD {{ number_format($user->wallet[0]->getTokenBalance($item) * $item->currentStage()->price / 100, 2) }}</td>
                         </tr>
                         @endif
                     @endforeach
