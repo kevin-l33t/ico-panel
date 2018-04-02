@@ -48,7 +48,7 @@ Complete Payment
                             </div>
                             <div class="col-xs-4">
                                 <p>USD {{ number_format($usd_value, 2) }}</p>
-                                <p>USD 30</p>
+                                <p>USD 30.00</p>
                                 <p class="no-margin"><strong>USD {{ number_format($usd_value + 30, 2) }}</strong></p>
                             </div>
                         </div>
