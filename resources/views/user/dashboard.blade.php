@@ -3,7 +3,7 @@
 @section('content')
 <h2 class="page-title">ICO <small>Dashboard </small></h2>
 <div class="row">
-    <div class="col-md-3 col-sm-4 col-xs-6">
+    <div class="col-sm-6">
         <div class="box">
             <div class="big-text">
                 {{ $user->wallet[0]->eth_balance }} ETH
@@ -12,16 +12,30 @@
                 USD {{ number_format(ethToUsd($user->wallet[0]->eth_balance), 2) }}
             </div>
         </div>
-    </div>
-    <div class="col-md-9 col-sm-10 col-xs-12">
-        <div class="box">
+
+        <div class="box" style="margin-top: 46px;">
             <div class="big-text">
-                <h3>{{ $user->wallet[0]->address }}</h3>
+                <i class="fa fa-dollar"></i> {{ number_format($user->totalAsset / 100, 2) }}
             </div>
             <div class="description">
-                <strong>{{ $user->name }}</strong> Wallet Address
+                <i class="fa fa-money"></i> Total Asset
             </div>
         </div>
+    </div>
+
+    <div class="col-sm-6">
+        <section class="widget normal">
+            <header>
+                <h4>
+                    <i class="glyphicon glyphicon-qrcode"></i>
+                    Your Wallet
+                </h4>
+            </header>
+            <div class="body text-center">
+                <img src="https://chart.googleapis.com/chart?chs=168x168&cht=qr&chl={{ $user->wallet[0]->address }}&choe=UTF-8&chld=L|0">
+                <h5 class="mb-0 mt-sm weight-normal">{{ $user->wallet[0]->address }}</h5>
+            </div>
+        </section>
     </div>
 </div>
 <div class="row">
@@ -52,7 +66,7 @@
                         </td>
                         <td><a href="{{ $item->user->whitepaper }}" target="_blank">{{ $item->user->name }} / {{ $item->symbol }}</a></td>
                         <td class="text-center">{{ count($item->stages) }}</td>
-                        <td class="text-center">USD {{ $item->currentStage()->price / 100 }}</td>
+                        <td class="text-center">USD {{ number_format($item->currentStage()->price / 100, 2) }}</td>
                         <td class="text-center">
                             <p class="no-margin">
                                 <small>
@@ -118,7 +132,7 @@
                         <tr>
                             <td>{{ $item->user->name }}</td>
                             <td>{{ number_format($user->wallet[0]->getTokenBalance($item)) }} {{ $item->symbol }}</td>
-                            <td>USD {{ number_format($user->wallet[0]->getTokenBalance($item) * $item->currentStage()->price / 100) }}</td>
+                            <td>USD {{ number_format($user->wallet[0]->getTokenBalance($item) * $item->currentStage()->price / 100, 2) }}</td>
                         </tr>
                         @endif
                     @endforeach
@@ -201,7 +215,6 @@
 @endsection
 @section('scripts')
 <!-- Page Lib -->
-
 <!-- page specific scripts -->
 <script src="{{ asset('js/pages/user-dashboard.js') }}"></script>
 @endsection

@@ -6,8 +6,8 @@ function updatePrice() {
     ethAmountWithFee = ethAmount + MIN_REQUIRED_ETH;
     usdAmount = $('#amount').val() * tokenUsdPrice;
     $('#eth_amount').html(`ETH ${ethAmountWithFee.toLocaleString('en')}`);
-    $('#bank_amount').html(`USD ${(usdAmount + 30).toLocaleString('en')}`);
-    $('#credit_card_amount').html(`USD ${(usdAmount * 1.055).toLocaleString('en')}`);
+    $('#bank_amount').html(`USD ${(usdAmount + 30).toLocaleString('en', {minimumFractionDigits: 2})}`);
+    $('#credit_card_amount').html(`USD ${(usdAmount * 1.055).toLocaleString('en', {minimumFractionDigits: 2})}`);
     $('#eth_value').val(ethAmount);
     $('#usd_value').val(usdAmount);
 
@@ -74,6 +74,10 @@ $(function(){
                                 .on('slide', onChange)
                                 .data('slider');
         $('#amount').keyup(function(e) {
+            slider.setValue(parseInt($('#amount').val()));
+            updatePrice();
+        });
+        $('#amount').change(function(e) {
             slider.setValue(parseInt($('#amount').val()));
             updatePrice();
         });

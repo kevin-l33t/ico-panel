@@ -89,7 +89,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-4">Bank Transfer Fee</label>
                             <div class="col-sm-4">
-                                <p class="form-control-static">USD 30 / Transfer</p>
+                                <p class="form-control-static">USD 30.00 / Transfer</p>
                             </div>
                         </div>
                         <div class="form-group">
