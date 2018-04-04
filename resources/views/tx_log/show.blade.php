@@ -27,6 +27,26 @@
                     </div>
                     <fieldset>
                         <legend class="section">Transaction Info</legend>
+                    @if ($log->type->name == 'Withdraw')
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Withdraw to:</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static">{{ $log->to }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Amount:</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static">ETH {{ $log->eth_value }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Date:</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static">{{ $log->created_at }}</p>
+                            </div>
+                        </div>
+                    @else
                         <div class="form-group">
                             <label class="control-label col-sm-4">Purchase with:</label>
                             <div class="col-sm-8">
@@ -77,7 +97,7 @@
                                 <p class="form-control-static">{{ number_format($log->token_value) }} {{ $log->token->symbol }}</p>
                             </div>
                         </div>
-            
+
                         @if ($log->type->name == 'Ethereum')
                         <div class="form-group">
                             <label class="control-label col-sm-4">Ether Paid:</label>
@@ -118,6 +138,7 @@
                             </div>
                         </div>
                         @endif
+                    @endif
                         <div class="form-group">
                             <label class="control-label col-sm-4">Status:</label>
                             <div class="col-sm-8">
@@ -135,19 +156,21 @@
                                 </p>
                             </div>
                         </div>
-                        @if ($log->type->name == 'Bank Transfer' && $log->status == 1)
+                    @if ($log->type->name == 'Bank Transfer' && $log->status == 1)
                         <div class="form-group">
                             <label class="control-label col-sm-4">Date Status Confirmed:</label>
                             <div class="col-sm-8">
                                 <p class="form-control-static">{{ $log->updated_at }}</p>
                             </div>
                         </div>
-                        @endif
+                    @endif
+                    @if ($log->status == 1)
                         <div class="form-group">
                             <label class="control-label col-sm-4">Transaction Hash:</label>
                             <div class="col-sm-7 text-truncate">
                                 <i class="fa fa-external-link"></i>&nbsp;<a href="https://etherscan.io/tx/{{ $log->tx_hash }}" target="_blank">{{ $log->tx_hash }}</a>
                         </div>
+                    @endif
                     </fieldset>
                     <div class="form-actions text-center">
                         <a href="javascript:history.back()" class="btn btn-default">Back</a>

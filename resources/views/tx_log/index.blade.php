@@ -26,14 +26,27 @@
                         <td class="text-center hidden-xs">{{ $item->id }}</td>
                         <td class="text-center">{{ $item->wallet->user->name }}</td>
                         <td class="text-center hidden-xs">{{ $item->type->name }}</td>
-                        <td class="text-center hidden-xs">{{ $item->token->name }}</td>
-                        <td class="text-center">{{ number_format($item->token_value) }} {{ $item->token->symbol }}</td>
                         <td class="text-center hidden-xs">
-                            @if ($item->type->name == 'Ethereum')
+                        @if ($item->type->name == 'Withdraw')
+                            {{ substr($item->to,0, 8) }}...
+                        @else
+                            {{ $item->token->name }}
+                        @endif
+                        </td>
+                        <td class="text-center">
+                        @if ($item->type->name == 'Withdraw')
+                        @else
+                            {{ number_format($item->token_value) }} {{ $item->token->symbol }}
+                        @endif
+                        </td>
+                        <td class="text-center hidden-xs">
+                        @if ($item->type->name == 'Ethereum')
                             ETH {{ round($item->eth_value, 3) }} / USD {{ number_format($item->usd_value / 100, 2) }}
-                            @else
+                        @elseif ($item->type->name == 'Withdraw')
+                            ETH {{ round($item->eth_value, 2) }}
+                        @else
                                 USD {{ number_format($item->usd_value / 100, 2) }}
-                            @endif    
+                        @endif
                        </td>
                         <td class="text-center text-muted hidden-xs">{{ $item->created_at }}</td>
                         <td>

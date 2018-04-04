@@ -68,7 +68,7 @@ class TxReceipt extends Command
                         if ($result->success) {
                             if ($result->status == 1) {
                                 $item->status = 1;
-                                if (!empty($result->data)) {
+                                if (isset($result->data)) {
                                     $item->token_value = $result->data;
                                 }
                                 if ($item->type->name == 'Ethereum') {
@@ -78,7 +78,7 @@ class TxReceipt extends Command
                                     Mail::to($item->wallet->user)
                                         ->queue(new \App\Mail\SystemAllocation($item));
                                 }
-                                $this->info("tx: $result->tx_hash staus: $result->status success, data: $result->data");
+                                $this->info("tx: $result->tx_hash staus: $result->status success, data: $item->token_value");
                             } else {
                                 $item->status = 2;
                                 $this->comment("tx: $result->tx_hash staus: $result->status Failed");

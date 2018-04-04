@@ -27,6 +27,8 @@ Route::resource('users', 'UserController');
 Route::get('users/buy/{token}', 'UserController@buyToken')->name('users.buy');
 Route::post('users/send/ether', 'UserController@sendEther')->name('users.sendEther');
 Route::get('dashboard', 'UserController@dashboard')->name('users.dashboard');
+Route::get('wallet', 'UserController@wallet')->name('users.wallet');
+Route::post('wallet/withdraw', 'UserController@withdraw')->name('users.withdraw');
 
 Route::get('receipts', 'BankReceiptController@index')->name('receipts.index')->middleware('admin');
 Route::post('receipts/create', 'BankReceiptController@create')->name('receipts.create');

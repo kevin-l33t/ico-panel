@@ -3,6 +3,9 @@
         <li>
             <a href="{{ route('users.dashboard') }}"><i class="fa fa-home"></i> <span class="name">Dashboard</span></a>
         </li>
+        <li>
+            <a href="{{ route('users.wallet') }}"><i class="fa fa-money"></i> <span class="name">Wallet</span></a>
+        </li>
         @if (Auth::user()->role->name == 'Administrator')
         <li class="panel">
             <a class="accordion-toggle collapsed" data-toggle="collapse"

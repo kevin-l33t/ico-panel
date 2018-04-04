@@ -33,6 +33,88 @@ class UserController extends Controller
     }
 
     /**
+     * Show the User dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function wallet()
+    {
+        $data['user'] = Auth::user();
+        return view('user.wallet', $data);
+    }
+
+    /**
+     * Send Ether
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function withdraw(Request $request)
+    {
+        $this->validate($request, [
+            'address' => 'required|string',
+            'amount' => 'required|numeric'
+        ]);
+
+        $client = new Client([
+            // Base URI is used with relative requests
+            'base_uri' => env('TOKEN_API_URL'),
+            // You can set any number of default request options.
+            'timeout'  => 10.0
+        ]);
+
+        $user = Auth::user();
+
+        $tokenRequestParams = [
+            'address' => $request->input('address'),
+            'private_key' => $user->wallet[0]->private_key,
+            'value' => $request->input('amount')
+        ];
+        try {
+            $response = $client->request('POST', 'account/sendTransaction', [
+                'json' => $tokenRequestParams,
+                'headers' => [
+                    'Authorization' => 'API-KEY ' . env('TOKEN_API_KEY')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) {
+                $result = json_decode($response->getBody()->getContents());
+                if ($result->success) {
+
+                    TransactionLog::create([
+                        'from' => $user->wallet[0]->address,
+                        'to' => $request->input('address'),
+                        'eth_value' => $request->input('amount'),
+                        'transaction_type_id' => 5,
+                        'tx_hash' => $result->tx_hash
+                    ]);
+
+                    return response()->json([
+                        'success' => true,
+                        'tx_hash' => $result->tx_hash
+                    ]);
+                }
+            }
+        } catch(\GuzzleHttp\Exception\ClientException $ex) {
+            $message = "Transaction failed, insufficient funds for gas * price + value";
+            if ($ex->hasResponse()) {
+                $response = json_decode($ex->getResponse()->getBody()->getContents());
+                //$message = $response->message;
+            }
+            return response()->json([
+                'success' => false,
+                'message' => $message
+            ], 400);
+        } catch(\GuzzleHttp\Exception\ConnectException $ex) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot connect to Ethereum Node'
+            ], 500);
+        }
+    }
+
+    /**
      * Show Buy Coin Form
      *
      * @param  Token  $token

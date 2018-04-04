@@ -182,8 +182,22 @@
                         <tr class="clickable-row" data-href="{{ route('tx.show', $item) }}">
                             <td>{{ $loop->index + 1}}</td>
                             <td>{{ $item->type->name }}</td>
-                            <td>{{ $item->token->name }} / {{ $item->token->symbol }}</td>
-                            <td>ETH {{ round($item->eth_value, 2) }} / USD {{ number_format($item->usd_value / 100) }}</td>
+                            <td>
+                            @if ($item->type->name == 'Withdraw')
+                                {{ substr($item->to, 0, 8) }}...
+                            @else
+                                {{ $item->token->name }} / {{ $item->token->symbol }}
+                            @endif
+                            </td>
+                            <td>
+                            @if ($item->type->name == 'Ethereum')
+                                ETH {{ round($item->eth_value, 2) }} / USD {{ number_format($item->usd_value / 100, 2) }}
+                            @elseif ($item->type->name == 'Withdraw')
+                                ETH {{ round($item->eth_value, 2) }}
+                            @else
+                                USD {{ number_format($item->usd_value / 100, 2) }}
+                            @endif
+                            </td>
                             <td>{{ $item->created_at }}</td>
                             <td class="text-center">
                             @switch($item->status)

@@ -27,5 +27,9 @@ class TransactionTypesSeeder extends Seeder
         DB::table('transaction_types')->insert([
             'name' => 'System Allocation'
         ]);
+
+        DB::table('transaction_types')->insert([
+            'name' => 'Withdraw'
+        ]);
     }
 }
