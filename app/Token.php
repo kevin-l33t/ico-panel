@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use GuzzleHttp\Client;
-use TransactionLog;
 
 class Token extends Model
 {
@@ -105,7 +104,12 @@ class Token extends Model
                 $this->totalSupply = $result->total_supply;
                 $this->ethRaised = round($result->eth_raised, 3);
                 $this->ethRaisedCurrentStage = round($result->eth_raised_current_stage, 3);
-                $this->tokenSoldCurrentStage = round($result->token_sold_current_stage, 3);
+
+                // add pending tokens to the sold out amount
+                $pendingAmount = TransactionLog::where('status', 0)
+                                ->where('token_id', $this->id)
+                                ->sum('token_value');
+                $this->tokenSoldCurrentStage = round($result->token_sold_current_stage + $pendingAmount, 3);
                 $this->isInfoLoaded = true;
             }
         }
