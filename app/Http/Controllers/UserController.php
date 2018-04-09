@@ -400,4 +400,31 @@ class UserController extends Controller
             'success' => true
         ]);
     }
+
+    /**
+     * Show Portfolio Page
+     *
+     * @param  \App\Token  $token
+     * @return \Illuminate\Http\Response
+    */
+    public function portfolio(Token $token)
+    {
+        $data['user'] = Auth::user();
+        $wallet = Auth::user()->wallet[0];
+        $data['token'] = $token;
+        foreach ($token->stages as $stage) {
+            $portfolios[] = [
+                'amount' => $wallet->transactions()->where('token_id', $token->id)
+                    ->where('status', 1)
+                    ->whereBetween('created_at', [$stage->start_at, $stage->end_at])
+                    ->sum('token_value'),
+                'usd_value' => $wallet->transactions()->where('token_id', $token->id)
+                    ->where('status', 1)
+                    ->whereBetween('created_at', [$stage->start_at, $stage->end_at])
+                    ->sum('usd_value')
+            ];
+        }
+        $data['portfolios'] = $portfolios;
+        return view('user.portfolio', $data);
+    }
 }

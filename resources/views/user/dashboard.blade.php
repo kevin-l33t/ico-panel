@@ -115,7 +115,7 @@
             <div class="widget-body">
                 <h3>Your <span class="fw-semi-bold">Portfolio</span></h3>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                         <tr>
                             <th class="text-center">Artist</th>
@@ -129,7 +129,7 @@
                         @php
                             $hasPortfolio_count = true;
                         @endphp
-                        <tr>
+                        <tr class="clickable-row" data-href="{{ route('users.portfolio', $item) }}">
                             <td>{{ $item->user->name }}</td>
                             <td>{{ number_format($user->wallet[0]->getTokenBalance($item)) }} {{ $item->symbol }}</td>
                             <td>USD {{ number_format($user->wallet[0]->getTokenBalance($item) * $item->currentStage()->price / 100, 2) }}</td>
