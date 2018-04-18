@@ -13,7 +13,7 @@
         <div class="single-widget-container">
             <section class="widget login-widget">
                 <header class="text-align-center">
-                <img src="{{ asset('img/logo.png') }}" alt="Hunter Records Corp">
+                <img src="{{ asset('img/logo.png') }}" class="width-200 mb-sm" alt="Hunter Records Corp">
                     <h4>Login to your account</h4>
                 </header>
                 <div class="body">
