@@ -29,6 +29,21 @@ class Token extends Model
      *
      * @return string
      */
+    public function getAvailableTokensAttribute()
+    {
+        $currentStage = $this->currentStage();
+        if (!empty($currentStage)) {
+            $this->loadInfo();
+            return $currentStage->supply - $this->token_sold_current_stage;
+        }
+        return 0;
+    }
+
+    /**
+     * Get TotalSupply
+     *
+     * @return string
+     */
     public function getTotalSupplyAttribute()
     {
         $this->loadInfo();

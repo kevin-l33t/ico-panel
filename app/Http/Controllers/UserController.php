@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use GuzzleHttp\Client;
+use Carbon\Carbon;
 use App\User;
 use App\UserRole;
 use App\Token;
@@ -142,15 +143,30 @@ class UserController extends Controller
             'token_value' => 'required|numeric'
         ]);
 
+        $token = Token::find($request->input('token'));
+        $user = Auth::user();
+        $now = Carbon::now();
+
+        if (!($now->gte(new Carbon($token->currentStage()->start_at)) && $now->lte(new Carbon($token->currentStage()->end_at)))) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Not ICO period'
+            ], 406);
+        }
+
+        if ($token->available_tokens < $request->input('token_value')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Remaining token is not enough, please try again later'
+            ], 406);
+        }
+
         $client = new Client([
             // Base URI is used with relative requests
             'base_uri' => env('TOKEN_API_URL'),
             // You can set any number of default request options.
             'timeout'  => 10.0
         ]);
-
-        $token = Token::find($request->input('token'));
-        $user = Auth::user();
 
         $tokenRequestParams = [
             'address' => $token->crowdsale_address,

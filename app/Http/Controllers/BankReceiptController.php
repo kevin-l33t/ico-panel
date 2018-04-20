@@ -11,6 +11,7 @@ use App\TransactionLog;
 use Mail;
 use App\Mail\BankReceiptSubmitted;
 use App\Mail\BankReceiptApproved;
+use Carbon\Carbon;
 
 class BankReceiptController extends Controller
 {
@@ -31,7 +32,17 @@ class BankReceiptController extends Controller
             'eth_value' => 'required|numeric',
             'usd_value' => 'required|numeric'
         ]);
-        $data['token'] = Token::find($request->input('token'));
+        $now = Carbon::now();
+        $token = Token::find($request->input('token'));
+        if (!($now->gte(new Carbon($token->currentStage()->start_at)) && $now->lte(new Carbon($token->currentStage()->end_at)))) {
+            return redirect()->route('users.dashboard');
+        }
+
+        if ($token->available_tokens < $request->input('token_value')) {
+            return redirect()->route('users.dashboard');
+        }
+
+        $data['token'] = $token;
         $data['eth_value'] = $request->input('eth_value');
         $data['usd_value'] = $request->input('usd_value');
         $data['token_value'] = $request->input('token_value');

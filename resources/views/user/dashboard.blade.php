@@ -93,7 +93,7 @@
                             </p>
                         </td>
                         <td class="text-center width-100">
-                            <a href="{{ route('users.buy', $item) }}" class="btn btn-info {{ (date('Y-m-d H:i:s') >= $item->currentStage()->start_at && date('Y-m-d H:i:s') < $item->currentStage()->end_at  ) ? '' : 'disabled' }} ">&nbsp;Buy&nbsp;</a>
+                            <a href="{{ route('users.buy', $item) }}" class="btn btn-info {{ (date('Y-m-d H:i:s') >= $item->currentStage()->start_at && date('Y-m-d H:i:s') < $item->currentStage()->end_at) && $item->available_tokens > 0 ? '' : 'disabled' }} ">&nbsp;Buy&nbsp;</a>
                         </td>
                     </tr>
                 @endforeach

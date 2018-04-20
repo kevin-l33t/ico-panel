@@ -48,7 +48,7 @@
                                     <span class="input-group-addon">{{ $token->symbol }}</span>
                                 </div>
                                 <div class="slider-inverse mt-sm ml-md">
-                                    <input class="js-slider" id="slider-ex5" data-slider-id='ex5Slider' type="text" data-slider-min="{{ round(1000 / $token->currentStage()->price) }}" data-slider-max="{{ round(1000000 / $token->currentStage()->price) }}"
+                                    <input class="js-slider" id="slider-ex5" data-slider-id='ex5Slider' type="text" data-slider-min="{{ round(1000 / $token->currentStage()->price) }}" data-slider-max="{{ round($token->available_tokens > 1000000 ? 1000000 : $token->available_token / $token->currentStage()->price) }}"
                                         data-slider-step="10" data-slider-value="{{ round(1000 / $token->currentStage()->price) }}" />
                                 </div>
                             </div>
