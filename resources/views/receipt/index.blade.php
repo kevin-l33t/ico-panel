@@ -48,11 +48,6 @@
                                 <span class="fw-semi-bold">Account Name:</span>
                                 &nbsp; {{ $item->account_name }}
                             </small>
-                            <br>
-                            <small>
-                                <span class="fw-semi-bold">Account Number:</span>
-                                &nbsp; {{ $item->account_number }}
-                            </small>
                         </td>
                         <td><i class="fa fa-usd"></i> {{ number_format($item->usd_value / 100, 2) }}</td>
                         <td>

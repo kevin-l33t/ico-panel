@@ -66,7 +66,6 @@ class BankReceiptController extends Controller
             'order_id' => 'required|string',
             'bank_name' => 'required|string',
             'account_name' => 'required|string',
-            'account_number' => 'required|string',
             'receipt' => 'required|file'
         ]);
 
@@ -80,7 +79,6 @@ class BankReceiptController extends Controller
             'order_id' => $request->input('order_id'),
             'bank_name' => $request->input('bank_name'),
             'account_name' => $request->input('account_name'),
-            'account_number' => $request->input('account_number'),
             'usd_value' => 100 * $request->input('usd_value'),
             'eth_value' => $request->input('eth_value'),
             'token_value' => $request->input('token_value'),

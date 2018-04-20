@@ -109,13 +109,6 @@ Complete Payment
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4" for="account_number">Account Number</label>
-                            <div class="col-sm-6">
-                                <input type="text" id="account_number" name="account_number" value="{{ old('account_number', '') }}" required="required"
-                                    class="form-control input-transparent">
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label class="control-label col-sm-4" for="usd_value">Transfer Amount</label>
                             <div class="col-sm-6">
                                 <div class="input-group">
