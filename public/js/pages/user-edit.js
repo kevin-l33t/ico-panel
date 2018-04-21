@@ -1,6 +1,11 @@
 $(function () {
     function pageLoad() {
 
+        $(".select2").select2();
+        $('.date-picker').datetimepicker({
+            format: 'YYYY-MM-DD'
+        });
+
         var $image = $(".image-crop > img")
         $($image).cropper({
             aspectRatio: 1,
