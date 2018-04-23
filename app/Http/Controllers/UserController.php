@@ -317,7 +317,6 @@ class UserController extends Controller
                     'address' => $result->address,
                     'private_key' => $result->privateKey
                 ]);
-                addToWhitelist($result->address);
             }
         }
 
