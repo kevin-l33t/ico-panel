@@ -117,7 +117,7 @@ class VerificationController extends Controller
                 $data['link'] = route('users.dashboard');
             } else {
                 $data['heading'] = 'Not Verified';
-                $data['message'] = 'Failed to verify your ID. Please try again with valid documents';
+                $data['message'] = 'Failed to verify your ID. Please try again with valid document.';
                 $data['description'] = 'Please email me support@huntercorprecords.com if you have any inquires.';
                 $data['link_label'] = 'Back';
                 $data['link'] = route('verification.index');

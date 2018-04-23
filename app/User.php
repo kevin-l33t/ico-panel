@@ -35,6 +35,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Wallet');
     }
 
+    public function emailVerification()
+    {
+        return $this->hasMany('App\EmailVerification');
+    }
+
     public function getTotalAssetAttribute() {
         $tokens = Token::has('stages')->get();
         $total = 0;

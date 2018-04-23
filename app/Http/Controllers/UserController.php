@@ -409,10 +409,18 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $relatedCount = Token::where('user_id', $user->id)->count();
+        $relatedCount += TransactionLog::where('from', $user->wallet[0]->address)->count();
+
+        if ($relatedCount) {
+            return response()->json([
+                'success' => false,
+                'msg' => 'User has transactions'
+            ], 406);
+        }
+
         try{
-            if (count($user->wallet) > 0) {
-                $user->wallet[0]->delete();
-            }
+            Wallet::where('user_id', $user->id)->delete();
             $user->delete();
         } catch ( \Illuminate\Database\QueryException $ex ) {
             return response()->json([

@@ -40,14 +40,17 @@ Route::get('receipts/dismiss/{receipt}', 'BankReceiptController@dismiss')->name(
 Route::get('tx', 'TransactionLogController@index')->name('tx.index')->middleware('admin');
 Route::get('tx/{log}', 'TransactionLogController@show')->name('tx.show');
 
-Route::get('verification', 'VerificationController@index')->name('verification.index');
-Route::post('verify', 'VerificationController@verify')->name('verification.verify');
+Route::get('verification/kyc', 'VerificationController@index')->name('verification.index');
+Route::post('verification/kyc', 'VerificationController@verify')->name('verification.verify');
 Route::get('callback/shufti', 'VerificationController@callback')->name('verification.callback');
 Route::post('verification/result', 'VerificationController@result')->name('verification.result');
 
+Route::get('/verification/email/{token}', 'Auth\RegisterController@verifyEmail')->name('verification.email');
+
 Route::get('/mailable', function() {
     // $receipt = App\BankReceipt::find(1);
-    $log = App\TransactionLog::where('transaction_type_id', 4)->first();
+    // $log = App\TransactionLog::where('transaction_type_id', 4)->first();
+    $user = App\User::find(1);
 
     // Mail::to('yoshiro.sakanishi@hotmail.com')
     //         ->queue(new App\Mail\BankReceiptApproved($receipt));
@@ -55,5 +58,6 @@ Route::get('/mailable', function() {
     // return new App\Mail\BankReceiptSubmitted($receipt);
     // return new App\Mail\BankReceiptApproved($receipt);
     //return new App\Mail\EtherTxApproved($log);
-    return new App\Mail\SystemAllocation($log);
+    // return new App\Mail\SystemAllocation($log);
+    return new App\Mail\UserEmailVerification($user);
 });

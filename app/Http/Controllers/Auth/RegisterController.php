@@ -6,8 +6,12 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Wallet;
+use App\EmailVerification;
+use Mail;
+use App\Mail\UserEmailVerification;
 
 class RegisterController extends Controller
 {
@@ -79,6 +83,13 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'role_id' => 2
         ]);
+
+        EmailVerification::create([
+            'user_id' => $user->id,
+            'token' => str_random(40)
+        ]);
+ 
+        Mail::to($user)->queue(new UserEmailVerification($user));
         
         // create new wallet for the user.
         $client = new Client([
@@ -106,5 +117,29 @@ class RegisterController extends Controller
         }
 
         return $user;
+    }
+
+    public function verifyEmail($token) {
+        $verification = EmailVerification::where('token', $token)->first();
+        if(isset($verification)){
+            $user = $verification->user;
+            if(!$user->email_verified) {
+                $user->email_verified = 1;
+                $user->save();
+                $status = "Your email is verified. You can now login.";
+            }else{
+                $status = "Your email is already verified. You can now login.";
+            }
+        }else{
+            return redirect('/login')->with('warning', "Sorry your email cannot be identified.");
+        }
+ 
+        return redirect('/login')->with('status', $status);
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        $this->guard()->logout();
+        return redirect('/login')->with('status', 'We sent you an activation code. Check your email and click on the link to verify.');
     }
 }
