@@ -270,6 +270,7 @@ class UserController extends Controller
             'dob' => $request->input('dob'),
             'country' => $request->input('country'),
             'email' => $request->input('email'),
+            'email_verified' => true,
             'phone' => $request->input('phone'),
             'password' => bcrypt($request->input('password')),
             'role_id' =>$request->input('role')
@@ -318,6 +319,12 @@ class UserController extends Controller
                     'private_key' => $result->privateKey
                 ]);
             }
+        }
+
+        if ($user->role->name == 'Artist' || $user->role->name == 'Administrator') {
+            addToWhitelist($user->wallet[0]->address);
+            $user->kyc_verified = true;
+            $user->save();
         }
 
         return redirect()->route('users.index');
