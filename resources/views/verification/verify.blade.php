@@ -22,16 +22,16 @@
                 <div class="row">
                     <div class="col-sm-12 text-center">
                         <div class="error-container">
-                            <h1 class="error-code">{{ $heading }}</h1>
+                            <h2>Hunter Corp Records KYC Verification</h2>
                             <br><br>
                             <p class="error-info">
-                                {{ $message }}
+                                Please use the window below to start the verification process.
                             </p>
-                            <p class="error-help mb">
-                                {{ $description }}
-                            </p>
-                            <a href="{{ $link }}" class="btn btn-transparent">
-                                {{ $link_label }}
+                            <div>
+                                <iframe src="{{ $verification_link }}" width="8000" height="1000" style="border: none;"></iframe>
+                            </div>
+                            <a href="{{ route('verification.index') }}" class="btn btn-transparent">
+                                Back
                             </a>
                         </div>
                     </div>

@@ -18,6 +18,16 @@
                 </header>
                 <div class="body">
                     @include('layouts.partials.formErrors')
+                    @if (session('status'))
+                        <div class="alert alert-info">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    @if (session('warning'))
+                        <div class="alert alert-warning">
+                            {{ session('warning') }}
+                        </div>
+                    @endif
                     <form class="no-margin" action="{{ route('login') }}" method="POST">
                         @csrf
                         <fieldset>

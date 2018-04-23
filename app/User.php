@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role_id', 'phone', 'whitepaper'
+        'first_name', 'last_name', 'email', 'password', 'role_id', 'phone', 'whitepaper', 'dob', 'country', 'email_verified', 'kyc_verified'
     ];
 
     /**
@@ -35,6 +35,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Wallet');
     }
 
+    public function emailVerification()
+    {
+        return $this->hasMany('App\EmailVerification');
+    }
+
     public function getTotalAssetAttribute() {
         $tokens = Token::has('stages')->get();
         $total = 0;
@@ -43,5 +48,9 @@ class User extends Authenticatable
         }
 
         return $total;
+    }
+
+    public function getNameAttribute() {
+        return $this->first_name.' '.$this->last_name;
     }
 }

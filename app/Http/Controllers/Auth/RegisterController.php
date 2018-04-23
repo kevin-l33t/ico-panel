@@ -6,8 +6,12 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Wallet;
+use App\EmailVerification;
+use Mail;
+use App\Mail\UserEmailVerification;
 
 class RegisterController extends Controller
 {
@@ -50,7 +54,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'dob' => 'required|date',
+            'country' => 'required|string|max:50',
             'email' => 'required|string|email|max:255|unique:users',
             'phone' => 'required|string|max:25|unique:users',
             'password' => 'required|string|min:6|confirmed',
@@ -67,12 +74,22 @@ class RegisterController extends Controller
     {
 
         $user = User::create([
-            'name' => $data['name'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'dob' => $data['dob'],
+            'country' => $data['country'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'phone' => $data['phone'],
             'role_id' => 2
         ]);
+
+        EmailVerification::create([
+            'user_id' => $user->id,
+            'token' => str_random(40)
+        ]);
+ 
+        Mail::to($user)->queue(new UserEmailVerification($user));
         
         // create new wallet for the user.
         $client = new Client([
@@ -96,10 +113,33 @@ class RegisterController extends Controller
                     'address' => $result->address,
                     'private_key' => $result->privateKey
                 ]);
-                addToWhitelist($result->address);
             }
         }
 
         return $user;
+    }
+
+    public function verifyEmail($token) {
+        $verification = EmailVerification::where('token', $token)->first();
+        if(isset($verification)){
+            $user = $verification->user;
+            if(!$user->email_verified) {
+                $user->email_verified = 1;
+                $user->save();
+                $status = "Your email is verified. You can now login.";
+            }else{
+                $status = "Your email is already verified. You can now login.";
+            }
+        }else{
+            return redirect('/login')->with('warning', "Sorry your email cannot be identified.");
+        }
+ 
+        return redirect('/login')->with('status', $status);
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        $this->guard()->logout();
+        return redirect('/login')->with('status', 'We sent you an activation code. Check your email and click on the link to verify.');
     }
 }

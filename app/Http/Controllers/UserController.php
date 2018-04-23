@@ -254,7 +254,10 @@ class UserController extends Controller
     {
         $this->middleware('admin');
         $this->validate($request, [
-            'name' => 'required|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'dob' => 'required|date',
+            'country' => 'required|string|max:50',
             'email' => 'required|email|unique:users|max:255',
             'phone' => 'required|string|max:25|unique:users',
             'password' => 'required|string|min:6|confirmed',
@@ -262,8 +265,12 @@ class UserController extends Controller
         ]);
 
         $user = User::create([
-            'name' => $request->input('name'),
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'dob' => $request->input('dob'),
+            'country' => $request->input('country'),
             'email' => $request->input('email'),
+            'email_verified' => true,
             'phone' => $request->input('phone'),
             'password' => bcrypt($request->input('password')),
             'role_id' =>$request->input('role')
@@ -311,8 +318,13 @@ class UserController extends Controller
                     'address' => $result->address,
                     'private_key' => $result->privateKey
                 ]);
-                addToWhitelist($result->address);
             }
+        }
+
+        if ($user->role->name == 'Artist' || $user->role->name == 'Administrator') {
+            addToWhitelist($user->wallet[0]->address);
+            $user->kyc_verified = true;
+            $user->save();
         }
 
         return redirect()->route('users.index');
@@ -355,12 +367,16 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $this->validate($request, [
-            'name' => 'required|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'dob' => 'required|date',
             'email' => 'required|max:255',
             'password' => 'nullable|string|min:6|confirmed',
         ]);
 
-        $user->name = $request->input('name');
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->dob = $request->input('dob');
         $user->email = $request->input('email');
         if ($request->has('role') && Auth::user()->role->name == 'Administrator') {
             $user->role_id = $request->input('role');
@@ -400,10 +416,18 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $relatedCount = Token::where('user_id', $user->id)->count();
+        $relatedCount += TransactionLog::where('from', $user->wallet[0]->address)->count();
+
+        if ($relatedCount) {
+            return response()->json([
+                'success' => false,
+                'msg' => 'User has transactions'
+            ], 406);
+        }
+
         try{
-            if (count($user->wallet) > 0) {
-                $user->wallet[0]->delete();
-            }
+            Wallet::where('user_id', $user->id)->delete();
             $user->delete();
         } catch ( \Illuminate\Database\QueryException $ex ) {
             return response()->json([
