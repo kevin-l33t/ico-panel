@@ -428,6 +428,8 @@ class UserController extends Controller
 
         try{
             Wallet::where('user_id', $user->id)->delete();
+            App\EmailVerification::where('user_id', $user->id)->delete();
+            App\KycVerification::where('user_id', $user->id)->delete();
             $user->delete();
         } catch ( \Illuminate\Database\QueryException $ex ) {
             return response()->json([
