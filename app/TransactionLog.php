@@ -28,6 +28,12 @@ class TransactionLog extends Model
         $stage = $this->token->stages()
                                 ->whereRaw('"'.$this->created_at.'" between start_at and end_at')
                                 ->first();
+        if (empty($stage)) {
+            $stage = $this->token->stages()
+                                ->where('end_at', '<', $this->created_at)
+                                ->orderby('end_at', 'desc')
+                                ->first();
+        }
         return $stage;
     }
 }
