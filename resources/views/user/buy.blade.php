@@ -169,7 +169,7 @@
                     </fieldset>
                     <fieldset>
                         <legend class="section">Current ICO: 
-                            <small>Stage {{ $token->currentStage()->id }}</small>
+                            <small>Stage {{ count($token->stages) }}</small>
                         </legend>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Price</label>
