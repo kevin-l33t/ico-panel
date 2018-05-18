@@ -20,7 +20,8 @@ class VerificationController extends Controller
      * @return \Illuminate\Http\Response
     */
     public function index() {
-        return view('verification.index');
+        $data['user'] = Auth::user();
+        return view('verification.index', $data);
     }
 
     /**
@@ -30,11 +31,23 @@ class VerificationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function verify(Request $request) {
+        $user = Auth::user();
         $this->validate($request, [
-            'method' => 'required|in:id_card,passport,driving_license'
+            'method' => 'required|in:id_card,passport,driving_license',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'dob' => 'required|date',
+            'country' => 'required|string|max:50',
+            'phone' => 'required|string|max:25|unique:users,phone,'.$user->id
         ]);
 
-        $user = Auth::user();
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->dob = $request->input('dob');
+        $user->country = $request->input('country');
+        $user->phone = $request->input('phone');
+        $user->save();
+
         $reference = date('Ym') . substr(hexdec(uniqid()), 0, 8);
         $post_data = array(
             "method" => $request->input('method'),
