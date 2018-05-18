@@ -18,54 +18,62 @@
     </script>
 </head>
 <body>
-        <div class="single-widget-container mb-lg" style="margin-top: -390px;">
-            <section class="widget login-widget">
-                <header class="text-align-center">
-                    <h4>Register your account</h4>
-                </header>
-                <div class="body">
-                    @include('layouts.partials.formErrors')
-                    <form class="no-margin" action="{{ route('register') }}" method="POST" data-parsley-validate>
-                        @csrf
-                        <fieldset>
-                            <div class="form-group">
-                                <label for="first_name" >First Name</label>
-                                <input id="first_name" type="text" class="form-control input-lg input-transparent {{ $errors->has('first_name') ? ' parsley-error' : '' }}" name="first_name" value="{{ old('first_name') }}" minlength="1" placeholder="First Name" required autofocus>
-                            </div>
-                            <div class="form-group">
-                                <label for="last_name" >Last Name</label>
-                                <input id="last_name" type="text" class="form-control input-lg input-transparent {{ $errors->has('last_name') ? ' parsley-error' : '' }}" name="last_name" value="{{ old('last_name') }}" minlength="1" placeholder="Last Name" required autofocus>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone" >Phone Number</label>
-                                <input id="phone" type="text" class="form-control input-lg input-transparent {{ $errors->has('phone') ? ' parsley-error' : '' }}" name="phone" value="{{ old('phone') }}" minlength="4" placeholder="Phone Number" required autocomplete="off">
-                            </div>
-                            <div class="form-group">
-                                <label for="email" >Email</label>
-                                <input id="email" type="email" class="form-control input-lg input-transparent {{ $errors->has('email') ? ' parsley-error' : '' }}" name="email" value="{{ old('email') }}" placeholder="Your Email" required autofocus>
-                            </div>
-                            <div class="form-group">
-                                <label for="password" >Password</label>
-                                <input id="password" name="password" type="password" class="form-control input-lg input-transparent {{ $errors->has('password') ? ' parsley-error' : '' }}" 
-                                           placeholder="Your Password" minlength="6" required>
-
-                            </div>
-                            <div class="form-group">
-                                <label for="password-confirm" >Confirm Password</label>
-                                <input id="password-confirm" name="password_confirmation" type="password" class="form-control input-lg input-transparent" 
-                                           placeholder="Confirm Password" required data-parsley-equalto="#password" >
-                            </div>
-                        </fieldset>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-block btn-lg btn-info">
-                                <small>Register</small>
-                            </button>
-                            <a class="forgot" href="{{ route('login') }}">Already a member?</a>
+    <div class="single-widget-container mb-lg" style="margin-top: -390px;">
+        <section class="widget login-widget">
+            <header class="text-align-center">
+                <h4>Register your account</h4>
+            </header>
+            <div class="body">
+                @include('layouts.partials.formErrors')
+                <form class="no-margin" action="{{ route('register') }}" method="POST" data-parsley-validate>
+                    @csrf
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="first_name" >First Name</label>
+                            <input id="first_name" type="text" class="form-control input-lg input-transparent {{ $errors->has('first_name') ? ' parsley-error' : '' }}" name="first_name" value="{{ old('first_name') }}" minlength="1" placeholder="First Name" required autofocus>
                         </div>
-                    </form>
-                </div>
-            </section>
-        </div>
+                        <div class="form-group">
+                            <label for="last_name" >Last Name</label>
+                            <input id="last_name" type="text" class="form-control input-lg input-transparent {{ $errors->has('last_name') ? ' parsley-error' : '' }}" name="last_name" value="{{ old('last_name') }}" minlength="1" placeholder="Last Name" required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" >Phone Number</label>
+                            <input id="phone" type="text" class="form-control input-lg input-transparent {{ $errors->has('phone') ? ' parsley-error' : '' }}" name="phone" value="{{ old('phone') }}" minlength="4" placeholder="Phone Number" required autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" >Email</label>
+                            <input id="email" type="email" class="form-control input-lg input-transparent {{ $errors->has('email') ? ' parsley-error' : '' }}" name="email" value="{{ old('email') }}" placeholder="Your Email" required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" >Password</label>
+                            <input id="password" name="password" type="password" class="form-control input-lg input-transparent {{ $errors->has('password') ? ' parsley-error' : '' }}" 
+                                       placeholder="Your Password" minlength="6" required>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="password-confirm" >Confirm Password</label>
+                            <input id="password-confirm" name="password_confirmation" type="password" class="form-control input-lg input-transparent" 
+                                       placeholder="Confirm Password" required data-parsley-equalto="#password" >
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <input name="agree-tos" type="checkbox" required>
+                                <label>
+                                    Agree to the <a target="_blank" href="{{ url('tos.html') }}">Terms of Service</a>.
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-block btn-lg btn-info">
+                            <small>Register</small>
+                        </button>
+                        <a class="forgot" href="{{ route('login') }}">Already a member?</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
 <!-- common libraries. required for every page-->
 <script src="{{ asset('lib/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('lib/jquery-pjax/jquery.pjax.js') }}"></script>
