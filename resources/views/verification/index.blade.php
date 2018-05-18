@@ -58,7 +58,7 @@
                             <div class="form-group">
                                 <label for="phone" >
                                     Phone Number
-                                    <span class="help-block">i.e） +160088812345</span>
+                                    <span class="help-block">i.e. +440000000000</span>
                                 </label>
                                 <input id="phone" type="text" class="form-control input-lg input-transparent {{ $errors->has('phone') ? ' parsley-error' : '' }}" name="phone" value="{{ old('phone', $user->phone) }}" minlength="4" placeholder="Phone Number" required autocomplete="off">
                             </div>
@@ -182,7 +182,7 @@
                                         <option value="Kenya">Kenya</option>
                                         <option value="Kiribati">Kiribati</option>
                                         <option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
-                                        <option value="Korea, Republic of">Korea, Republic of</option>
+                                        <option value="South Korea">Korea, Republic of</option>
                                         <option value="Kuwait">Kuwait</option>
                                         <option value="Kyrgyzstan">Kyrgyzstan</option>
                                         <option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
