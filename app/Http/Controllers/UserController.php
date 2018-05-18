@@ -12,6 +12,7 @@ use App\UserRole;
 use App\Token;
 use App\TransactionLog;
 use App\Wallet;
+use Image;
 
 class UserController extends Controller
 {
@@ -286,11 +287,9 @@ class UserController extends Controller
             $user->profile_picture = $request->file('profile_picture')->store('profile', 'public');
 
             if($request->has('profile_thumb')) {
-                $user->profile_thumb = $request->input('profile_thumb');
                 list($meta, $data) = explode(',', $request->input('profile_thumb'));
-                $data = base64_decode($data);
-                $path = 'profile_thumb/thumb_' . $user->id . '.png';
-                Storage::put($path, $data, 'public');
+                $path = 'profile_thumb/thumb_' . $user->id . '_' . time(). '.png';
+                Image::make($data)->resize(256, 256)->save(storage_path('app/public/'.$path));
                 $user->profile_thumb = $path;
             }
             
@@ -392,16 +391,21 @@ class UserController extends Controller
         }
 
         if($request->hasFile('profile_picture') && $request->file('profile_picture')->isValid()) {
+            Storage::delete($user->profile_picture);
             $user->profile_picture = $request->file('profile_picture')->store('profile', 'public');
+        }
 
-            if($request->has('profile_thumb')) {
-                $user->profile_thumb = $request->input('profile_thumb');
-                list($meta, $data) = explode(',', $request->input('profile_thumb'));
-                $data = base64_decode($data);
-                $path = 'profile_thumb/thumb_' . $user->id . '.png';
-                Storage::put($path, $data, 'public');
-                $user->profile_thumb = $path;
-            }
+        if($request->has('profile_thumb')) {
+            // list($meta, $data) = explode(',', $request->input('profile_thumb'));
+            // $data = base64_decode($data);
+            // $path = 'profile_thumb/thumb_' . $user->id . '.png';
+            // Storage::put($path, $data, 'public');
+            // $user->profile_thumb = $path;
+            Storage::delete($user->profile_thumb);
+            list($meta, $data) = explode(',', $request->input('profile_thumb'));
+            $path = 'profile_thumb/thumb_' . $user->id . '_' . time(). '.png';
+            Image::make($data)->resize(256, 256)->save(storage_path('app/public/'.$path));
+            $user->profile_thumb = $path;
         }
 
         $user->save();
