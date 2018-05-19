@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<h2 class="page-title">Issue Tokens to users
+<h2 class="page-title">Issue Tokens to Users
 </h2>
 <div class="row">
     <div class="col-md-8">
@@ -16,15 +16,33 @@
                     @csrf
                     @include('layouts.partials.formErrors')
                     <fieldset>
-                        <legend class="section">User</legend>
+                        <legend class="section">Transfer From</legend>
                         <div class="form-group">
-                            <label class="col-sm-4 control-label" for="coin-select">User</label>
+                            <label class="col-sm-4 control-label" for="admin-select">Account Name</label>
                             <div class="col-sm-6">
-                                <select id="user-select"
-                                        data-placeholder="Select user"
+                                <select id="admin-select"
+                                        data-placeholder="Select an Administrator"
                                         class="select2 form-control"
                                         tabindex="-1"
-                                        name="user" required>
+                                        name="from" required>
+                                    <option value=""></option>
+                                    @foreach ($administrators as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }} ({{ $item->wallet[0]->address }})</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend class="section">Transfer To</legend>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="user-select">Account Name</label>
+                            <div class="col-sm-6">
+                                <select id="user-select"
+                                        data-placeholder="Select a User"
+                                        class="select2 form-control"
+                                        tabindex="-1"
+                                        name="to" required>
                                     <option value=""></option>
                                     @foreach ($users as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }} ({{ $item->wallet[0]->address }})</option>
@@ -39,7 +57,7 @@
                             <label class="col-sm-4 control-label" for="coin-select">Coins</label>
                             <div class="col-sm-6">
                                 <select id="coin-select"
-                                        data-placeholder="Select coin"
+                                        data-placeholder="Select a Coin"
                                         class="select2 form-control"
                                         tabindex="-1"
                                         name="token" required>

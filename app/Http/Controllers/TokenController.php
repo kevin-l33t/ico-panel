@@ -263,6 +263,7 @@ class TokenController extends Controller
     public function allocatePage() {
         $data['tokens'] = Token::has('stages')->get();
         $data['users'] = User::all();
+        $data['administrators'] = User::where('role_id', 1)->get();
         return view('token.allocate', $data);
     }
 
@@ -274,12 +275,14 @@ class TokenController extends Controller
     public function allocate(Request $request) {
 
         $this->validate($request, [
-            'user' => 'required|integer|exists:users,id',
+            'from' => 'required|integer|exists:users,id',
+            'to' => 'required|integer|exists:users,id',
             'token' => 'required|integer|exists:tokens,id',
             'amount' => 'required|numeric'
         ]);
 
-        $user = User::find($request->input('user'));
+        $from = User::find($request->input('from'));
+        $to = User::find($request->input('to'));
         $token = Token::find($request->input('token'));
 
         $client = new Client([
@@ -289,11 +292,12 @@ class TokenController extends Controller
             'timeout'  => 20.0
         ]);
         $requestParams = [
-            'artist_address' => $token->user->wallet[0]->address,
-            'beneficiary_address' => $user->wallet[0]->address,
-            'amount' => $request->input('amount')
+            'token' => $token->token_address,
+            'private_key' => $from->wallet[0]->private_key,
+            'to' => $to->wallet[0]->address,
+            'value' => $request->input('amount')
         ];
-        $response = $client->request('POST', 'ico/allocate', [
+        $response = $client->request('POST', 'account/transferToken', [
             'http_errors' => false,
             'json' => $requestParams,
             'headers' => [
@@ -306,10 +310,10 @@ class TokenController extends Controller
             if ($result->success) {
 
                 TransactionLog::create([
-                    'from' => $user->wallet[0]->address,
-                    'to' => '0x0',
-                    'usd_value' => $token->currentStage()->price * $request->input('amount'),
-                    'token_value' => $request->input('amount'),
+                    'from' => $from->wallet[0]->address,
+                    'to' => $to->wallet[0]->address,
+                    'usd_value' => $token->currentStage()->price * $result->value,
+                    'token_value' => $result->value,
                     'token_id' => $token->id,
                     'transaction_type_id' => 4,
                     'tx_hash' => $result->tx_hash
