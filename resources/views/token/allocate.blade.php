@@ -68,6 +68,18 @@
                                 </select>
                             </div>
                         </div>
+                        <!-- <div class="form-group">
+                            <label class="control-label col-sm-4">Token Balances</label>
+                            <div class="col-sm-4">
+                                <p class="form-control-static" id="token_balance"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">ETH Balances</label>
+                            <div class="col-sm-4">
+                                <p class="form-control-static" id="eth_balance"></p>
+                            </div>
+                        </div> -->
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="amount">Number of Coins
                                 <span class="required">*</span>
