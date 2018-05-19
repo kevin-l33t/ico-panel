@@ -431,7 +431,7 @@ class UserController extends Controller
             ], 406);
         }
 
-        try{
+        try {
             Wallet::where('user_id', $user->id)->delete();
             \App\EmailVerification::where('user_id', $user->id)->delete();
             \App\KycVerification::where('user_id', $user->id)->delete();
