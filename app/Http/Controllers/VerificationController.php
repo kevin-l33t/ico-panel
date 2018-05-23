@@ -114,7 +114,7 @@ class VerificationController extends Controller
         $verification = KycVerification::where('reference', $reference)->first();
         if (!empty($verification)) {
             $user = $verification->user;
-            if ($request->input('status_code') == 'SP2') {
+            if ($request->input('status_code') == 'SP1') {
                 $verification->status = 1;
                 $verification->save();
 
@@ -145,7 +145,7 @@ class VerificationController extends Controller
             // Base URI is used with relative requests
             'base_uri' => 'https://api.shuftipro.com/',
             // You can set any number of default request options.
-            'timeout'  => 10.0
+            'timeout'  => 20.0
         ]);
         $post_data['client_id'] = env('SHUFTI_CLIENT_ID');
         ksort($post_data);//Sort the all request parameter.
