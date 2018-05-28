@@ -22,6 +22,8 @@ Route::post('tokens/stage/create/{token}', 'TokenController@createStage')->name(
 Route::post('tokens/stage/update/{token}', 'TokenController@updateStage')->name('tokens.updateStage');
 Route::get('allocate_coin', 'TokenController@allocatePage')->name('tokens.allocatePage');
 Route::post('allocate_coin', 'TokenController@allocate')->name('tokens.allocate');
+Route::get('transfer_coin', 'TokenController@transferPage')->name('tokens.transferPage');
+Route::post('transfer_coin', 'TokenController@transfer')->name('tokens.transfer');
 
 Route::resource('users', 'UserController');
 Route::get('users/buy/{token}', 'UserController@buyToken')->name('users.buy');

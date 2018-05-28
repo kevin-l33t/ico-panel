@@ -6,6 +6,9 @@
         <li>
             <a href="{{ route('users.wallet') }}"><i class="fa fa-money"></i> <span class="name">Wallet</span></a>
         </li>
+        <li>
+            <a href="{{ route('tokens.transferPage') }}"><i class="fa fa-paper-plane"></i> <span class="name">Transfer Coins</span></a>
+        </li>
         @if (Auth::user()->role->name == 'Administrator')
         <li class="panel">
             <a class="accordion-toggle collapsed" data-toggle="collapse"
