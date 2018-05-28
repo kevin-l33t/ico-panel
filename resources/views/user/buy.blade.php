@@ -106,7 +106,7 @@
                                 &nbsp;
                                 <button id="button_buy_bank" type="button" class="btn btn-primary" data-action="{{ route('receipts.create') }}">Bank Transfer</button>
                                 &nbsp;
-                                <button id="button_buy_card" type="button" class="btn btn-info hidden-xs" disabled>Credit Card (coming soon)</button>
+                                <button id="button_buy_card" type="button" class="btn btn-info hidden-xs hidden" disabled>Credit Card (coming soon)</button>
                                 &nbsp;
                                 <a href="{{ route('users.dashboard') }}" class="btn btn-default">Back</a>
                             </div>
