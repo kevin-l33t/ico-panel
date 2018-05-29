@@ -267,7 +267,7 @@ class TokenController extends Controller
             'timeout'  => 10.0
         ]);
         $tokenRequestParams = [
-            "artist_address" => $token->user->wallet[0]->address,
+            "crowdsale_address" => $token->crowdsale_address,
             "start_date" => $startDate->timestamp,
             "end_date" => $endtDate->timestamp
         ];
