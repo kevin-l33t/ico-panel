@@ -59,7 +59,7 @@
                             <div class="checkbox">
                                 <input name="agree-tos" type="checkbox" required>
                                 <label>
-                                    Agree to the <a target="_blank" href="{{ url('tos.html') }}">Terms of Service</a>.
+                                    Agree to the ICO and Coin Sale <a target="_blank" href="{{ url('tos.html') }}">Terms and Conditions</a>.
                                 </label>
                             </div>
                         </div>
