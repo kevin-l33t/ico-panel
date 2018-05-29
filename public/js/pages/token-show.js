@@ -3,6 +3,7 @@ $(function(){
         $('.date-picker').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss'
         });
+        $(".select2").each(function(){$(this).select2($(this).data())});
     }
 
     $("#form_stage").parsley({

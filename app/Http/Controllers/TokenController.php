@@ -188,6 +188,7 @@ class TokenController extends Controller
      */
     public function createStage(Request $request, Token $token) {
         $this->validate($request, [
+            'supplier' => 'required|numeric',
             'price' => 'required|numeric',
             'supply' => 'required|numeric',
             'start_date' => 'required|date',
@@ -197,22 +198,32 @@ class TokenController extends Controller
         $startDate = new Carbon($request->input('start_date'));
         $endtDate = new Carbon($request->input('end_date'));
         $price = $request->input('price') * 100;
+
+        if ($request->input('supplier') == 0) {
+            $private_key = User::find(2)->wallet[0]->private_key;
+        } else {
+            $private_key = $token->user->wallet[1]->private_key;
+        }
+
         $client = new Client([
             // Base URI is used with relative requests
             'base_uri' => env('TOKEN_API_URL'),
             // You can set any number of default request options.
-            'timeout'  => 10.0
+            'timeout'  => 20.0
         ]);
-        $tokenRequestParams = [
-            "artist_address" => $token->user->wallet[0]->address,
+        $requestParams = [
+            "crowdsale_address" => $token->crowdsale_address,
+            "token_address" => $token->token_address,
+            "private_key" => $private_key,
             "start_date" => $startDate->timestamp,
             "end_date" => $endtDate->timestamp,
             "price" => $price,
             "supply" => $request->input('supply')
         ];
+
         $response = $client->request('POST', 'ico/stage/create', [
             'http_errors' => false,
-            'json' => $tokenRequestParams,
+            'json' => $requestParams,
             'headers' => [
                 'Authorization' => 'API-KEY ' . env('TOKEN_API_KEY')
             ]
