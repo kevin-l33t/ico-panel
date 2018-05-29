@@ -50,7 +50,7 @@ class TokenController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'artist' => 'required|string|exists:users,id',
+            'artist' => 'required|exists:users,id',
             'token_name' => 'required|string|unique:tokens,name',
             'token_symbol' => 'required|string|unique:tokens,symbol'
         ]);
@@ -63,11 +63,38 @@ class TokenController extends Controller
         ]);
 
         $artist = User::find($request->input('artist'));
+        $hcrTradingAccount = User::find(35);
+        $adminAccount = User::find(2);
+
+        if (empty($artist->wallet[1])) {
+            $response = $client->request('GET', 'account/create', [
+                'http_errors' => false,
+                'headers' => [
+                    "Authorization" => "API-KEY TESTKEY"
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) {
+                $result = json_decode($response->getBody()->getContents());
+                if ($result->success) {
+                    $artistTradingWallet = $artist->wallet()->create([
+                        'address' => $result->address,
+                        'private_key' => $result->privateKey
+                    ]);
+                    addToWhitelist($artistTradingWallet->address);
+                }
+            }
+        }
 
         $tokenRequestParams = [
             "token_name" => $request->input('token_name'),
-            "token_symbol" => $request->input('token_symbol')
+            "token_symbol" => $request->input('token_symbol'),
+            "artist_account" => $artist->wallet[0]->address,
+            "artist_trading_account" => $artistTradingWallet->address,
+            "hcr_trading_account" => $hcrTradingAccount->wallet[0]->address,
+            "admin_account" => $adminAccount->wallet[0]->address
         ];
+
         $response = $client->request('POST', 'ico/create', [
             'http_errors' => false,
             'json' => $tokenRequestParams,
