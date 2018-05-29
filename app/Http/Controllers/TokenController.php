@@ -59,13 +59,12 @@ class TokenController extends Controller
             // Base URI is used with relative requests
             'base_uri' => env('TOKEN_API_URL'),
             // You can set any number of default request options.
-            'timeout'  => 10.0
+            'timeout'  => 20.0
         ]);
 
         $artist = User::find($request->input('artist'));
 
         $tokenRequestParams = [
-            "artist_address" => $artist->wallet[0]->address,
             "token_name" => $request->input('token_name'),
             "token_symbol" => $request->input('token_symbol')
         ];

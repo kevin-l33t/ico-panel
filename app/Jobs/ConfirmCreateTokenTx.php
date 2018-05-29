@@ -54,7 +54,7 @@ class ConfirmCreateTokenTx implements ShouldQueue
         $try = 50;
 
         while ($try > 0) {
-            $response = $client->request('GET', 'ico/contract/'.$this->token->user->wallet[0]->address, [
+            $response = $client->request('GET', 'ico/create/status/'.$this->token->tx_hash, [
                 'http_errors' => false,
                 'headers' => [
                     "Authorization" => "API-KEY TESTKEY",
@@ -64,15 +64,15 @@ class ConfirmCreateTokenTx implements ShouldQueue
             if ($response->getStatusCode() == 200) {
                 $result = json_decode($response->getBody()->getContents());
                 if ($result->success) {
-                    $this->token->crowdsale_address = $result->crowdsale;
-                    $this->token->token_address = $result->token;
+                    $this->token->crowdsale_address = $result->crowdsale_address;
+                    $this->token->token_address = $result->token_address;
                     $this->token->status = 1;
                     $this->token->save();
                     break;
                 }
             }
             $try--;
-            sleep(10);
+            sleep(20);
         }
     }
 }
