@@ -84,6 +84,8 @@ class TokenController extends Controller
                     addToWhitelist($artistTradingWallet->address);
                 }
             }
+        } else {
+            $artistTradingWallet = $artist->wallet[1];
         }
 
         $tokenRequestParams = [

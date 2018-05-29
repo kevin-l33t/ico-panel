@@ -20,7 +20,6 @@ class CreateBankReceiptsTable extends Migration
             $table->integer('token_id')->unsigned();
             $table->string('bank_name');
             $table->string('account_name');
-            $table->string('account_number');
             $table->integer('usd_value');
             $table->unsignedDecimal('token_value', 12, 4);
             $table->unsignedDecimal('eth_value', 12, 4);

@@ -127,7 +127,7 @@ class BankReceiptController extends Controller
             'timeout'  => 20.0
         ]);
         $tokenRequestParams = [
-            'artist_address' => $receipt->token->user->wallet[0]->address,
+            'crowdsale_address' => $receipt->token->crowdsale_address,
             'beneficiary_address' => $receipt->user->wallet[0]->address,
             'amount' => $receipt->token_value
         ];
