@@ -219,6 +219,17 @@
                 <p>Please specify ICO stage duration and price.</p>
                     <fieldset>
                         <div class="form-group">
+                            <label class="col-sm-4 control-label" for="supplier">Token Supplier</label>
+                            <div class="col-sm-6">
+                                <select class="select2 select-block-level" data-style="btn-default"
+                                            data-width="off"
+                                            data-minimum-results-for-search="10" id="supplier" name="supplier">
+                                    <option selected="selected" value="0">Joshua Hunt Account</option>
+                                    <option value="1">Artist Trading Account</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-4 control-label" for="price">Price per Coin</label>
                             <div class="col-sm-6">
                                 <div class="input-group">
@@ -323,6 +334,8 @@
     <script src="{{ asset('lib/moment/moment.js') }}"></script>
     <script src="{{ asset('lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="{{ asset('lib/parsleyjs/dist/parsley.min.js') }}"></script>
+    <script src="{{ asset('lib/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('lib/select2/select2.min.js') }}"></script>
 
     <!-- page specific scripts -->
     <script src="{{ asset('js/pages/token-show.js') }}"></script>

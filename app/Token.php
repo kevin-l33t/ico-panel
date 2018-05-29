@@ -105,8 +105,14 @@ class Token extends Model
             'timeout'  => 10.0
         ]);
 
-        $response = $client->request('GET', 'ico/contract/'.$this->user->wallet[0]->address, [
+        $requestParams = [
+            "token_address" => $this->token_address,
+            "crowdsale_address" => $this->crowdsale_address
+        ];
+
+        $response = $client->request('POST', 'ico/contract', [
             'http_errors' => false,
+            'json' => $requestParams,
             'headers' => [
                 'Authorization' => 'API-KEY ' . env('TOKEN_API_KEY')
             ]
