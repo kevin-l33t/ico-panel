@@ -442,6 +442,49 @@
     <div class="col-lg-6">
         <section class="widget">
             <header>
+                <h5>Coin <span class="fw-semi-bold">Balances</span></h5>
+                <div class="widget-controls">
+                    <a data-widgster="close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </header>
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th class="text-center">Artist</th>
+                            <th class="text-center">Coins you hold</th>
+                            <th class="text-center">USD Value</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-center">
+                    @foreach ($tokens as $item)
+                        @if ($user->wallet[0]->getTokenBalance($item) > 0)
+                        @php
+                            $hasPortfolio_count = true;
+                        @endphp
+                        <tr class="clickable-row" data-href="{{ route('users.portfolio', $item) }}">
+                            <td>{{ $item->user->name }}</td>
+                            <td>{{ number_format($user->wallet[0]->getTokenBalance($item)) }} {{ $item->symbol }}</td>
+                            <td>USD {{ number_format($user->wallet[0]->getTokenBalance($item) * $item->currentStage()->price / 100, 2) }}</td>
+                        </tr>
+                        @endif
+                    @endforeach
+                    @if (empty($hasPortfolio_count))
+                        <tr>
+                            <td colspan="3" class="text-center">
+                                No portfolios
+                            </td>
+                        </tr>
+                    @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="widget">
+            <header>
                 <h5>Transaction <span class="fw-semi-bold">History</span></h5>
                 <div class="widget-controls">
                     <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
