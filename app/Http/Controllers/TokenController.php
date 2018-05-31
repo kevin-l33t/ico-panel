@@ -66,6 +66,8 @@ class TokenController extends Controller
         $hcrTradingAccount = User::find(35);
         $adminAccount = User::find(2);
 
+/*
+* Generate Secondary wallet for artist trading account
         if (empty($artist->wallet[1])) {
             $response = $client->request('GET', 'account/create', [
                 'http_errors' => false,
@@ -87,6 +89,18 @@ class TokenController extends Controller
         } else {
             $artistTradingWallet = $artist->wallet[1];
         }
+*/
+
+        // reference another account for artist trading account, must be defined at `trading_accounts` table
+
+        if (empty($artist->tradingAccount)) {
+            return response()->json([
+                'success' => false,
+                'message' => "{$artist->first_name} {$artist->last_name} doesn't have trading account. Please contact administrator."
+            ], 422);
+        }
+
+        $artistTradingWallet = $artist->tradingAccount->account->wallet[0];
 
         $tokenRequestParams = [
             "token_name" => $request->input('token_name'),
@@ -204,8 +218,10 @@ class TokenController extends Controller
         if ($request->input('supplier') == 0) {
             $private_key = User::find(2)->wallet[0]->private_key;
         } else {
-            $private_key = $token->user->wallet[1]->private_key;
+            $private_key = $token->user->tradingAccount->account->wallet[0]->private_key;
         }
+
+        dd($private_key);
 
         $client = new Client([
             // Base URI is used with relative requests

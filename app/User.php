@@ -35,6 +35,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Wallet');
     }
 
+    public function tradingAccount() {
+        return $this->hasOne('App\TradingAccount');
+    }
+
     public function emailVerification()
     {
         return $this->hasMany('App\EmailVerification');

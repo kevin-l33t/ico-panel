@@ -225,7 +225,7 @@
                                             data-width="off"
                                             data-minimum-results-for-search="10" id="supplier" name="supplier">
                                     <option selected="selected" value="0">Joshua Hunt Account</option>
-                                    <option value="1">Artist Trading Account</option>
+                                    <option value="1">{{ $token->user->first_name }} {{ $token->user->last_name }} Trading Account</option>
                                 </select>
                             </div>
                         </div>

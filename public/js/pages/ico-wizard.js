@@ -73,14 +73,16 @@ function submit_wizard(url, success_url) {
         success: function(data) {
             swal.close();
             console.log(data);
-            swal({
-                type : 'success',
-                title : 'Good job!',
-                text : 'Token was issued. It will take some time to approve.',
-                footer : `check transaction on <a href="https://etherscan.io/tx/${data.tx_hash}" target="_blank">Etherscan.io</a>`
-            }).then(result => {
-                window.location.href = success_url;
-            });
+            if (data.success) {
+                swal({
+                    type : 'success',
+                    title : 'Good job!',
+                    text : 'Token was issued. It will take some time to approve.',
+                    footer : `check transaction on <a href="https://etherscan.io/tx/${data.tx_hash}" target="_blank">Etherscan.io</a>`
+                }).then(result => {
+                    window.location.href = success_url;
+                });
+            }
         },
         error: function(data) {
             swal.close();
