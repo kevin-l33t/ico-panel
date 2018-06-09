@@ -1,17 +1,29 @@
 var slider, ethAmount, ethAmountWithFee, usdAmount;
 const MIN_REQUIRED_ETH = 0.0005;
 function updatePrice() {
+
+    slider.setValue(parseInt($('#amount').val()));
+
     var ethBalance = Number($('#eth_balance').html().split(' ')[0]);
     ethAmount = $('#amount').val() * tokenEthPrice;
     ethAmountWithFee = ethAmount + MIN_REQUIRED_ETH;
     usdAmount = $('#amount').val() * tokenUsdPrice;
-    $('#eth_amount').html(`ETH ${ethAmountWithFee.toLocaleString('en')}`);
     $('#bank_amount').html(`USD ${(usdAmount + 30).toLocaleString('en', {minimumFractionDigits: 2})}`);
     $('#credit_card_amount').html(`USD ${(usdAmount * 1.055).toLocaleString('en', {minimumFractionDigits: 2})}`);
-    $('#eth_value').val(ethAmount);
     $('#usd_value').val(usdAmount);
 
     $('#button_buy').prop('disabled', ethBalance < ethAmount + MIN_REQUIRED_ETH);
+}
+
+function updatePriceByToken() {
+    updatePrice();
+    $('#eth_value').val(ethAmount.toFixed(5));
+}
+
+function updatePriceByEther() {
+    var tokenAmount = parseFloat($('#eth_value').val()) / tokenEthPrice;
+    $('#amount').val(tokenAmount);
+    updatePrice();
 }
 
 function buy() {
@@ -65,21 +77,24 @@ function buy() {
     });
 }
 $(function(){
+
     function onChange() {
         $('#amount').val(slider.getValue());
-        updatePrice();
+        updatePriceByToken();
     }
-    function pageLoad(){
+
+    function pageLoad() {
         slider = $('.js-slider').slider()
                                 .on('slide', onChange)
                                 .data('slider');
         $('#amount').keyup(function(e) {
-            slider.setValue(parseInt($('#amount').val()));
-            updatePrice();
+            updatePriceByToken();
         });
         $('#amount').change(function(e) {
-            slider.setValue(parseInt($('#amount').val()));
-            updatePrice();
+            updatePriceByToken();
+        });
+        $('#eth_value').keyup(function(e) {
+            updatePriceByEther();
         });
 
         $('#button_buy').click(function() {
@@ -102,8 +117,8 @@ $(function(){
 
         $('.widget').widgster();
     }
-    updatePrice();
     pageLoad();
+    updatePriceByToken();
 
     PjaxApp.onPageLoad(pageLoad);
 });

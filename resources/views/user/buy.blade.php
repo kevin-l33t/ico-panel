@@ -43,7 +43,6 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input id="amount" name="token_value" class="form-control input-transparent text-right" min="{{ round(1000 / $token->currentStage()->price) }}" max="{{ round(1000000 / $token->currentStage()->price) }}" value="{{ round(1000 / $token->currentStage()->price) }}" type="number" required>
-                                    <input type="hidden" name="eth_value" id="eth_value">
                                     <input type="hidden" name="usd_value" id="usd_value">
                                     <span class="input-group-addon">{{ $token->symbol }}</span>
                                 </div>
@@ -55,8 +54,12 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-6">Total Amount if buying with Ethereum</label>
-                            <div class="col-sm-6">
-                                <p id="eth_amount" class="form-control-static"></p>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input name="eth_value" id="eth_value" class="form-control input-transparent text-right" min="{{ 10 / getEtherUSDPrice() }}" max="{{ 10000 / getEtherUSDPrice() }}" type="number" step="0.1" required>
+                                    <span class="input-group-addon">ETH</span>
+                                </div>
+                                <p class="help-block">Transaction Fee: 0.0005 ETH</p>
                             </div>
                         </div>
                         <div class="form-group">
