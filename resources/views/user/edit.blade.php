@@ -399,11 +399,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-sm-4 mt-sm" for="status">Trading Enabled</label>
+                            <label class="control-label col-sm-4 mt-sm" for="locked">Locked</label>
                             <div class="col-sm-6">
                                 <div class="checkbox-inline checkbox-ios">
-                                    <label for="status">
-                                        <input type="checkbox" name="status" id="status" {{ $user->status == 1 ? 'checked' : '' }}>
+                                    <label for="locked">
+                                        <input type="checkbox" name="locked" id="locked" {{ $user->locked == 1 ? 'checked' : '' }}>
                                     </label>
                                 </div>
                             </div>

@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->date('dob');
             $table->boolean('email_verified')->default(false);
             $table->boolean('kyc_verified')->default(false);
-            $table->tinyInteger('status');
+            $table->boolean('locked')->default(false);
             $table->string('password');
             $table->string('profile_picture', 512)->nullable();
             $table->string('profile_thumb', 512)->nullable();

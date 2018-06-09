@@ -93,10 +93,10 @@
                             </p>
                         </td>
                         <td class="text-center width-100">
-                            @if ($user->status == 1)
-                                <a href="{{ route('users.buy', $item) }}" class="btn btn-info {{ (date('Y-m-d H:i:s') >= $item->currentStage()->start_at && date('Y-m-d H:i:s') < $item->currentStage()->end_at) && $item->available_tokens > 0 ? '' : 'disabled' }} ">&nbsp;Buy&nbsp;</a>
+                            @if ($user->locked)
+                                Account is Locked
                             @else
-                                Trading is disabled
+                                <a href="{{ route('users.buy', $item) }}" class="btn btn-info {{ (date('Y-m-d H:i:s') >= $item->currentStage()->start_at && date('Y-m-d H:i:s') < $item->currentStage()->end_at) && $item->available_tokens > 0 ? '' : 'disabled' }} ">&nbsp;Buy&nbsp;</a>
                             @endif
                         </td>
                     </tr>

@@ -380,10 +380,10 @@ class UserController extends Controller
         $user->dob = $request->input('dob');
         $user->email = $request->input('email');
 
-        if ($request->has('status') && $request->input('status') == 'on')
-            $user->status = 1;
+        if ($request->has('locked') && $request->input('locked') == 'on')
+            $user->locked = 1;
         else
-            $user->status = 0;
+            $user->locked = 0;
         
         if ($request->has('role') && Auth::user()->role->name == 'Administrator') {
             $user->role_id = $request->input('role');
