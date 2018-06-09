@@ -68,7 +68,7 @@
                                 <p id="bank_amount" class="form-control-static"></p>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group hidden">
                             <label class="control-label col-sm-6">Total Amount if buying with Credit Card</label>
                             <div class="col-sm-6">
                                 <p id="credit_card_amount" class="form-control-static"></p>
