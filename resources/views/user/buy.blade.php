@@ -105,7 +105,7 @@
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-sm-12 text-center">
-                                <button id="button_buy" type="button" class="btn btn-danger">ETH</button>
+                                <button id="button_buy" type="button" class="btn btn-danger">Ethereum</button>
                                 &nbsp;
                                 <button id="button_buy_bank" type="button" class="btn btn-primary" data-action="{{ route('receipts.create') }}">Bank Transfer</button>
                                 &nbsp;
