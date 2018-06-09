@@ -397,6 +397,17 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4 mt-sm" for="status">Trading Enabled</label>
+                            <div class="col-sm-6">
+                                <div class="checkbox-inline checkbox-ios">
+                                    <label for="status">
+                                        <input type="checkbox" name="status" id="status" {{ $user->status == 1 ? 'checked' : '' }}>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                         @endif
                     </fieldset>
                     <fieldset>
@@ -561,6 +572,7 @@
 <script src="{{ asset('lib/select2/select2.min.js') }}"></script>
 <script src="{{ asset('lib/moment/moment.js') }}"></script>
 <script src="{{ asset('lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ asset('lib/switchery/dist/switchery.min.js') }}"></script>
 
 <!-- page specific scripts -->
 <script src="{{ asset('js/pages/user-edit.js') }}"></script>

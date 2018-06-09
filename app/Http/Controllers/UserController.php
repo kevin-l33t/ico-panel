@@ -379,6 +379,12 @@ class UserController extends Controller
         $user->last_name = $request->input('last_name');
         $user->dob = $request->input('dob');
         $user->email = $request->input('email');
+
+        if ($request->has('status') && $request->input('status') == 'on')
+            $user->status = 1;
+        else
+            $user->status = 0;
+        
         if ($request->has('role') && Auth::user()->role->name == 'Administrator') {
             $user->role_id = $request->input('role');
         }

@@ -6,6 +6,8 @@ $(function () {
             format: 'YYYY-MM-DD'
         });
 
+        new Switchery(document.getElementById("status"),{color:$blue});
+
         var $image = $(".image-crop > img")
         $($image).cropper({
             aspectRatio: 1,
