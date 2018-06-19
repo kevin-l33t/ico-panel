@@ -120,46 +120,54 @@ class BankReceiptController extends Controller
 
     public function approve(BankReceipt $receipt)
     {
-        $client = new Client([
-            // Base URI is used with relative requests
-            'base_uri' => env('TOKEN_API_URL'),
-            // You can set any number of default request options.
-            'timeout'  => 20.0
-        ]);
-        $tokenRequestParams = [
-            'crowdsale_address' => $receipt->token->crowdsale_address,
-            'beneficiary_address' => $receipt->user->wallet[0]->address,
-            'amount' => $receipt->token_value
-        ];
-        $response = $client->request('POST', 'ico/allocate', [
-            'http_errors' => false,
-            'json' => $tokenRequestParams,
-            'headers' => [
-                'Authorization' => 'API-KEY ' . env('TOKEN_API_KEY')
-            ]
-        ]);
+        if ($receipt->status) {
+            return response()->json([
+                'success' => false,
+                'message' => 'The Receipt had been approved already'
+            ]);
+        } else {
+            $client = new Client([
+                // Base URI is used with relative requests
+                'base_uri' => env('TOKEN_API_URL'),
+                // You can set any number of default request options.
+                'timeout'  => 20.0
+            ]);
+            $tokenRequestParams = [
+                'crowdsale_address' => $receipt->token->crowdsale_address,
+                'beneficiary_address' => $receipt->user->wallet[0]->address,
+                'amount' => $receipt->token_value
+            ];
+            $response = $client->request('POST', 'ico/allocate', [
+                'http_errors' => false,
+                'json' => $tokenRequestParams,
+                'headers' => [
+                    'Authorization' => 'API-KEY ' . env('TOKEN_API_KEY')
+                ]
+            ]);
 
-        if ($response->getStatusCode() == 200) {
-            $result = json_decode($response->getBody()->getContents());
-            if ($result->success) {
-                $receipt->status = 1;
-                $txLog = $receipt->transactionLogs[0];
-                $txLog->tx_hash = $result->tx_hash;
-                $txLog->save();
-                $receipt->save();
+            if ($response->getStatusCode() == 200) {
+                $result = json_decode($response->getBody()->getContents());
+                if ($result->success) {
+                    $receipt->status = 1;
+                    $txLog = $receipt->transactionLogs[0];
+                    $txLog->tx_hash = $result->tx_hash;
+                    $txLog->save();
+                    $receipt->save();
 
-                Mail::to($receipt->user)
-                        ->queue(new BankReceiptApproved($receipt));
+                    Mail::to($receipt->user)
+                            ->queue(new BankReceiptApproved($receipt));
 
-                return response()->json([
-                    'success' => true
-                ]);
+                    return response()->json([
+                        'success' => true
+                    ]);
+                }
             }
-        }
 
-        return response()->json([
-            'message' => false
-        ], 500);
+            return response()->json([
+                'success' => false
+                'message' => "Server error"
+            ], 500);
+        }
     }
 
     public function dismiss(BankReceipt $receipt)

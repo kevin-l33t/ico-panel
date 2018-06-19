@@ -177,11 +177,19 @@ $(function () {
                                     timer: 800
                                 });
                                 $(_this).closest('td').html('<span class="badge bg-gray-lighter text-gray fw-semi-bold"><i class="fa fa-check"></i>Approved</span>');
+                            } else {
+                                swal({
+                                    title: "Failed",
+                                    text: response.message,
+                                    type: "success",
+                                    timer: 2000
+                                });
+                                $(_this).closest('td').html('<span class="badge bg-gray-lighter text-gray fw-semi-bold"><i class="fa fa-check"></i>Approved</span>');
                             }
                         },
                         'json'
                     ).fail(function () {
-                        swal("Failed", "Sorry, Error occured, Please try later.", "error");
+                        swal("Failed", "Sorry, Error occured, Please try again later.", "error");
                     });
                 } else {
                     swal({
