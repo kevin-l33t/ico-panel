@@ -164,7 +164,7 @@ class BankReceiptController extends Controller
             }
 
             return response()->json([
-                'success' => false
+                'success' => false,
                 'message' => "Server error"
             ], 500);
         }
