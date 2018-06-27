@@ -76,7 +76,7 @@ function addToWhitelist($address) {
             // Base URI is used with relative requests
             'base_uri' => env('TOKEN_API_URL'),
             // You can set any number of default request options.
-            'timeout'  => 10.0
+            'timeout'  => 100.0
         ]);
         $response = $client->request('GET', 'account/addToWhitelist/'.$address, [
             'http_errors' => false,
