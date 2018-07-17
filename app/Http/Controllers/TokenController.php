@@ -221,8 +221,6 @@ class TokenController extends Controller
             $private_key = $token->user->tradingAccount->account->wallet[0]->private_key;
         }
 
-        dd($private_key);
-
         $client = new Client([
             // Base URI is used with relative requests
             'base_uri' => env('TOKEN_API_URL'),

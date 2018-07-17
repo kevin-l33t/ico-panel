@@ -162,6 +162,13 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label col-sm-4">Total Sold Out</label>
+                            <div class="col-sm-4">
+                                <p class="form-control-static">
+                                    <strong>{{ $token->tokenSold }}</strong> {{ $token->symbol }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label col-sm-4">Crowdsale Address</label>
                             <div class="col-sm-8">
                                 <p class="form-control-static">
