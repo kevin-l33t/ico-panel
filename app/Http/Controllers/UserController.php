@@ -402,7 +402,7 @@ class UserController extends Controller
             $user->profile_picture = $request->file('profile_picture')->store('profile', 'public');
         }
 
-        if($request->has('profile_thumb')) {
+        if($request->has('profile_thumb') && !empty($request->input('profile_thumb'))) {
             // list($meta, $data) = explode(',', $request->input('profile_thumb'));
             // $data = base64_decode($data);
             // $path = 'profile_thumb/thumb_' . $user->id . '.png';
