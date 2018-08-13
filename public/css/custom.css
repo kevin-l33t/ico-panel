@@ -18,3 +18,70 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+/** Multi step progress bar CSS (https://codepen.io/athimannil/pen/wWPYkQ) */
+.multi-steps > li.is-active:before, .multi-steps > li.is-active ~ li:before {
+    content: counter(stepNum);
+    font-family: inherit;
+    font-weight: 600;
+  }
+  .multi-steps > li.is-active:after, .multi-steps > li.is-active ~ li:after {
+    background-color: #ededed;
+  }
+  
+  .multi-steps {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+  }
+  .multi-steps > li {
+    counter-increment: stepNum;
+    text-align: center;
+    display: table-cell;
+    position: relative;
+    color: #fff;
+  }
+  .multi-steps > li:before {
+    content: "\f00c";
+    content: "\2713;";
+    content: "\10003";
+    content: "\10004";
+    content: "\2713";
+    display: block;
+    margin: 0 auto 4px;
+    background-color: #57b955;
+    width: 26px;
+    height: 26px;
+    line-height: 20px;
+    text-align: center;
+    font-weight: bold;
+    border-width: 3px;
+    border-style: solid;
+    border-color: #57b955;
+    border-radius: 50%;
+  }
+  .multi-steps > li:after {
+    content: "";
+    height: 2px;
+    width: 100%;
+    background-color: #57b955;
+    position: absolute;
+    top: 13px;
+    left: 50%;
+    z-index: -1;
+  }
+  .multi-steps > li:last-child:after {
+    display: none;
+  }
+  .multi-steps > li.is-active:before {
+    background-color: #57b955;
+    border-color: #57b955;
+  }
+  .multi-steps > li.is-active ~ li {
+    color: #808080;
+  }
+  .multi-steps > li.is-active ~ li:before {
+    background-color: #ededed;
+    border-color: #ededed;
+  }
+  

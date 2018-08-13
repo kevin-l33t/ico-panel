@@ -51,7 +51,7 @@
                     <tr>
                         <th class="width-50"></th>
                         <th class="width-200">Artist / Coin</th>
-                        <th class="text-center width-50">Stage</th>
+                        <th class="text-center width-400">Stage</th>
                         <th class="text-center width-200">Price</th>
                         <th class="width-200 text-center" >Progress</th>
                         <th class="width-200 text-center">Duration</th>
@@ -65,7 +65,15 @@
                             <a href="{{ $item->user->whitepaper }}" target="_blank"><img class="img-rounded" src="{{ empty($item->user->profile_thumb) ? asset('img/default_avatar.png') : asset('storage/'.$item->user->profile_thumb) }}" alt="" height="50"></a>
                         </td>
                         <td><a href="{{ $item->user->whitepaper }}" target="_blank">{{ $item->user->name }} / {{ $item->symbol }}</a></td>
-                        <td class="text-center">{{ count($item->stages) }}</td>
+                        <td class="text-center">
+                            <div class="container-fluid">
+                                <ul class="list-unstyled multi-steps">
+                                @for ($i = 1; $i <= 4; $i++)
+                                    <li {{ count($item->stages) == $i ? 'class=is-active' : '' }}></li>
+                                @endfor
+                                </ul>
+                            </div>
+                        </td>
                         <td class="text-center">USD {{ number_format($item->currentStage()->price / 100, 2) }}</td>
                         <td class="text-center">
                             <p class="no-margin">
