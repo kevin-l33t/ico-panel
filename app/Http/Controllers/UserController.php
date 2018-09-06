@@ -31,7 +31,7 @@ class UserController extends Controller
     {
         $data['user'] = Auth::user();
         $data['tokens'] = Token::has('stages')->get();
-        $data['transactions'] = Auth::user()->wallet[0]->transactions()->orderBy('created_at', 'desc')->get();
+        $data['transactions'] = Auth::user()->wallet[0]->transactions();
         return view('user.dashboard', $data);
     }
 
@@ -354,7 +354,7 @@ class UserController extends Controller
         $data['user'] = $user;
         $data['roles'] = UserRole::all();
         $data['tokens'] = Token::has('stages')->get();
-        $data['transactions'] = $user->wallet[0]->transactions()->orderBy('created_at', 'desc')->get();
+        $data['transactions'] = $user->wallet[0]->transactions();
         return view('user.edit', $data);
     }
 

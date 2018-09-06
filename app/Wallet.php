@@ -13,7 +13,11 @@ class Wallet extends Model
 
     public function transactions()
     {
-        return $this->hasMany('App\TransactionLog', 'from', 'address');
+        return TransactionLog::where('from', $this->address)
+            ->orWhere('to', $this->address)
+            ->orderBy('updated_at', 'desc')
+            ->get();
+        // return $this->hasMany('App\TransactionLog', 'from', 'address');
     }
 
     public function user() {
